@@ -3,14 +3,20 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   color: #5a5a5a;
 }
 
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
+
+/* Card in the top */
+.card-img-overlay{
+  position: absolute;
+  top: 29%;
+  width: 1200px;
+}
 
 /* Carousel base class */
 .carousel {
@@ -24,7 +30,7 @@ body {
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
-  height: 32rem;
+  height: 44rem;
 }
 .carousel-item > img {
   position: absolute;
