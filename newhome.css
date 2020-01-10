@@ -1,0 +1,85 @@
+.masthead {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 35rem;
+  padding: 15rem 0;
+  background: linear-gradient(to bottom, rgba(22, 22, 22, 0.3) 50%, rgba(22, 22, 22, 0.7) 80%, #161616 100%), url("image/bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+.masthead p {
+  font-family: 'Titillium Web';
+  font-size: 4rem;
+  font-weight: 200;
+  letter-spacing: 0.2rem;
+}
+
+.masthead h2 {
+  font-family: 'Titillium Web';
+  font-size: 1rem;
+  font-weight: 200;
+  letter-spacing: 0.1rem;
+}
+
+@media (min-width: 768px) {
+  .masthead h1 {
+    font-size: 4rem;
+    line-height: 4rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead {
+    height: 100vh;
+    padding: 0;
+  }
+  .masthead h1 {
+    font-size: 6.5rem;
+    line-height: 6.5rem;
+    letter-spacing: 0.8rem;
+  }
+  .masthead h2 {
+    max-width: 30rem;
+    font-size: 1.25rem;
+  }
+}
+
+.btn {
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+  padding: 0.8rem 1.2rem;
+  font-family: 'Titillium Web';
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: .15rem;
+  border: 0;
+}
+
+.btn-primary {
+  background-color: #385f71;
+}
+
+.btn-primary:hover {
+  background-color: #2C4B59;
+}
+
+.btn-primary:focus {
+  background-color: #2C4B59;
+  color: white;
+}
+
+.btn-primary:active {
+  background-color: #243D49 !important;
+}
+
+.footer {
+  max-width: 70rem;
+}
+
+body {
+
+  letter-spacing: 0.0625em;
+}

@@ -3,3 +3,9 @@
 }
 
 .lh-condensed { line-height: 1.25; }
+
+.navbar {
+  height: 60%;
+  padding-top: .50rem;
+  padding-bottom: .50rem;
+}
