@@ -1,18 +1,17 @@
 <html>
     <head>
-      {% if title %}
-        <title>{{ title }} - QuickTrips</title>
+        {% if title %}
+        <title>{{ title }} - quicktrips</title>
         {% else %}
-        <title>Welcome to QuickTrips!</title>
+        <title>quicktrips</title>
         {% endif %}
     </head>
     <body>
-        <div>
-        QuickTrips:
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        </div>
-        <hr>
+            <div>
+                qt:
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('login') }}">Login</a>
+            </div>
         <hr>
         {% with messages = get_flashed_messages() %}
         {% if messages %}

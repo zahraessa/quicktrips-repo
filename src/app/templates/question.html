@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Question</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="question.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm p-3 mb-5 bg-white rounded">
+        <a class="navbar-brand" href="#">
+          <img src="image/logo-dark.png" width="70" height="70" alt="logo img">
+          <img src="image/name-dark.png" width="100" height="30" alt="brand name">
+        </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+          <ul class="navbar-nav font-weight-light">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">My trips</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav font-weight-light mr-2 ml-4">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="image/user.jpg" width="40" height="40" alt="user" class="rounded-circle">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="login.html">Sign in</a>
+                <a class="dropdown-item" href="#">Sign up</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h2>Question Time!</h2>
+    <p class="lead">Please enter the questions below to produce trip plan.</p>
+  </div>
+
+
+    <div class="">
+
+      <form class="needs-validation" novalidate>
+        <div class="row">
+          <div class="col-md-5">
+          <h4 class="mb">Holiday Type</h4>
+          <div class="col-md-5 mb-3">
+            <div class="col-md-5 custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="family">
+              <label class="custom-control-label" for="same-address">Family</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="friends">
+              <label class="custom-control-label" for="same-address">Friends</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="solo">
+              <label class="custom-control-label" for="same-address">Solo</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="package">
+              <label class="custom-control-label" for="same-address">Package</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="suprise">
+              <label class="custom-control-label" for="same-address">Suprise Me</label>
+            </div>
+          </div>
+
+        <h4 class="mb">Budget</h4>
+        <div class="row col-md-50">
+          <div class="col-md-5 mb-3">
+            <label for="cc-expiration">Max</label>
+            <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+            <div class="invalid-feedback">
+              Max budget required
+            </div>
+          </div>
+          <div class="col-md-5 mb-3">
+            <label for="cc-cvv">Min</label>
+            <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+            <div class="invalid-feedback">
+              Min budget required
+            </div>
+          </div>
+        </div>
+
+
+        <h4 class="mb">Number of People</h4>
+        <div class="col-md-10 mb-3">
+            <label for="adlut">Adults</label>
+            <select class="custom-select d-block " id="number of people" required>
+              <option value="">Choose...</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid number.
+            </div>
+          <label for="child">Children</label>
+            <select class="custom-select d-block " id="number of people" required>
+              <option value="">Choose...</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid number.
+            </div>
+          </div>
+          </div>
+        <div class="col-md-5">
+        <h4 class="mb">Date avaiable</h4>
+        <div class="row col-md-10">
+          <div class="col-md-5 mb-3">
+            <label for="start date">Start</label>
+            <input type="text" class="form-control" id="start date" placeholder="" required>
+            <div class="invalid-feedback">
+              Start date required
+            </div>
+          </div>
+          <div class="col-md-5 mb-3">
+            <label for="end date">End</label>
+            <input type="text" class="form-control" id="end date" placeholder="" required>
+            <div class="invalid-feedback">
+              End date required
+            </div>
+          </div>
+        </div>
+
+        <h4 class="mb">Trip Length</h4>
+        <div class="col-md-50 mb-3">
+            <select class="custom-select d-block " id="trip length" required>
+              <option value="">Choose...</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid number.
+            </div>
+        </div>
+
+
+        <h4 class="mb">Destination</h4>
+
+        <div class="d-block my-3 col-md-5">
+          <div class="custom-control custom-radio">
+            <input id="locally" name="destination" type="radio" class="custom-control-input" checked required>
+            <label class="custom-control-label" for="locally">Locally</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="aboard" name="destination" type="radio" class="custom-control-input" required>
+            <label class="custom-control-label" for="aboard">Aboard</label>
+          </div>
+        </div>
+
+        <h4 class="mb">Interests</h4>
+          <div class="col-md-5 mb-3">
+            <div class="col-md-5 custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="wilderness">
+              <label class="custom-control-label" for="same-address">Wilderness</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="cultural">
+              <label class="custom-control-label" for="same-address">Cultural</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="luxury">
+              <label class="custom-control-label" for="same-address">Luxury</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="volunteer">
+              <label class="custom-control-label" for="same-address">Volunteer</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="adventure">
+              <label class="custom-control-label" for="same-address">Adventure</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="culinary">
+              <label class="custom-control-label" for="same-address">Culinary</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="self drive">
+              <label class="custom-control-label" for="same-address">Self drive</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="accessible">
+              <label class="custom-control-label" for="same-address">Accessible</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="last minute">
+              <label class="custom-control-label" for="same-address">Last Minute</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="others">
+              <label class="custom-control-label" for="same-address">Others</label>
+            </div>
+          </div>
+        </div>
+          </div>
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Results</button>
+      </form>
+    </div>
+      </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017-2019 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+        <script src="form-validation.js"></script></body>
+</html>

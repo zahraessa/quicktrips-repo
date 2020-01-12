@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Quicktrip-home</title>
+    <title>Quicktrips</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/carousel/">
+    <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}"  />
+
 
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -33,15 +35,15 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="home.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
   </head>
-  
+
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <a class="navbar-brand" href="#">
-          <img src="../../../image/logo-white.png" width="70" height="70" alt="logo img">
-          <img src="../../../image/name-white.png" width="100" height="30" alt="brand name">
+          <img src="{{url_for('static', filename='logo-white.png')}}" width="70" height="70" alt="logo img">
+          <img src="{{url_for('static', filename='name-white.png')}}" width="100" height="30" alt="brand name">
         </a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
           <ul class="navbar-nav font-weight-light">
@@ -55,145 +57,90 @@
           <ul class="navbar-nav font-weight-light mr-2 ml-4">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../../image/user.jpg" width="40" height="40" alt="user" class="rounded-circle">
+                <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="login.html">Sign in</a>
-                <a class="dropdown-item" href="#">Sign up</a>
+                <a class="dropdown-item" href="/user/{{current_user.username}}">{{ current_user.username }}</a>
+                <a class="dropdown-item" href="/logout">Sign Out</a>
+                <a class="dropdown-item" href="/useredit">Edit Profile</a>
               </div>
             </li>
           </ul>
-        </div>   
+        </div>
       </nav>
     </header>
 
     <!-- The most top bg and text -->
     <div class="card text-white text-right bg-dark overflow-hidden">
-      <img class="card-bg" src="../../../image/bg.png">
-      <div class="card-img-overlay mx-auto " style="mid">
+      <img class="card-bg" src="{{url_for('static', filename='bg.png')}}">
+      <div class="card-img-overlay mx-auto " ><!--style="mid" -->
         <h1 class="display-4 font-weight-bold text-right">The WORLD is YOURS to EXPLORE!</h1>
         <p class="font-weight-light"> </p>
-        <p class="font-weight-light text-right">Discover your distination by simply enter several keywords</p>
-        <p><a class="btn btn-light font-weight-light text-dark" href="#" role="button">Get Started</a></p>
+        <p class="font-weight-light text-right">Discover your destination by simply enter several keywords</p>
+        <p><a class="btn btn-light font-weight-light text-dark" href="/question"Login role="button">Get Started</a></p>
       </div>
     </div>
 
-    <!-- Recommandation -->
-    
+    <!-- Recommendation -->
+
 <div class="album py-5 bg-light">
-  
+
     <div class="container">
       <div class="title">
-        <h4 class="display-8 font-weight-bold">RECOMMANDATION</h4>
+        <h4 class="display-8 font-weight-bold">RECOMMENDATIONS</h4>
       </div>
       <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          {% for recommendation in recommendations %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-bg" src="{{url_for('static', filename=recommendation.image)}}" width="100%" height="225">
+                <div class="card-body">
+                  <p class="card-text">{{   recommendation.city   }}: {{   recommendation.body   }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
                 </div>
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+          {% endfor %}
       </div>
     </div>
-  </div>
-    
+</div>
+
 <!-- TOP RESULTS -->
-    <div class="album py-5">
-  
+  <div class="album py-5">
+
     <div class="container">
       <div class="title">
         <h4 class="display-8 font-weight-bold">TOP RESULTS</h4>
       </div>
       <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+          {% for recommendation in recommendations %}
+            <div class="col-md-4">
+              <div class="card mb-4 shadow-sm">
+                <img class="card-bg" src="{{url_for('static', filename=recommendation.image)}}" width="100%" height="225">
+                <div class="card-body">
+                  <p class="card-text">{{   recommendation.city   }}: {{   recommendation.body   }}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
                 </div>
-                <small class="text-muted">9 mins</small>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
+          {% endfor %}
       </div>
     </div>
   </div>
-    
- <!-- BLOGS & DEAL TRIPS -->  
+
+ <!-- BLOGS & DEAL TRIPS -->
   <div class="blogs bg-light py-5">
         <div class="container">
       <div class="title">
@@ -224,7 +171,7 @@
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md">
-        <img class="mb-2" src="../../../image/logo-dark.png" alt="" width="55" height="55">
+        <img class="mb-2" src="{{url_for('static', filename='logo-dark.png')}}" alt="" width="55" height="55">
         <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
       </div>
       <div class="col-6 col-md">

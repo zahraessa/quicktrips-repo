@@ -6,6 +6,9 @@
 
     <title>Login</title>
 
+
+    <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}"  />
+
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -26,32 +29,38 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="login.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
   </head>
   <body>
-    <form class="form-signin">
-   <div class="text-center mb-4">
-     <img class="mb-4" src="../../../image/367343dc-c49a-4a8b-9522-92e6c34bf8bc.png" alt="" width="238" height="72">
-     <h1 class="h3 mb-3 font-weight-light">Welcome Back!</h1>
-   </div>
+     <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
+        {{ form.hidden_tag() }}
+       <div class="text-center mb-4">
+            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" width="238" height="72">
+            <h1 class="h3 mb-3 font-weight-light">Welcome Back!</h1>
+        </div>
 
-   <div class="form-label-group">
-     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-     <label for="inputEmail">Email address</label>
-   </div>
 
-   <div class="form-label-group">
-     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-     <label for="inputPassword">Password</label>
-   </div>
+       <div class="form-label-group">
+         <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+       </div>
 
-   <div class="checkbox mb-3">
-     <label>
-       <input type="checkbox" value="remember-me"> Remember me
-     </label>
-   </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        
-</form>
+        <div class="form-label-group">
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(size=32) }}
+            </p>
+       </div>
+
+        <div class="form-label-group">
+            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+            <p>{{ form.submit() }}</p>
+            <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+       </div>
+
+    </form>
+
 </body>
 </html>

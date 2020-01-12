@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Edit Profile</title>
+
+
+  <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}"  />
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body class="bg-light">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm p-3 mb-5 bg-white rounded">
+    <a class="navbar-brand" href="#">
+      <img src="{{url_for('static', filename='BlueLogoWithName.png')}}" height="70" alt="logo img">
+    </a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Edit user account</h2>
+    <p class="lead">Edit your account details and click save!</p>
+  </div>
+
+  <div class="order-md-1">
+    <h4 class="mb-3">Basic Information</h4>
+
+    <form class="form-useredit" action="" method="POST" style="text-align:center" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="row">
+        <div class="form-label-group">
+          <p>
+            {{ form.firstname.label }}<br>
+            {{ form.firstname(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.surname.label }}<br>
+            {{ form.surname(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32) }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-label-group">
+          <p>
+            {{ form.country.label }}<br>
+            {{ form.country(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.city.label }}<br>
+            {{ form.city(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.postcode.label }}<br>
+            {{ form.postcode(size=32) }}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-label-group">
+          <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.newPassword.label }}<br>
+            {{ form.newPassword(size=32) }}
+          </p>
+        </div>
+        <div class="form-label-group">
+          <p>
+            {{ form.newPassword2.label }}<br>
+            {{ form.newPassword2(size=32) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-label-group">
+            <p>{{ form.submit() }}</p>
+       </div>
+    </form>
+  </div>
+</div>
+
+
+</body>
+</html>

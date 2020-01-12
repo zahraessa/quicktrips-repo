@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Register</title>
+
+
+  <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}"  />
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>Register</h2>
+    <p class="lead">Enter your details to create an account!</p>
+  </div>
+
+  <div class="order-md-1">
+    <h4 class="mb-3">Basic Information</h4>
+
+    <form class="form-useredit" action="" method="POST" style="text-align:center" novalidate>
+      {{ form.hidden_tag() }}
+      <div class="form-label-group">
+        <p>
+          {{ form.username.label }}<br>
+          {{ form.username(size=96) }}
+        </p>
+      </div>
+      <div class="form-label-group">
+        <p>
+          {{ form.email.label }}<br>
+          {{ form.email(size=96) }}
+        </p>
+      </div>
+      <div class="form-label-group">
+        <div class="row">
+          <p>
+            {{ form.firstname.label }}<br>
+            {{ form.firstname(size=32) }}
+          </p>
+          <p>
+            {{ form.surname.label }}<br>
+            {{ form.surname(size=32) }}
+          </p>
+          <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32) }}
+          </p>
+        </div>
+      </div>
+      <div class="form-label-group">
+        <div class="row">
+          <p>
+            {{ form.country.label }}<br>
+            {{ form.country(size=32) }}
+          </p>
+          <p>
+            {{ form.city.label }}<br>
+            {{ form.city(size=32) }}
+          </p>
+          <p>
+            {{ form.postcode.label }}<br>
+            {{ form.postcode(size=32) }}
+          </p>
+          <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=48) }}
+          </p>
+          <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=48) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="form-label-group">
+        <p>{{ form.submit() }}</p>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+</body>
+</html>
