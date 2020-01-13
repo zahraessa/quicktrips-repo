@@ -107,3 +107,59 @@ header.masthead h1 {
     font-size: 3rem;
   }
 }
+
+#hotel .container-fluid {
+  max-width: 1920px;
+}
+
+#hotel .container-fluid .portfolio-box {
+  position: relative;
+  display: block;
+}
+
+#hotel .container-fluid .portfolio-box .portfolio-box-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  opacity: 0;
+  color: #fff;
+  background: rgba(56, 95, 113, 0.9);
+  transition: opacity 0.25s ease;
+  text-align: center;
+}
+
+#hotel .container-fluid .portfolio-box .portfolio-box-caption .project-category {
+  font-family: 'Titillium Web';
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+#hotel .container-fluid .portfolio-box .portfolio-box-caption .project-name {
+  font-family: 'Raleway';
+  font-size: 1rem;
+}
+
+#hotel .container-fluid .portfolio-box:hover .portfolio-box-caption {
+  opacity: 1;
+}
+
+
+body p {
+  font-family: 'Titillium Web';
+  color: rgba(22, 22, 22, 0.7);
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+}
+
+body h2 {
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+}
