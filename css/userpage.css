@@ -3,6 +3,10 @@
   text-decoration: none !important
 }
 
+#usertrip .card p{
+  font-family: 'Raleway';
+}
+
 #profile {
   top: 8rem;
   max-height: 50rem;
