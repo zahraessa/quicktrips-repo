@@ -29,13 +29,13 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
   </head>
   <body>
      <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
         {{ form.hidden_tag() }}
        <div class="text-center mb-4">
-            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" width="238" height="72">
+            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" width="238" height="72">
             <h1 class="h3 mb-3 font-weight-light">Welcome Back!</h1>
         </div>
 
@@ -63,4 +63,7 @@
     </form>
 
 </body>
+
+
+
 </html>

@@ -29,13 +29,13 @@
     }
   </style>
   <!-- Custom styles for this template -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 <body class="bg-light">
 <header>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm p-3 mb-5 bg-white rounded">
-    <a class="navbar-brand" href="#">
-      <img src="{{url_for('static', filename='BlueLogoWithName.png')}}" height="70" alt="logo img">
+    <a class="navbar-brand" href="/index">
+      <img src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" height="70" alt="logo img">
     </a>
   </nav>
 </header>
@@ -119,6 +119,38 @@
   </div>
 </div>
 
+
+  <!-- FOOTER -->
+  <footer class="container py-5 border-top">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md">
+        <img class="mb-2 d-block" src="{{url_for('static', filename='logo-dark.png')}}" href="/index" alt="" width="55" height="55">
+        <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/index">Home</a></li>
+          <li><a class="text-muted"  href="/favourites/{{  current_user.username  }}">Favourites</a></li>
+          <li><a class="text-muted" href="/index">Discover</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/user/{{  current_user.username  }}">My trips</a></li>
+          <li><a class="text-muted"  href="/user/{{  current_user.username  }}">My profile</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/index">Contact us</a></li>
+          <li><a class="text-muted" href="/index">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>

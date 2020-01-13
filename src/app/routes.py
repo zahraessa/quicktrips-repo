@@ -22,19 +22,25 @@ def index():
             'recommendation': {'place': 'London'},
             'city': 'London',
             'body': "London Eye, Big Ben",
-            'image': "London.png"
+            'image': "london.jpg"
         },
         {
             'recommendation': {'place': 'New York'},
             'city': 'New York',
             'body': "Empire State Building",
-            'image': "newyork.png"
+            'image': "new_york.jpg"
+        },
+        {
+            'recommendation': {'place': 'Switzerland'},
+            'city': 'Geneva',
+            'body': "CERN",
+            'image': "Switzerland.jpg"
         },
         {
             'recommendation': {'place': 'Dubai'},
             'city': 'Dubai',
             'body': "Burj Al Arab",
-            'image': "dubai.png"
+            'image': "dubai.jpg"
         }
     ]
     return render_template("index.html", title='Home Page', recommendations=recommendations)
@@ -109,6 +115,13 @@ def user(username):
     return render_template('user.html', user=user, recommendations=recommendations)
 
 
+@app.route('/favourites/<username>')
+@login_required
+def favourites(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('user-favourite.html', user=user)
+
+
 
 @app.route('/useredit', methods=['GET', 'POST'])
 @login_required
@@ -143,3 +156,8 @@ def question():
             form.username.data, form.holidaytype.data, form.budgetmin.data, form.budgetmax.data, form.nochildren.data, form.noadults.data, form.datestart.data, form.dateend.data, form.length.data, form.destination.data, form.interest.data))
         return redirect('/index')
     return render_template('question.html', title='Questionnaire', form=form)
+
+
+@app.route('/result', methods=['GET', 'POST'])
+def result():
+    return render_template('result.html', title='Result')
