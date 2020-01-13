@@ -1,4 +1,6 @@
 <!doctype html>
+
+{% import 'bootstrap/wtf.html' as wtf %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -31,126 +33,19 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
-<body class="bg-light">
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm p-3 mb-5 bg-white rounded">
-    <a class="navbar-brand" href="/index">
-      <img src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" height="70" alt="logo img">
-    </a>
-  </nav>
-</header>
+     <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
+        {{ form.hidden_tag() }}
+       <div class="text-center mb-4">
+            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" width="238" height="72">
+            <h1 class="h3 mb-3 font-weight-light">Edit your Details</h1>
+        </div>
 
-<div class="container">
-  <div class="py-5 text-center">
-    <h2>Edit user account</h2>
-    <p class="lead">Edit your account details and click save!</p>
-  </div>
+       <div class="row">
+        <div class="col-md-12">
+            {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+        </div>
 
-  <div class="order-md-1">
-    <h4 class="mb-3">Basic Information</h4>
-
-    <form class="form-useredit" action="" method="POST" style="text-align:center" novalidate>
-      {{ form.hidden_tag() }}
-      <div class="row">
-        <div class="form-label-group">
-          <p>
-            {{ form.firstname.label }}<br>
-            {{ form.firstname(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.surname.label }}<br>
-            {{ form.surname(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.address.label }}<br>
-            {{ form.address(size=32) }}
-          </p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-label-group">
-          <p>
-            {{ form.country.label }}<br>
-            {{ form.country(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.city.label }}<br>
-            {{ form.city(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.postcode.label }}<br>
-            {{ form.postcode(size=32) }}
-          </p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-label-group">
-          <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.newPassword.label }}<br>
-            {{ form.newPassword(size=32) }}
-          </p>
-        </div>
-        <div class="form-label-group">
-          <p>
-            {{ form.newPassword2.label }}<br>
-            {{ form.newPassword2(size=32) }}
-          </p>
-        </div>
-      </div>
-
-      <div class="form-label-group">
-            <p>{{ form.submit() }}</p>
-       </div>
-    </form>
-  </div>
-</div>
-
-
-  <!-- FOOTER -->
-  <footer class="container py-5 border-top">
-    <div class="row justify-content-center">
-      <div class="col-12 col-md">
-        <img class="mb-2 d-block" src="{{url_for('static', filename='logo-dark.png')}}" href="/index" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
-      </div>
-      <div class="col-4 col-md">
-        <h5>Features</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/index">Home</a></li>
-          <li><a class="text-muted"  href="/favourites/{{  current_user.username  }}">Favourites</a></li>
-          <li><a class="text-muted" href="/index">Discover</a></li>
-        </ul>
-      </div>
-      <div class="col-4 col-md">
-        <h5>Mine</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/user/{{  current_user.username  }}">My trips</a></li>
-          <li><a class="text-muted"  href="/user/{{  current_user.username  }}">My profile</a></li>
-        </ul>
-      </div>
-      <div class="col-4 col-md">
-        <h5>About</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/index">Contact us</a></li>
-          <li><a class="text-muted" href="/index">FAQ</a></li>
-        </ul>
-      </div>
     </div>
-  </footer>
 
-</body>
+    </form>
 </html>

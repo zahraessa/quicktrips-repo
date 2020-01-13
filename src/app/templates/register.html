@@ -1,4 +1,6 @@
 <!doctype html>
+
+{% import 'bootstrap/wtf.html' as wtf %}
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -29,84 +31,27 @@
     }
   </style>
   <!-- Custom styles for this template -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/question.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
-<div class="container">
-  <div class="py-5 text-center">
-    <h2>Register</h2>
-    <p class="lead">Enter your details to create an account!</p>
-  </div>
-
-  <div class="order-md-1">
-    <h4 class="mb-3">Basic Information</h4>
-
-    <form class="form-useredit" action="" method="POST" style="text-align:center" novalidate>
-      {{ form.hidden_tag() }}
-      <div class="form-label-group">
-        <p>
-          {{ form.username.label }}<br>
-          {{ form.username(size=96) }}
-        </p>
-      </div>
-      <div class="form-label-group">
-        <p>
-          {{ form.email.label }}<br>
-          {{ form.email(size=96) }}
-        </p>
-      </div>
-      <div class="form-label-group">
-        <div class="row">
-          <p>
-            {{ form.firstname.label }}<br>
-            {{ form.firstname(size=32) }}
-          </p>
-          <p>
-            {{ form.surname.label }}<br>
-            {{ form.surname(size=32) }}
-          </p>
-          <p>
-            {{ form.address.label }}<br>
-            {{ form.address(size=32) }}
-          </p>
+<body>
+     <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
+        {{ form.hidden_tag() }}
+       <div class="text-center mb-4">
+            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" width="238" height="72">
+            <h1 class="h3 mb-3 font-weight-light">User Registration</h1>
         </div>
-      </div>
-      <div class="form-label-group">
-        <div class="row">
-          <p>
-            {{ form.country.label }}<br>
-            {{ form.country(size=32) }}
-          </p>
-          <p>
-            {{ form.city.label }}<br>
-            {{ form.city(size=32) }}
-          </p>
-          <p>
-            {{ form.postcode.label }}<br>
-            {{ form.postcode(size=32) }}
-          </p>
-          <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=48) }}
-          </p>
-          <p>
-            {{ form.password2.label }}<br>
-            {{ form.password2(size=48) }}
-          </p>
-        </div>
-      </div>
 
-      <div class="form-label-group">
-        <p>{{ form.submit() }}</p>
-      </div>
+       <div class="row">
+        <div class="col-md-12">
+            {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+        </div>
+
+    </div>
+
     </form>
-  </div>
-</div>
-
 
 </body>
-
-
 
 
 </html>

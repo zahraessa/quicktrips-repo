@@ -141,7 +141,12 @@ def edit_profile():
         flash('Your changes have been saved.')
         return redirect(url_for('index'))
     elif request.method == 'GET':
-        print('loool')
+        form.firstname.data = current_user.firstname
+        form.surname.data = current_user.surname
+        form.address.data = current_user.address
+        form.country.data = current_user.country
+        form.city.data = current_user.city
+        form.postcode.data = current_user.postcode
     return render_template('useredit.html', title='Edit Profile', form=form)
 
 
