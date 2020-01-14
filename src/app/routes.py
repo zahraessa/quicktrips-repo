@@ -6,6 +6,7 @@ from flask import request
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user
 from app.models import User
+from app.models import Recommendation
 from flask_login import logout_user
 from flask_login import login_required
 from app import db
@@ -120,6 +121,13 @@ def user(username):
 def favourites(username):
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('user-favourite.html', user=user)
+
+
+@app.route('/details/<city>')
+@login_required
+def details(city):
+    city = Recommendation.query.filter_by(city=city).first_or_404()
+    return render_template('details.html', city=city)
 
 
 

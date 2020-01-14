@@ -33,19 +33,31 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
-     <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
-        {{ form.hidden_tag() }}
-       <div class="text-center mb-4">
-            <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" width="238" height="72">
-            <h1 class="h3 mb-3 font-weight-light">Edit your Details</h1>
+    {% block content %}
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            {% block app_content %}
+                 <form class="form-signin" action="" method="POST" style="text-align:center" novalidate>
+                    {{ form.hidden_tag() }}
+                   <div class="text-center mb-4">
+                        <img class="mb-4" src="{{url_for('static', filename='BlueLogoWithName.png')}}" href="/index" width="238" height="72">
+                        <h1 class="h3 mb-3 font-weight-light">Edit your details</h1>
+                    </div>
+
+                   <div class="row">
+                    <div class="col-md-12">
+                        {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
+                    </div>
+                   </div>
+                 </form>
+            {% endblock %}
         </div>
-
-       <div class="row">
-        <div class="col-md-12">
-            {{ wtf.quick_form(form, button_map={'submit': 'primary'}) }}
-        </div>
-
-    </div>
-
-    </form>
+    {% endblock %}
 </html>
