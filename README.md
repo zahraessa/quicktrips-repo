@@ -1,16 +1,18 @@
 # Quicktrips
 
-Type "flask run" in terminal to run code.
+Deployment instructions
+1. Type " pip install -r requirements.txt " to install the required libraries.
+2. Type "cd src" in terminal to switch to correct directory.
+3. Type "flask run" in terminal to run code.
 
-Valid Username = 'z'
-
-Valid Password = 'password'
-
-
-
-
-
-N.B. Not all functionalities have been added.
+Preexisting login credentials:
+- Valid Username = 'z'
+- Valid Password = 'z'
 
 
- pip install -r requirements.txt 
+
+N.B. There are new designs for all the forms which will be implemented after the prototype.
+
+
+
+
