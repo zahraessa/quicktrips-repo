@@ -11,3 +11,6 @@ Valid Password = 'password'
 
 
 N.B. Not all functionalities have been added.
+
+
+ pip install -r requirements.txt 
