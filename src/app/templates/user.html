@@ -80,7 +80,7 @@
         <a href="/user/{{  current_user.username  }}" class="btn btn-chosen text-uppercase col-auto mx-1 my-3">My trips</a>
         <a href="/favourites/{{current_user.username}}" class="btn btn-primary text-uppercase col-auto mx-1 my-3">Favourites</a>
           <!-- my trips -->
-          <a class="card mb-3 bg-light"  href="/home">
+          <a class="card mb-3 bg-light"  href="/index">
             <div class="row no-gutters">
               <div class="col-md-4 mb-0">
                 <img src="{{url_for('static', filename='milan-result.jpg')}}"  class="card-img" alt="...">
@@ -96,14 +96,14 @@
             </div>
           </a>
 
-          <a class="card mb-3 bg-light" href="home">
+          <a class="card mb-3 bg-light" href="/index">
             <div class="row no-gutters">
               <div class="col-md-4 mb-0">
                 <img src="{{url_for('static', filename='new_york-result.jpg')}}"  class="card-img" alt="...">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                  <h4 class="card-title">New York</h4>
+                  <h4 class="card-title">New York</h`4>
                   <p class="card-text">£ xxx (flight: xx; hotel: xx)</p>
                   <p class="card-text">Date: xx/xx/xxxx</p>
                   <p class="card-text"><small class="text-muted"> My keyword: Luxury | Family | Friends | Friends | Friends | Friends</small></p>
@@ -112,7 +112,7 @@
             </div>
           </a>
 
-          <a class="card mb-3 bg-light" href="home">
+          <a class="card mb-3 bg-light" href="/index">
             <div class="row no-gutters">
               <div class="col-md-4 mb-0">
                 <img src="{{url_for('static', filename='kyoto-result.jpg')}}"  class="card-img" alt="...">

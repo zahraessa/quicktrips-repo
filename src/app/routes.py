@@ -22,26 +22,54 @@ def index():
         {
             'recommendation': {'place': 'London'},
             'city': 'London',
-            'body': "London Eye, Big Ben",
-            'image': "london.jpg"
+            'image': "london.jpg",
+            'hotel1': 'Four Seasons',
+            'flight1': 'British Airways',
+            'hotel2': 'Hilton',
+            'flight2': 'Easy Jet',
+            'hotel3': 'Ibis',
+            'flight3': 'Emirates',
+            'key_attraction': 'London Eye',
+            'description': 'London is a great place for site seeing!'
         },
         {
             'recommendation': {'place': 'New York'},
             'city': 'New York',
-            'body': "Empire State Building",
-            'image': "new_york.jpg"
+            'image': "new_york.jpg",
+            'hotel1': 'Four Seasons',
+            'flight1': 'British Airways',
+            'hotel2': 'Kings Cross',
+            'flight2': 'United Airlines',
+            'hotel3': 'Ibis',
+            'flight3': 'Emirates',
+            'key_attraction': 'Manhattan',
+            'description': 'Ney York is a great place for shopping!'
         },
         {
             'recommendation': {'place': 'Switzerland'},
             'city': 'Geneva',
-            'body': "CERN",
-            'image': "Switzerland.jpg"
+            'image': "Switzerland.jpg",
+            'hotel1': 'Marriott',
+            'flight1': 'British Airways',
+            'hotel2': 'Wyndham',
+            'flight2': 'Easy Jet',
+            'hotel3': 'Swiss Hotel',
+            'flight3': 'Emirates',
+            'key_attraction': 'CERN',
+            'description': 'Switzerland is a great place for fresh air!'
         },
         {
             'recommendation': {'place': 'Dubai'},
             'city': 'Dubai',
-            'body': "Burj Al Arab",
-            'image': "dubai.jpg"
+            'image': "dubai.jpg",
+            'hotel1': 'Four Seasons',
+            'flight1': 'Fly Dubai',
+            'hotel2': 'Marriott',
+            'flight2': 'Etihad',
+            'hotel3': 'Ibis',
+            'flight3': 'Emirates',
+            'key_attraction': 'Burj Al Arab',
+            'description': 'Dubai is a great place for family time!'
         }
     ]
     return render_template("index.html", title='Home Page', recommendations=recommendations)
@@ -94,9 +122,11 @@ def register():
     if form.validate_on_submit():
         print('4')
         user = User(username=form.username.data, email=form.email.data, firstname=form.firstname.data,
-        surname=form.surname.data, address=form.address.data, country=form.country.data, city=form.city.data,
-        postcode = form.postcode.data)
+                    surname=form.surname.data, address=form.address.data, country=form.country.data,
+                    city=form.city.data,
+                    postcode=form.postcode.data)
         user.set_password(form.password.data)
+        user.avatar(128)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
@@ -126,9 +156,8 @@ def favourites(username):
 @app.route('/details/<city>')
 @login_required
 def details(city):
-    city = Recommendation.query.filter_by(city=city).first_or_404()
-    return render_template('details.html', city=city)
-
+    recommendation = Recommendation.query.filter_by(city=city).first_or_404()
+    return render_template('details.html', recommendation)
 
 
 @app.route('/useredit', methods=['GET', 'POST'])
@@ -158,15 +187,15 @@ def edit_profile():
     return render_template('useredit.html', title='Edit Profile', form=form)
 
 
-
-
-
 @app.route('/question', methods=['GET', 'POST'])
 def question():
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Questionnaire requested for user {}, holidaytype={}, budgetmin={}, budgetmax={}, nochildren={}, noadults={}, datestart={}, dateend={}, length={}, destination={}, interests={}'.format(
-            form.username.data, form.holidaytype.data, form.budgetmin.data, form.budgetmax.data, form.nochildren.data, form.noadults.data, form.datestart.data, form.dateend.data, form.length.data, form.destination.data, form.interest.data))
+        flash(
+            'Questionnaire requested for user {}, holidaytype={}, budgetmin={}, budgetmax={}, nochildren={}, noadults={}, datestart={}, dateend={}, length={}, destination={}, interests={}'.format(
+                form.username.data, form.holidaytype.data, form.budgetmin.data, form.budgetmax.data,
+                form.nochildren.data, form.noadults.data, form.datestart.data, form.dateend.data, form.length.data,
+                form.destination.data, form.interest.data))
         return redirect('/index')
     return render_template('question.html', title='Questionnaire', form=form)
 

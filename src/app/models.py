@@ -40,7 +40,14 @@ class User(UserMixin, db.Model):
 class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(140))
+    hotel1 = db.Column(db.String(140))
+    flight1 = db.Column(db.String(140))
+    hotel2 = db.Column(db.String(140))
+    flight2 = db.Column(db.String(140))
+    hotel3 = db.Column(db.String(140))
+    flight3 = db.Column(db.String(140))
     key_attraction = db.Column(db.String(140))
+    description = db.Column(db.String(400))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
