@@ -150,6 +150,50 @@ header.masthead h1 {
   opacity: 1;
 }
 
+#flight {
+  padding-left: 5rem;
+  padding-right: 5rem;
+  
+}
+#flight .card {
+  text-decoration: none !important;
+}
+
+#flight .card:hover{
+  background-color: rgba(56, 95, 113, 0.1);
+}
+
+#flight .card:active{
+  background-color: rgba(56, 95, 113, 0.1);
+}
+
+.card {
+  border: #fff;
+}
+
+.card p {
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  color: rgba(150,150,150,1);
+  letter-spacing: .10rem;
+  font-size: 0.9rem;
+}
+
+.card px {
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  color: #333;
+  letter-spacing: .10rem;
+  font-size: 0.9rem;
+}
+
+.card h4{
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  letter-spacing: .10rem;
+  font-size: 1.2rem;
+  color: #385f71;
+}
 
 body p {
   font-family: 'Titillium Web';
