@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="en">
-  
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-    
+
   <title>Quicktrip-result</title>
-    
+
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  
+
   <!-- Fontawesome icon -->
   <link href="fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
-  
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
-  
+
   <!-- Custom styles for this template -->
   <link href="css/result.css" rel="stylesheet">
 </head>
-  
+
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" id="mainNav">
@@ -53,183 +53,22 @@
           </div>
         </li>
       </ul>
-    </div>   
+    </div>
   </nav>
-  
-  <!-- result fliter -->
+
+
   <div class="container-fluid">
-  <div class="row">
-    <nav class="col-md-3 d-none d-md-block sidebar pb-5">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item pl-4 mt-3 mb-4">
-            <row>
-              <p>Holiday Type</p>
-              <div class="w-100"></div>
-              <div class="col-md-5 mb-3">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="family">
-                  <label class="custom-control-label" for="family">Family</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="friends">
-                  <label class="custom-control-label" for="friends">Friends</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="solo">
-                  <label class="custom-control-label" for="solo">Solo</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="package">
-                  <label class="custom-control-label" for="package">Package</label>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4 mb-4">
-            <row>
-              <p>Budget</p>
-              <div class="w-100"></div>
-              <div class="col-md-12 mb-1">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-3">Min:</pm>
-                  <input type="text" class="form-control col-5" id="min" placeholder="" required>
-                </div>
-              </div>
-              <div class="col-md-12 mb-3">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-3">Max:</pm>
-                  <input type="text" class="form-control col-5" id="max" placeholder="" required>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4 mb-4">
-            <row>
-              <p>Number of people</p>
-              <div class="w-100"></div>
-              <div class="col-md-12 mb-1">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-2">Adults:</pm>
-                  <input type="text" class="form-control col-5 ml-2" id="adults" placeholder="" required>
-                </div>
-              </div>
-              <div class="col-md-12 mb-3">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-2">Children:</pm>
-                  <input type="text" class="form-control col-5 ml-2" id="children" placeholder="" required>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4 mb-4">
-            <row>
-              <p>Date available</p>
-              <div class="w-100"></div>
-              <div class="col-md-12 mb-1">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-2">Start:</pm>
-                  <input type="text" class="form-control col-5 ml-2" id="start" placeholder="MM/DD/YYYY" required>
-                </div>
-              </div>
-              <div class="col-md-12 mb-3">
-                <div class="row row-cols-3">
-                  <pm class="col-3 mt-2 ml-2">End:</pm>
-                  <input type="text" class="form-control col-5 ml-2" id="end" placeholder="MM/DD/YYYY" required>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4 mb-4">
-            <row>
-              <p>Trip Length</p>
-              <div class="w-100"></div>
-              <div class="col-md-12 mb-3">
-                <div class="row row-cols-3">
-                  <input type="text" class="form-control col-5 ml-3" id="length" placeholder="" required>
-                  <pm class="col-3 mt-2 ml-2">Days</pm>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4 mb-4">
-            <row>
-              <p>Destination</p>
-              <div class="w-100"></div>
-              <div class="col-md-5 mb-3">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="local">
-                  <label class="custom-control-label" for="local">Local</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="aboard">
-                  <label class="custom-control-label" for="aboard">Aboard</label>
-                </div>
-              </div>
-            </row>
-          </li>
-          
-          <li class="nav-item pl-4">
-            <row>
-              <p>Interests</p>
-              <div class="w-100"></div>
-              <div class="col-md-10">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="wilderness">
-                  <label class="custom-control-label" for="wilderness">Wilderness</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="cultural">
-                  <label class="custom-control-label" for="cultural">Cultural</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="luxury">
-                  <label class="custom-control-label" for="luxury">Luxury</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="volunteer">
-                  <label class="custom-control-label" for="volunteer">Volunteer</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="adventure">
-                  <label class="custom-control-label" for="adventure">Adventure</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="culinary">
-                  <label class="custom-control-label" for="culinary">Culinary</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="self-drive">
-                  <label class="custom-control-label" for="self-drive">Self Drive</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="accessible">
-                  <label class="custom-control-label" for="accessible">Accessible</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="last-minute">
-                  <label class="custom-control-label" for="last-minute">Last Minute</label>
-                </div>
-              </div>
-            </row>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    
     <!-- results -->
-    <div class="col-md-8 ml-sm-auto col-lg-9 px-5 bg-light" id="result">
-      <a class="card mb-3 boarder-0" style="max-width: 54rem;" href="detail.html">
+    <div class=" ml-sm-auto px-5 bg-light" id="result">
+      <div class="justify-content-end">
+        <a href="question.html" class="mb-2 btn btn-primary text-uppercase col-3 mx-1 my-3">Edit questionaire</a>
+      </div>
+      <a class="card mb-3 boarder-0"href="detail.html">
         <div class="row no-gutters">
-          <div class="col-md-4 mb-0">
+          <div class="col-md-3 mb-0">
             <img src="image/milan-result.jpg" class="card-img" alt="...">
           </div>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <div class="card-body">
               <h4 class="card-title">Milan</h4>
               <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
@@ -239,13 +78,13 @@
           </div>
         </div>
       </a>
-      
-      <a class="card mb-3" style="max-width: 54rem;" href="detail.html">
+
+      <a class="card mb-3" href="detail.html">
         <div class="row no-gutters">
-          <div class="col-md-4 mb-0">
+          <div class="col-md-3 mb-0">
             <img src="image/new_york-result.jpg" class="card-img" alt="...">
           </div>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <div class="card-body">
               <h4 class="card-title">New York</h4>
               <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
@@ -255,13 +94,13 @@
           </div>
         </div>
       </a>
-      
-      <a class="card mb-3" style="max-width: 54rem;" href="detail.html">
+
+      <a class="card mb-3" href="detail.html">
         <div class="row no-gutters">
-          <div class="col-md-4 mb-0">
+          <div class="col-md-3 mb-0">
             <img src="image/kyoto-result.jpg" class="card-img" alt="...">
           </div>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <div class="card-body">
               <h4 class="card-title">Kyoto</h4>
               <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
@@ -272,23 +111,22 @@
         </div>
       </a>
     </div>
-    </div>
   </div>
-    
-  
-  
 
 
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- Bootstrap core JavaScript -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

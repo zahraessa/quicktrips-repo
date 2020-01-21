@@ -14,20 +14,21 @@
   border: 0;
 }
 
-.btn-next {
-  background-color: #ffffff;
+.btn-primary {
+  background-color: #385f71;
 }
 
-.btn-next:hover {
-  background-color: rgba(240, 240, 240, 1);
+.btn-primary:hover {
+  background-color: #2C4B59;
 }
 
-.btn-next:focus {
-  background-color: rgba(200, 200, 200, 1);
+.btn-primary:focus {
+  background-color: #2C4B59;
+  color: white;
 }
 
-.btn-next:active {
-  background-color: rgba(200, 200, 200, 1) !important;
+.btn-primary:active {
+  background-color: #243D49 !important;
 }
 
 .sidebar {
@@ -163,5 +164,3 @@
 .card p{
   font-family: 'Raleway';
 }
-
-
