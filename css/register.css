@@ -77,6 +77,10 @@ label{
   border-radius: 0.35rem;
 }
 
+.border-left{
+  border-width: medium !important;
+}
+
 .card-body {
   flex: 1 1 auto;
   min-height: 1px;
