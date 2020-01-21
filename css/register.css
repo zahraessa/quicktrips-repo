@@ -53,16 +53,12 @@ label{
 }
 
 .btn-next:hover {
-  background-color: rgba(200, 200, 200, 1);
+  background-color: rgba(56, 95, 113, 0.5);
   color: white;
 }
 
 .btn-next:focus {
-  background-color: rgba(200, 200, 200, 1);
-}
-
-.btn-next:active {
-  background-color: rgba(200, 200, 200, 1) !important;
+  background-color: rgba(56, 95, 113, 0.5);
 }
 
 .text-gray-900 {
