@@ -66,7 +66,6 @@ label{
 }
 
 .card {
-  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -81,11 +80,6 @@ label{
   border-width: medium !important;
 }
 
-.card-body {
-  flex: 1 1 auto;
-  min-height: 1px;
-  padding: 1.25rem;
-}
 
 .bg-register-image {
   background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
@@ -108,32 +102,42 @@ form.user .btn-user {
   padding: 0.75rem 1rem;
 }
 
-.btn-google {
-  background-color: rgba(240, 240, 240, 1);
-  color: #e12717;
-}
-
-.btn-google:hover {
-  background-color: rgba(56, 95, 113, 0.5);
-  color: white;
-}
-
-.btn-google:focus, .btn-google.focus {
-  background-color: rgba(56, 95, 113, 0.5);
-  color: white;
-}
-
 .btn-facebook {
-  background-color: rgba(240, 240, 240, 1);
+  border-radius: 100%;
+  font-size: 2rem;
+  line-height: 4rem;
+  height: 4rem;
+  width: 4rem;
+  background-color: #eef4f7;
   color: #3b5998;
 }
 
 .btn-facebook:hover {
   color: #fff;
-  background-color: rgba(56, 95, 113, 0.5);
+  background-color: #99bccc;
 }
 
 .btn-facebook:focus, .btn-facebook.focus {
+  background-color: rgba(56, 95, 113, 0.5);
+  color: white;
+}
+
+.btn-google {
+  border-radius: 100%;
+  font-size: 2rem;
+  line-height: 4rem;
+  height: 4rem;
+  width: 4rem;
+  background-color: #eef4f7;
+  color: #e12717;
+}
+
+.btn-google:hover {
+  background-color: #99bccc;
+  color: white;
+}
+
+.btn-google:focus, .btn-google.focus {
   background-color: rgba(56, 95, 113, 0.5);
   color: white;
 }
