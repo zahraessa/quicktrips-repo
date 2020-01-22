@@ -1,5 +1,13 @@
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
+toKeyword(document.getElementById("nextBtn").innerHTML, currentTab);
+
+function toKeyword(n,m){
+  var x = document.getElementsByClassName("tab");
+  if (n == "Final Question!" && m == x.length){
+    self.location.href="/keyword.html";
+  }
+}
 
 function showTab(n) {
   // This function will display the specified tab of the form ...
@@ -12,7 +20,7 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "Final Question!";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
@@ -32,7 +40,7 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
-    document.getElementById("regForm").submit();
+    self.location.href="/Users/zhangjingyi/Quicktrips/keyword.html";
     return false;
   }
   // Otherwise, display the correct tab:
