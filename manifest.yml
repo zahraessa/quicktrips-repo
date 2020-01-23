@@ -1,0 +1,5 @@
+    applications:
+    - name: quickTrips
+    memory: 128M
+    command: python quickTrips.py
+    buildpack: https://github.com/Zongmushuwu/Quicktrips
