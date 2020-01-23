@@ -2,7 +2,7 @@
 
 Deployment instructions
 1. Type " pip install -r requirements.txt " to install the required libraries.
-2. Type "flask run" in terminal to run code.
+2. Type "flask run" in terminal to ru.n code.
 
 Preexisting login credentials:
 - Valid Username = 'z'
