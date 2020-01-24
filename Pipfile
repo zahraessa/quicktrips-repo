@@ -6,16 +6,16 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-flask = "*"
-flask-sqlalchemy = "*"
-flask-migrate = "*"
-flask-login = "*"
-flask-bootstrap = "*"
-flask-wtf = "*"
-wtforms = "*"
 requests = "*"
 twilio = "*"
 connexion = "*"
+Flask = "*"
+Flask-SQLAlchemy = "*"
+Flask-Migrate = "*"
+Flask-Login = "*"
+Flask-Bootstrap = "*"
+Flask-WTF = "*"
+WTForms = "*"
 
 [requires]
 python_version = "3.7"
