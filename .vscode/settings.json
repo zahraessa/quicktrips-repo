@@ -42,5 +42,6 @@
         "env.bak{,/**}",
         "venv.bak{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "python.pythonPath": "env/bin/python3"
 }
