@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="wvalueth=device-wvalueth, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Questionnaire</title>
+  <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}"  />
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Fontawesome icon -->
+  <link href="{{url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css')}}" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='css/keywords.css')}}" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm" id="mainNav">
+    <a class="navbar-brand"href="/index">
+        <img src="{{url_for('static', filename='logo-white.png')}}" href="/index" width="70" height="70" alt="logo img">
+        <img src="{{url_for('static', filename='name-white.png')}}" href="/index" width="100" height="30" alt="brand name">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
+      <ul class="navbar-nav font-weight-light">
+        <li class="nav-item active">
+          <a class="nav-link"href="/index">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"href="/user/{{current_user.username}}">My trips</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav font-weight-light mr-2 ml-4">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"href="/index" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/user/{{current_user.username}}">{{ current_user.username }}</a>
+            <a class="dropdown-item" href="/logout">Sign Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+    <div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="55">
+    <h1>Question Time!</h1>
+    <p class="lead">Please answer the questions below to generate a holiday.</p>
+  </div>
+
+
+    <div class="">
+
+  <form class="form-questionnaire" action="" method="POST" style="text-align:center" novalidate>
+    {{ form.hidden_tag() }}
+        <h4 class="mb">Budget</h4>
+        <div class="row col-md-50">
+          <div class="col-md-6 mb-2">
+            <label for="minbudget">Min Budget</label>
+            <input type="text" class="form-control" id="minbudget" name="minbudget" required>
+            <div class="invalid-feedback">
+              Min budget required
+            </div>
+          </div>
+            <div class="col-md-6 mb-2">
+            <label for="maxbudget">Max Budget</label>
+            <input type="text" class="form-control" id="maxbudget" name="maxbudget" required>
+            <div class="invalid-feedback">
+              Max budget required
+            </div>
+          </div>
+        </div>
+
+
+        <h4 class="mb">Number of People</h4>
+        <div class="row col-md-50">
+          <div class="col-md-6 mb-2">
+            <label for="adults">Adults</label>
+            <input type="text" class="form-control" id="adults" name="adults" required>
+            <div class="invalid-feedback">
+               Number of adults required
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label for="children">Children</label>
+            <input type="text" class="form-control" id="children" name="children" required>
+            <div class="invalid-feedback">
+              Number of children required
+            </div>
+          </div>
+        </div>
+
+
+        <h4 class="mb">Dates available</h4>
+        <div class="row col-md-50">
+          <div class="col-md-6 mb-2">
+            <label for="startdate">Start Date</label>
+            <input type="text" class="form-control" id="startdate" name="startdate" required>
+            <div class="invalid-feedback">
+              Start date required
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label for="enddate">End Date</label>
+            <input type="text" class="form-control" id="enddate" name="enddate" required>
+            <div class="invalid-feedback">
+              End date required
+            </div>
+          </div>
+        </div>
+
+        <h4 class="mb">Trip Length</h4>
+            <div class="col-md-6 mb-1">
+            <label for="triplength">Trip Length (Days)</label>
+            <input type="text" class="form-control" id="triplength" name="triplength" required>
+            <div class="invalid-feedback">
+              Trip length required
+            </div>
+          </div>
+
+
+        <h4 class="mb">Destination</h4>
+        <div class="radio">
+          <label><input type="radio" name="localorabroad" id="local" value="local"checked>Local</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="localorabroad"  id="abroad" value="abroad">Abroad</label>
+        </div>
+
+      <div class="justify-content-center pb-5 mb-5 px-5 mx-4">
+        <button class="btn btn-primary btn-block js-scroll-trigger" type="submit" name="submit" value="submit">Select keywords!</button>
+      </div>
+      </form>
+      </div>
+
+    </div>
+ </div>
+  <!-- FOOTER -->
+  <footer class="container py-5 border-top">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md">
+        <img class="mb-2 d-block" src="{{url_for('static', filename='logo-dark.png')}}" href="/index" alt="" wvalueth="55" height="55">
+        <small class="d-block mb-3 text-muted">&copy; 2017-2019</small>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Features</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/index">Home</a></li>
+          <li><a class="text-muted"  href="/favourites/{{  current_user.username  }}">Favourites</a></li>
+          <li><a class="text-muted" href="/index">Discover</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/user/{{  current_user.username  }}">My trips</a></li>
+          <li><a class="text-muted"  href="/user/{{  current_user.username  }}">My profile</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/index">Contact us</a></li>
+          <li><a class="text-muted" href="/index">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+  <!-- Custom styles for this template -->
+  <script src="{{url_for('static', filename='js/index.js')}}"></script>
+
+</body>
