@@ -1,13 +1,16 @@
 import flask_login
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, KeywordsForm, QuestionnaireForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, KeywordsForm, QuestionnaireForm, FavouritedDetailsForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Recommendation
-from app.gethotels import getCityDescription, getHotelName, getHotelPhoto
+from app.models import User, Recommendation, Favourite
+from app.gethotels import getHotelName, getHotelPhoto
+from app.cityDetails import getCityDescription
+from app.countryDetails import getCountryDescription
 import requests
 import json
+from app.randomCity import randomCityGenerator
 
 
 @app.route('/')
@@ -64,24 +67,36 @@ def register():
         user.avatar(128)
         db.session.add(user)
         db.session.commit()
-        r = Recommendation(country='United Kingdom', city='London', hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
+        placejson = randomCityGenerator()
+        country = placejson[1]
+        city = placejson[2]
+        r = Recommendation(country=country, city=city, hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
                            flight1='British Airways', flight2='Easy Jet', flight3='Turkish Airlines',
                            key_attraction='London Eye', description='London is a great place to visit', user_id=user.id)
         db.session.add(r)
         db.session.commit()
-        r = Recommendation(country='France', city='Paris', hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
+        placejson = randomCityGenerator()
+        country = placejson[1]
+        city = placejson[2]
+        r = Recommendation(country=country, city=city, hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
                            flight1='KLM', flight2='Air France', flight3='Ryan Air',
                            key_attraction='London Eye', description='Come see the Louvre!', user_id=user.id)
         db.session.add(r)
         db.session.commit()
-        r = Recommendation(country='United Arab Emirates', city='Dubai', hotel1='Four Seasons', hotel2='Emirates Hotel',
+        placejson = randomCityGenerator()
+        country = placejson[1]
+        city = placejson[2]
+        r = Recommendation(country=country, city=city, hotel1='Four Seasons', hotel2='Emirates Hotel',
                            hotel3='Ibis', flight1='British Airways', flight2='Gulf Air', flight3='Emirates',
                            key_attraction='London Eye', description='Come see the worlds tallest building',
                            user_id=user.id)
 
         db.session.add(r)
         db.session.commit()
-        r = Recommendation(country='Switzerland', city='Geneva', hotel1='Hotel Chalet Swiss',
+        placejson = randomCityGenerator()
+        country = placejson[1]
+        city = placejson[2]
+        r = Recommendation(country=country, city=city, hotel1='Hotel Chalet Swiss',
                            hotel2='Grand Hotel National Luzern', hotel3='Travelodge', flight1='British Airways',
                            flight2='Easy Jet', flight3='Emirates', key_attraction='London Eye', description='Fresh Air',
                            user_id=user.id)
@@ -119,15 +134,45 @@ def details(city):
             break
         else:
             current_recommendation = recommendation
+    form = FavouritedDetailsForm()
+    a = request.form.get('toggle_heart.data')
+
+    print(a)
+
+    description = getCityDescription(city)
+    hotel1name = getHotelName(recommendation.city, 0)
+    hotel1photo = getHotelPhoto(recommendation.city, 0)
+    hotel2name = getHotelName(recommendation.city, 1)
+    hotel2photo = getHotelPhoto(recommendation.city, 1)
+    hotel3name = getHotelName(recommendation.city, 2)
+    hotel3photo = getHotelPhoto(recommendation.city, 2)
+    if description == "":
+        description = "country: " + recommendation.country
+        for recommendation in recommendations:
+            if recommendation.city == city:
+                description = getCountryDescription(recommendation.country)
+                hotel1name = getHotelName(recommendation.country, 0)
+                hotel1photo = getHotelPhoto(recommendation.country, 0)
+                hotel2name = getHotelName(recommendation.country, 1)
+                hotel2photo = getHotelPhoto(recommendation.country, 1)
+                hotel3name = getHotelName(recommendation.country, 2)
+                hotel3photo = getHotelPhoto(recommendation.country, 2)
+                break
+
+
+    if a == True:
+        newFavourite = Favourite(current_recommendation)
+        db.session.add(newFavourite)
+        db.session.commit()
 
     return render_template('details.html', recommendation=current_recommendation,
-                           description=getCityDescription(recommendation.city),
-                           hotel1name=getHotelName(recommendation.city, 0),
-                           hotel1photo=getHotelPhoto(recommendation.city, 0),
-                           hotel2name=getHotelName(recommendation.city, 1),
-                           hotel2photo=getHotelPhoto(recommendation.city, 1),
-                           hotel3name=getHotelName(recommendation.city, 2),
-                           hotel3photo=getHotelPhoto(recommendation.city, 2))
+                           description=description,
+                           hotel1name=hotel1name,
+                           hotel1photo=hotel1photo,
+                           hotel2name=hotel2name,
+                           hotel2photo=hotel2photo,
+                           hotel3name=hotel3name,
+                           hotel3photo=hotel3photo)
 
 
 @app.route('/useredit', methods=['GET', 'POST'])

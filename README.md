@@ -1,6 +1,6 @@
 # Quicktrips
 
-Deployment instructions
+Deployment instructions:
 1. Open Terminal/Shell
 2. Ensure you have python 3.7 and pip3 installed using python3 --v and pip3 --v
 3. pip install pipenv

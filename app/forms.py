@@ -1,10 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, SelectMultipleField, widgets, RadioField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length, InputRequired
 from app.models import User
 from wtforms.fields.html5 import DateField
-
-
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -78,3 +76,6 @@ class QuestionnaireForm(FlaskForm):
     triplength = StringField('Trip Length', validators=[DataRequired()])
     localorabroad = RadioField('Destination', choices=[('local', 'local'), ('abroad', 'abroad')])
     submit = SubmitField('Submit')
+
+class FavouritedDetailsForm(FlaskForm):
+    SelectField('toggle-heart', choices=[("Favourite", "Favourite"), ("Not-Favourite", "Not-Favourite")], validators=[InputRequired])

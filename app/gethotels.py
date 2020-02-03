@@ -1,35 +1,6 @@
 import requests
+from app.cityDetails import getCityId
 
-
-def getCityInfo(city):
-    url = "https://tripadvisor1.p.rapidapi.com/locations/search"
-
-    querystring = {"limit": 4, "sort": "relevance", "offset": "0", "lang": "en_US",
-                   "currency": "USD", "units": "km", "query": city}
-
-    try:
-        headers = {
-            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
-        }
-
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        return response
-    except:
-        headers = {
-            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "1f79334269mshfc4b60a19d501cep1244f7jsnaf9b5cb281bb"
-        }
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        return response
-
-
-def getCityId(city):
-    return getCityInfo(city).json()['data'][0]['result_object']["location_id"]
-
-
-def getCityDescription(city):
-    return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
 
 #the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
 
@@ -58,19 +29,29 @@ def getHotelDetails(city):
             response = requests.request("GET", url, headers=headers, params=querystring)
             return response
         except:
-            headers = {
-                'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                "x-rapidapi-key": "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
-            }
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            return response
+            try:
+                headers = {
+                    'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+                    "x-rapidapi-key": "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+                }
+                response = requests.request("GET", url, headers=headers, params=querystring)
+                return response
+            except:
+                return ""
+
 
 
 
 def getHotelName(city, i):
-    return getHotelDetails(city).json()['data'][i]['name']
+    try:
+        return getHotelDetails(city).json()['data'][i]['name']
+    except:
+        return ""
 
 
 def getHotelPhoto(city, i):
-    photo = getHotelDetails(city).json()['data'][i]['photo']['images']['large']['url']
-    return photo
+    try:
+        photo = getHotelDetails(city).json()['data'][i]['photo']['images']['large']['url']
+        return photo
+    except:
+        return ""
