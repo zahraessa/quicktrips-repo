@@ -1,3 +1,4 @@
 ---
 applications:
  - name: quickTrips
+   memory: 1024M
