@@ -7,6 +7,6 @@ here = path.abspath( path.dirname( __file__ ) )
 setup(
     name='app-name',
     version='1.0.0',
-    description='Python Flask app for identifying hand-drawn digits using Watson Machine Learning on IBM Cloud',
+    description='Python Flask app for generating personalized holidays.',
     license='Apache-2.0'
 )
