@@ -1,6 +1,6 @@
 FROM python:2-alpine
 
-#COPY ./requirements.txt /app/requirements.txt
+COPY ./requirements.txt /Quicktrips/requirements.txt
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python-
   && pip install --upgrade -r requirements.txt
   && apk del build-dependencies
 
-COPY . /app
+COPY . /Quicktrips
 
 ENTRYPOINT [ "python" ]
 
