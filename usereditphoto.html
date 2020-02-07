@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quicktrip-userEditPhoto</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Fontawesome icon -->
+  <link href="fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/usereditcontent.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white rounded">
+      <a class="navbar-brand" href="#">
+        <img src="image/logo-dark.png" width="70" height="70" alt="logo img">
+        <img src="image/name-dark.png" width="100" height="30" alt="brand name">
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="menu">
+        <ul class="navbar-nav font-weight-light">
+          <li class="nav-item active">
+            <a class="nav-link" href="newhome.html">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="userpage.html">My trips</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav font-weight-light mr-2 ml-4">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="image/user.jpg" width="40" height="40" alt="user" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="login.html">Sign in</a>
+              <a class="dropdown-item" href="#">Sign up</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <div class="row justify-content-center px-3">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="px-5">
+          <div class="row mb-2">
+            <a class="col-1 back rounded-circle my-auto py-3 text-center" href="useredit.html">
+              <i class="fas fa-arrow-left"></i>
+            </a>
+            <h2 class="col my-auto mx-3">Photo</h2>
+          </div>
+          <p class="subtitle mb-4 text-center">Upload new photo</p>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <form class="user">
+                <div class="form-group">
+                  <input type="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div class="form-group">
+                  <label for="Address">Address</label>
+                  <input type="text" class="form-control form-control-user" id="Address">
+                </div>
+                <div class="form-group">
+                  <label for="Postcode">Postcode</label>
+                  <input type="text" class="form-control form-control-user" id="Postcode">
+                </div>
+                <div class="form-group">
+                  <label for="Country">Country</label>
+                  <input type="text" class="form-control form-control-user" id="Country">
+                </div>
+                <div class="form-group">
+                  <label for="City">City</label>
+                  <input type="text" class="form-control form-control-user" id="City">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Save changes
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    <p class="my-5 text-center">Changes saved!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
