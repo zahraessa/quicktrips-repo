@@ -1,124 +1,147 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Useredit</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/checkout/">
+  <title>Quicktrip-userEdit</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <!-- Fontawesome icon -->
-    <link href="fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
+  <!-- Fontawesome icon -->
+  <link href="fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/useredit.css" rel="stylesheet">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="css/useredit.css" rel="stylesheet">
+</head>
 
-  <body class="bg-light">
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white rounded">
-        <a class="navbar-brand" href="#">
-          <img src="image/logo-dark.png" width="70" height="70" alt="logo img">
-          <img src="image/name-dark.png" width="100" height="30" alt="brand name">
-        </a>
-        <div class="collapse navbar-collapse justify-content-end" id="menu">
-          <ul class="navbar-nav font-weight-light">
-            <li class="nav-item active">
-              <a class="nav-link" href="newhome.html">Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="userpage.html">My trips</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav font-weight-light mr-2 ml-4">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="image/user.jpg" width="40" height="40" alt="user" class="rounded-circle">
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="login.html">Sign in</a>
-                <a class="dropdown-item" href="#">Sign up</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
-
-    <div class="container">
-            <div class="text-center px-5 pt-5 pb-2">
-              <h2 class="text-gray-900 mb-4">Personal info</h2>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white rounded">
+      <a class="navbar-brand" href="#">
+        <img src="image/logo-dark.png" width="70" height="70" alt="logo img">
+        <img src="image/name-dark.png" width="100" height="30" alt="brand name">
+      </a>
+      <div class="collapse navbar-collapse justify-content-end" id="menu">
+        <ul class="navbar-nav font-weight-light">
+          <li class="nav-item active">
+            <a class="nav-link" href="newhome.html">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="userpage.html">My trips</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav font-weight-light mr-2 ml-4">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="image/user.jpg" width="40" height="40" alt="user" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="login.html">Sign in</a>
+              <a class="dropdown-item" href="#">Sign up</a>
             </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
 
-            <div class="px-5 pb-3">
-              <form class="user">
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" class="form-control form-control-user" id="FirstName">
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" class="form-control form-control-user" id="LastName">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="Username">User Name</label>
-                  <input type="text" class="form-control form-control-user" id="Username">
-                </div>
-                <div class="form-group">
-                  <label for="Email">Email Address</label>
-                  <input type="email" class="form-control form-control-user" id="Email">
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-8 mb-3 mb-sm-0">
-                    <label for="Address">Address</label>
-                    <input type="text" class="form-control form-control-user" id="Address">
-                  </div>
-                  <div class="col-sm-4">
-                    <label for="Postcode">Postcode</label>
-                    <input type="text" class="form-control form-control-user" id="Postcode">
-                  </div>
-                </div>
+  <div class="container">
 
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <label for="Country">Country</label>
-                    <input type="text" class="form-control form-control-user" id="Country">
+    <!-- Outer Row -->
+    <div class="row justify-content-center px-3">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="px-5 py-3">
+          <div class="text-center">
+            <h2 class="mb-4">Edit user profile</h2>
+            <p class="subtitle mb-4 text-center">Click to make changes</p>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Profile</h5>
+              <ul class="list-group list-group-flush">
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <div class="row">
+                    <p class="heading col-row-10">Photo</p>
+                    <p class="content col-row-5">Photo</p>
                   </div>
-                  <div class="col-sm-6">
-                    <label for="City">City</label>
-                    <input type="text" class="form-control form-control-user" id="City">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="Password">Password</label>
-                  <input type="password" class="form-control form-control-user" id="Password">
-                </div>
-                <div class="form-group">
-                  <label for="RepeatPassword">Repeat Password</label>
-                  <input type="password" class="form-control form-control-user" id="RepeatPassword">
-                </div>
-                <a href="login.html" class="btn btn-next btn-user btn-block">
-                  Register Account
+                  <p class="heading">></p>
                 </a>
-              </form>
-
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">First Name</p>
+                  <p class="heading">></p>
+                </a>
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">Last Name</p>
+                  <p class="heading">></p>
+                </a>
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">User Name</p>
+                  <p class="heading">></p>
+                </a>
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">Email Address</p>
+                  <p class="heading">></p>
+                </a>
+              </ul>
             </div>
           </div>
 
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Connected Account</h5>
+              <ul class="list-group list-group-flush">
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">Google</p>
+                  <p class="heading">></p>
+                </a>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">Address</h5>
+              <ul class="list-group list-group-flush">
+                <a href="#" class="list-group-item stretched-link d-flex justify-content-between">
+                  <p class="heading">Address</p>
+                  <p class="content">></p>
+                  <p class="heading">Postcode</p>
+                  <p class="content">></p>
+                  <p class="heading">Country</p>
+                  <p class="content">></p>
+                  <p class="heading">City</p>
+                  <p class="heading">></p>
+                </a>
+              </ul>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        </div>
       </div>
+    </div>
+  </div>
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-      <script src="form-validation.js"></script>
-  </body>
+</body>
+
 </html>
