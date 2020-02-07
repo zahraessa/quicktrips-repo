@@ -1,7 +1,7 @@
 body{
-  background-image: url("../image/greylogo.png"),url();
-  background-size: 40%;
-  background-position: 30% 28%;
+  background-image: url("../image/greylogo.png");
+  background-size: 60%;
+  background-position: 5% 10%;
   background-repeat: no-repeat;
 }
 
