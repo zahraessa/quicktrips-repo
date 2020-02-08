@@ -164,3 +164,17 @@
 .card p{
   font-family: 'Raleway';
 }
+
+.favourate{
+  font-size: 1.5rem;
+  color: #e6e6e6;
+}
+
+#toggle-heart {
+  position: absolute;
+  left: -100vw;
+}
+
+#toggle-heart:after + label {
+  color: #ff6666;
+}
