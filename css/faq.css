@@ -58,6 +58,14 @@ h2 {
   top: 20px;
 }
 
+#faq #faq-list i.fa-plus {
+  opacity: 0;
+}
+
+#faq #faq-list .collapsed i.fa-plus {
+  opacity: 1;
+}
+
 #faq #faq-list p {
   margin-bottom: 20px;
   font-family: 'Raleway';
@@ -65,14 +73,10 @@ h2 {
   letter-spacing: 0.05rem;
 }
 
-#faq #faq-list a.collapse {
-  color: #1bb1dc !important;
-}
-
 #faq #faq-list a.collapsed {
   color: #333;
 }
 
-#faq #faq-list a.collapsed: hover {
-  color: #385f71;
+#faq #faq-list a {
+  color: #2f7c96;
 }
