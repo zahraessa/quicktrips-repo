@@ -179,6 +179,12 @@ button {
   max-width: 1920px;
 }
 
+#portfolio .img-fluid{
+  width: 21rem;
+  height: 34rem;
+  object-fit: cover;
+}
+
 #portfolio .container-fluid .portfolio-box {
   position: relative;
   display: block;
