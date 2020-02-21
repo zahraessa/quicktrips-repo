@@ -1,3 +1,5 @@
+psycopg2-binary
+gunicorn
 Flask
 flask-bootstrap
 Flask-Login
@@ -7,3 +9,11 @@ Flask-WTF
 Flask-User
 Requests
 datapackage
+wheel
+pipenv
+ibm-watson>=4.2.1
+watson-developer-cloud
+python_dateutil>=2.5.3
+websocket-client==0.48.0
+ibm_cloud_sdk_core==1.5.1
+flask_wtf

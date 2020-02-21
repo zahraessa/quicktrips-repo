@@ -1,6 +1,6 @@
 # Quicktrips
 
-Deployment instructions:
+##Deployment instructions:
 1. Open Terminal/Shell
 2. Ensure you have python 3.7 and pip3 installed using python3 --v and pip3 --v
 3. pip install pipenv
@@ -9,10 +9,10 @@ Deployment instructions:
 4. Type "pip install -r requirements.txt" to install the required libraries.
 5. Type "pipenv shell" to activate virtualenv.
 6. Type "pip install python-dotenv"
-7. Type "export FLASK_APP=quickTrips.py"
+7. Type "export FLASK_APP=app.py"
 8. Type "flask run"
 
-Preexisting login credentials:
+##Preexisting login credentials:
 - Valid Username = 'z'
 - Valid Password = 'z'
 

@@ -4,19 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pylint = "*"
 
 [packages]
+psycopg2-binary = "*"
+gunicorn = "*"
 requests = "*"
-twilio = "*"
-connexion = "*"
+datapackage = "*"
 Flask = "*"
-Flask-SQLAlchemy = "*"
-Flask-Migrate = "*"
-Flask-Login = "*"
 Flask-Bootstrap = "*"
+Flask-Login = "*"
+Flask-Migrate = "*"
+Flask-SQLAlchemy = "*"
 Flask-WTF = "*"
-WTForms = "*"
+Flask-User = "*"
 
 [requires]
 python_version = "3.7"
