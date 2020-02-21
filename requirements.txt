@@ -1,3 +1,5 @@
+psycopg2-binary
+gunicorn
 Flask
 flask-bootstrap
 Flask-Login
@@ -6,6 +8,12 @@ Flask-SQLAlchemy
 Flask-WTF
 Flask-User
 Requests
-watson-machine-learning-client==1.0.346
-Pillow==5.3.0
-werkzeug==0.14.1
+datapackage
+wheel
+pipenv
+ibm-watson>=4.2.1
+watson-developer-cloud
+python_dateutil>=2.5.3
+websocket-client==0.48.0
+ibm_cloud_sdk_core==1.5.1
+flask_wtf
