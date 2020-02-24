@@ -6,17 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-psycopg2-binary = "*"
-gunicorn = "*"
-requests = "*"
-datapackage = "*"
-Flask = "*"
-Flask-Bootstrap = "*"
-Flask-Login = "*"
-Flask-Migrate = "*"
-Flask-SQLAlchemy = "*"
-Flask-WTF = "*"
-Flask-User = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"
