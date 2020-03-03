@@ -147,11 +147,12 @@
 .checkmark {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 0rem;
   height: 25px;
   width: 25px;
   background-color: rgba(255,255,255,0);
 }
+
 
 /* When the checkbox is checked, add a blue background */
 .checkbox input:checked  ~ .checkmark {
@@ -228,6 +229,61 @@ body h2 {
   letter-spacing: 0.1rem;
 }
 
+.checkmark-2 {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  height: 25px;
+  width: 25px;
+  background-color: rgba(255,255,255,0);
+}
+
+
+/* Customize the label (the container) */
+.checkbox-2  {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkmark-2:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-2 input {
+  position: absolute;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-2 input:checked  ~ .checkmark-2 {
+  background-color: #333;
+}
+
+.checkbox-2 input:checked ~ .checkmark-2:after {
+  display: block;
+
+}
+.checkbox-2 .checkmark-2:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 @media (max-width: 575.98px) {
   .checkbox{display:none;}
   .row{width:100%;margin:auto;}
@@ -235,8 +291,7 @@ body h2 {
   .step{width:50px;height:3px;}
   body p{font-size:0.3rem;}
   #photos{padding: 0%;}
-  .checkbox-2{margin:auto;}
-  .block-1{position: middle;}
+  .checkbox-2{display:block !important;}
 }
 
 @media (max-width: 768px) and(min-width: 576px) {
@@ -248,6 +303,6 @@ body h2 {
  .circle{width: 100px;height:100px;}
 }
 
-@media (max-width: 1199.98px) {
-
+@media (max-width: 1500px) {
+  .checkbox-2{display:none;}
 }
