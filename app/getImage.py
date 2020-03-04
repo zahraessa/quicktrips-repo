@@ -1,6 +1,7 @@
 import time
 import json
 import requests
+from app.randomCity import randomCityGenerator
 
 
 def getCountryId(countryName):
@@ -30,8 +31,7 @@ def getCountryImage(countryName):
     time.sleep(1)
     response = requests.request("GET", url, headers=headers)
 
-    z = response.json()['data']['flagImageUri']
-    return z
+    return response.json()['data']['flagImageUri']
 
 
 def getCityImage(city):
@@ -42,3 +42,6 @@ def getCityImage(city):
         return response.json()['hits'][0]['largeImageURL']
     except:
         return 'https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+
+
+getCountryId('United Kingdom').text

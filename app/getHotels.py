@@ -1,5 +1,5 @@
 import requests
-from app.cityDetails import getCityId
+from app.getCityDetails import getCityId
 
 
 #the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative

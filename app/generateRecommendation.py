@@ -1,7 +1,10 @@
 from app.randomCity import randomCityGenerator
-from app.watsondiscoveryfilter import getAverageSentiment, getKeywords
+from app.watsonAPICall import getAverageSentiment, getKeywords
 from app.keywordsSynonyms import keywords
 from app.getCitySearchResultsURLs import getURLs
+from app.models import ProcessedCity
+from app import app, db
+
 
 def createRecommend(formKeywords):
     # generate 20 random cities
@@ -12,9 +15,29 @@ def createRecommend(formKeywords):
     # get keywords from urls
     for city in cities:
         print(city)
-        urls = getURLs(city)
-        averageSentiment = getAverageSentiment(urls)
-        URLkeywords = getKeywords(urls)
+        averageSentiment = 0
+        URLkeywords = []
+        cityInDB = db.session.query(ProcessedCity.city).filter_by(city=city).scalar() is not None
+        if cityInDB:
+            print('true')
+            c = db.session.query(ProcessedCity).filter_by(city=city)
+            averageSentiment = c.sentiment
+            URLkeywords = c.keywords
+        else:
+            print('false')
+            urls = getURLs(city)
+            averageSentiment = getAverageSentiment(urls)
+            URLkeywords = getKeywords(urls)
+            cityKeywords = set()
+            for x in URLkeywords:
+                for y in keywords:
+                    for z in keywords[y]:
+                        if z in x:
+                            cityKeywords.add(y)
+
+            c = ProcessedCity(city=city, keywords=cityKeywords, sentiment=averageSentiment)
+            db.session.add(c)
+            db.session.commit()
         matchedKeywords = compareKeywordsToForm(formKeywords, URLkeywords)
         cityStatistics[city] = {'sentiment': averageSentiment, 'keywordsCount': matchedKeywords.__len__(),
                                 'keywords': matchedKeywords}
@@ -26,10 +49,10 @@ def createRecommend(formKeywords):
 #generate random cities
 def getRandomCities():
     cities = set()
-    for i in range(10):
+    for i in range(1):
         #tempCity = randomCityGenerator()[2] --- change back to this for coty using country for testing
         #tempCity = randomCityGenerator()[1] #COUNTRYYYY
-        tempCity = randomCityGenerator()[2] #CITY   YYYoiuytrfedw   i
+        tempCity = randomCityGenerator()[2] #CITYYYY
         cities.add(tempCity)
     print(cities)
     return cities
@@ -55,14 +78,14 @@ def pickRecommendation(citiesdict):
     maxKeywords = 0
     maxcities = []
     maxcitiesdict = {}
-    print(citiesdict)
     for city in citiesdict:
         keywordCount = citiesdict[city]['keywordsCount']
         sentiment = citiesdict[city]['sentiment']
-        print(city + ": keywords: " + keywordCount.__str__())
+        print(city + ": keywords: " + citiesdict[city].get('keywords').__str__())
+        print("      keywords count: " + keywordCount.__str__())
         print("      sentiment: " + sentiment.__str__())
 
-        if keywordCount > 0 and sentiment > 0.5:
+        if keywordCount > 2 and sentiment > 0.5:
             maxcitiesdict[city] = citiesdict[city].copy()
     for city in maxcitiesdict:
         print(city)

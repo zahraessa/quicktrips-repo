@@ -125,3 +125,20 @@ spec:
     app: postgres
 
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: myloadbalancer
+ annotations:
+   service.kubernetes.io/ibm-load-balancer-cloud-provider-ip-type: private
+   service.kubernetes.io/ibm-load-balancer-cloud-provider-zone: "uk-gb"
+   service.kubernetes.io/ibm-load-balancer-cloud-provider-vlan: "2234945"
+spec:
+ type: LoadBalancer
+ selector:
+   app: nginx
+ ports:
+  - protocol: TCP
+    port: 8080
+ loadBalancerIP: 172.21.90.66

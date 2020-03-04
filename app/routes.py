@@ -5,9 +5,9 @@ from app.forms import LoginForm, RegistrationForm, EditProfileForm, KeywordsForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Recommendation, Favourite
-from app.gethotels import getHotelName, getHotelPhoto
-from app.cityDetails import getCityDescription
-from app.countryDetails import getCountryDescription
+from app.getHotels import getHotelName, getHotelPhoto
+from app.getCityDetails import getCityDescription
+from app.getCountryDetails import getCountryDescription
 import requests
 import json
 from app.randomCity import randomCityGenerator

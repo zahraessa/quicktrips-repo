@@ -13,8 +13,6 @@ def getCityInfo(city):
             "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
         }
 
-        print(headers)
-
         response = requests.request("GET", url, headers=headers, params=querystring)
         return response
     except:
@@ -38,5 +36,3 @@ def getCityDescription(city):
         return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
     except:
         return ""
-
-
