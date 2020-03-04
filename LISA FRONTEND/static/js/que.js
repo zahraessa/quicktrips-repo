@@ -4,8 +4,8 @@ toKeyword(document.getElementById("nextBtn").innerHTML, currentTab);
 
 function toKeyword(n,m){
   var x = document.getElementsByClassName("tab");
-  if (n == "Final Question!" && m == x.length){
-    self.location.href="/keyword.html";
+  if (n == "Final Question!" && m == x.length) {
+    self.location.href = "http://127.0.0.1:5000/keyword";
   }
 }
 
@@ -40,7 +40,7 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
-    self.location.href="/Users/zhangjingyi/Quicktrips/keyword.html";
+    self.location.href="http://127.0.0.1:5000/keyword";
     return false;
   }
   // Otherwise, display the correct tab:
