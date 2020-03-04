@@ -110,21 +110,21 @@ def register():
         return render_template('register.html', form=form)
 
 
-@app.route('/user/<username>')
+@app.route('/userpage/<username>')
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user)
+    return render_template('userpage.html', user=user)
 
 
 @app.route('/favourites/<username>')
 @login_required
 def favourites(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user-favourite.html', user=user)
+    return render_template('userfavourite.html', user=user)
 
 
-@app.route('/details/<city>')
+@app.route('/detail/<city>')
 @login_required
 def details(city):
     recommendations = Recommendation.query.all()
@@ -165,7 +165,7 @@ def details(city):
         db.session.add(newFavourite)
         db.session.commit()
 
-    return render_template('details.html', recommendation=current_recommendation,
+    return render_template('detail.html', recommendation=current_recommendation,
                            description=description,
                            hotel1name=hotel1name,
                            hotel1photo=hotel1photo,
@@ -199,6 +199,35 @@ def edit_profile():
         form.postcode.data = current_user.postcode
     return render_template('useredit.html', title='Edit Profile', form=form)
 
+@app.route('/usereditaddress')
+def usereditaddress():
+    return render_template('usereditaddress.html')
+
+
+@app.route('/usereditemail')
+def usereditemail():
+    return render_template('usereditemail.html')
+
+
+@app.route('/usereditname')
+def usereditname():
+    return render_template('usereditname.html')
+
+
+@app.route('/usereditpassword')
+def usereditpassword():
+    return render_template('usereditpassword.html')
+
+
+@app.route('/usereditphoto')
+def usereditphoto():
+    return render_template('usereditphoto.html')
+
+
+@app.route('/usereditusername')
+def usereditusername():
+    return render_template('usereditusername.html')
+
 
 @app.route('/result', methods=['GET', 'POST'])
 @login_required
@@ -207,9 +236,9 @@ def result():
     return render_template('result.html', title='Result', recommendations=recommendations)
 
 
-@app.route('/forgotpassword', methods=['GET', 'POST'])
+@app.route('/forgetpw', methods=['GET', 'POST'])
 def forgotPassword():
-    return render_template('forgotpassword.html')
+    return render_template('forgetpw.html')
 
 
 @app.route('/googlelogin', methods=['GET', 'POST'])
@@ -222,7 +251,7 @@ def facebooklogin():
     return render_template('facebooklogin.html')
 
 
-@app.route('/question', methods=['GET', 'POST'])
+@app.route('/que', methods=['GET', 'POST'])
 @login_required
 def question():
     form = QuestionnaireForm()
@@ -256,10 +285,10 @@ def question():
                                 children=children, startdate=startdate,
                                 enddate=enddate, triplength=triplength,
                                 localorabroad=localorabroad))
-    return render_template('tempquestion.html', form=form)
+    return render_template('que.html', form=form)
 
 
-@app.route('/keywords', methods=['GET', 'POST'])
+@app.route('/keyword', methods=['GET', 'POST'])
 @login_required
 def keywords():
     form = KeywordsForm()
@@ -281,8 +310,32 @@ def keywords():
                                children=children, startdate=startdate,
                                enddate=enddate, triplength=triplength,
                                localorabroad=localorabroad)
-    return render_template('keywords.html', form=form, maxbudget=maxbudget,
+    return render_template('keyword.html', form=form, maxbudget=maxbudget,
                            minbudget=minbudget, adults=adults,
                            children=children, startdate=startdate,
                            enddate=enddate, triplength=triplength,
                            localorabroad=localorabroad)
+
+@app.route('/messagesent')
+def messagesent():
+    return render_template('messagesent.html')
+
+@app.route('/contactus', methods=['GET', 'POST'])
+def contactus():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        messages = request.form.get('messages')
+        return redirect(url_for('messagesent'))
+    return render_template('contactus.html')
+
+@app.route('/emailsent')
+def emailsent():
+    return render_template('emailsent.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+
