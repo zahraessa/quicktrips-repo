@@ -1,18 +1,29 @@
-FROM python:2-alpine
+FROM python:3.6-alpine
 
-#COPY ./requirements.txt /app/requirements.txt
-
-WORKDIR /app
-
-RUN apk --update add python py-pip openssl ca-certificates py-openssl wget bash linux-headers
-RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python-dev py-pip build-base \
-  && pip install --upgrade pip
-  && pip install --upgrade pipenv
-  && pip install --upgrade -r requirements.txt
-  && apk del build-dependencies
+RUN apk update \
+    && apk add --virtual build-dependencies \
+        build-base \
+        gcc \
+        wget \
+        git \
+    && apk add \
+        bash
 
 COPY . /app
+WORKDIR /app
 
-ENTRYPOINT [ "python" ]
+RUN \
+ apk add --no-cache bash && \
+ apk add libffi-dev && \
+ apk add --no-cache postgresql-libs && \
+ apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
+RUN pip install -r requirements.txt
 
-CMD [ "quickTrips.py" ]
+
+EXPOSE 5000
+
+ENV FLASK_APP=app.py
+
+ENTRYPOINT [ "flask" ]
+
+CMD [ "run" ]
