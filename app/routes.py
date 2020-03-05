@@ -10,7 +10,7 @@ from app.getCityDetails import getCityDescription
 from app.getCountryDetails import getCountryDescription
 import requests
 import json
-from app.randomCity import randomCityGenerator
+from app.getRandomCity import randomCityGenerator
 
 
 @app.route('/')

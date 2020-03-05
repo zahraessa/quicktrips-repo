@@ -42,9 +42,6 @@
 
                     <form class="form-login" action="" method="POST" novalidate>
                         {{ form.hidden_tag() }}
-                        {% if form.errors %}
-                        {{ form.errors }}
-                        {% endif %}
                      <div class="form-group">
                        <input type="text" class="form-control form-control-user" id="username" name='username' placeholder="Login">
                          <div class="invalid-feedback">

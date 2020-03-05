@@ -1,15 +1,17 @@
 import requests
 from app.getCityDetails import getCityId
+from app.getRandomCity import randomCityGenerator
 
 
-#the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
+# the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
 
-def getHotelDetails(city):
+def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
     cityid = getCityId(city)
-    url = "https://tripadvisor1.p.rapidapi.com/hotels/list"
+    print(cityid)
+    url = "https://tripadvisor1.p.rapidapi.com/hotels/get-details"
 
-    querystring = {"pricesmin": "50", "offset": "0", "limit": "4", "nights": "1",
-                   "location_id": cityid, "adults": "1", "rooms": "1"}
+    querystring = {"adults": adults, "nights": triplength, "currency": currency, "lang": "en_US",
+                   "child_rm_ages": childAges, "checkin": startdate, "location_id": cityid}
 
     try:
         headers = {
@@ -18,8 +20,7 @@ def getHotelDetails(city):
         }
 
         response = requests.request("GET", url, headers=headers, params=querystring)
-        response.json()['data'][0]['photo']['images']['large']['url']
-        return response
+        return response.json()
     except:
         try:
             headers = {
@@ -40,8 +41,6 @@ def getHotelDetails(city):
                 return ""
 
 
-
-
 def getHotelName(city, i):
     try:
         return getHotelDetails(city).json()['data'][i]['name']
@@ -55,3 +54,25 @@ def getHotelPhoto(city, i):
         return photo
     except:
         return ""
+
+
+
+
+a = randomCityGenerator()
+try:
+    city = a[2]
+    print(city)
+    # coordinates = getCoordinates(city)
+    # print(coordinates)
+    response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
+    print(response.text)
+    if response.json()[1]["status"]["unfiltered_total_size"].__str__:
+        print('iiiiiii')
+        raise Exception("Invalid")
+except:
+    county = a[0]
+    print(county)
+    # coordinates = getCoordinates(city)
+    # print(coordinates)
+    print(getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD"))
+

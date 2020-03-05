@@ -1,7 +1,7 @@
 import time
 import json
 import requests
-from app.randomCity import randomCityGenerator
+from app.getRandomCity import randomCityGenerator
 
 
 def getCountryId(countryName):

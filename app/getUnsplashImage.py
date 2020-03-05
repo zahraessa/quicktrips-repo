@@ -1,5 +1,5 @@
 from unsplash_search import UnsplashSearch
-from app.randomCity import randomCityGenerator
+from app.getRandomCity import randomCityGenerator
 
 unsplash = UnsplashSearch('0ecf885a561e330120c5a13d53ee35e8754bde6a04fde3b2b55b471972179bf6')
 

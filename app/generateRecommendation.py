@@ -1,4 +1,4 @@
-from app.randomCity import randomCityGenerator
+from app.getRandomCity import randomCityGenerator
 from app.watsonAPICall import getAverageSentiment, getKeywords
 from app.keywordsSynonyms import keywords
 from app.getCitySearchResultsURLs import getURLs
@@ -48,12 +48,13 @@ def createRecommend(formKeywords):
 
 #generate random cities
 def getRandomCities():
-    cities = set()
-    for i in range(1):
+    cities = {}
+    for i in range(2):
         #tempCity = randomCityGenerator()[2] --- change back to this for coty using country for testing
-        #tempCity = randomCityGenerator()[1] #COUNTRYYYY
-        tempCity = randomCityGenerator()[2] #CITYYYY
-        cities.add(tempCity)
+        region = randomCityGenerator()[0] #REGIONN
+        country = randomCityGenerator()[1] #COUNTRYYYY
+        city = randomCityGenerator()[2] #CITYYYY
+        cities[city] = [country, region]
     print(cities)
     return cities
 

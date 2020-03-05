@@ -17,10 +17,13 @@ def getCityFacts(city):
 
 def getCoordinates(city):
     data = getCityFacts(city)
+    print(data)
     latitude = data[0]['annotations']['DMS']['lat']
+    print(latitude)
     longitude = data[0]['annotations']['DMS']['lng']
-    lat = latitude[0:2]
-    lng = longitude[0:2]
+    print(longitude)
+    lat = latitude.partition("°")[0]
+    lng = longitude.partition("°")[0]
     return [lat, lng]
 
 
@@ -30,4 +33,3 @@ def getCountryCode(city):
     code = data[0]['components']['country_code']
     return code
 
-print(getCoordinates('London'))
