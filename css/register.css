@@ -156,7 +156,7 @@ form.user .btn-user {
 
 @media (max-width: 767.98px) {
     .container{width: 100%;}
-    .card{width:100%; margin: 0 auto;position: absolute; left: -36.6px;}
+    .card{width:100%; margin: 0 auto;position: absolute; left:-48px;}
 }
 
 @media (max-width: 991.98px) {

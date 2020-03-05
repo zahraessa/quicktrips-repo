@@ -1,6 +1,6 @@
 #mainNav {
   min-height: 56px;
-  background-color: #fff;
+  /*background-color: #fff;*/
 }
 
 #mainNav .navbar-toggler {
@@ -285,4 +285,34 @@ body h2 {
   font-family: 'Titillium Web';
   font-weight: 400;
   letter-spacing: 0.1rem;
+}
+
+@media (max-width: 575.98px) {
+
+
+}
+
+@media (max-width: 767.98px) {
+  .social-icons {
+    padding-left: 0px;
+    position: fixed;
+    margin-bottom: 2rem;
+    width: 20%;
+    height: 80%;
+    z-index: 2;
+}
+  .social-icons ul > li {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+}
+
+@media (max-width: 1100px) {
+
+}
+
+@media (max-width: 1199.98px) {
+
 }
