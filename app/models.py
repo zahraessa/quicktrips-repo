@@ -112,3 +112,7 @@ class ProcessedCity(db.Model):
     country = db.Column(db.String(140))
     keywords = db.Column(db.PickleType(True))
     sentiment = db.Column(db.Float)
+
+
+class CitiesToAvoid(db.Model):
+    city = db.Column(db.String(140), primary_key=True)

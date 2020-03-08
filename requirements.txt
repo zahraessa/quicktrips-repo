@@ -20,3 +20,5 @@ flask_wtf
 scabbard
 opencage
 unsplash-search
+python-social-auth==0.2.14
+kiwi-platform

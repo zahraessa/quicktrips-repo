@@ -56,14 +56,14 @@ except:
     #print(county)
     response = getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
 
-# for i in range(8):
-#     try:
-#         print(place[2])
-#         print(response["data"][i]["name"])
-#         print(response["data"][i]["price"])
-#         print(response["data"][i]["web_url"])
-#         print(response["data"][i]["address"])
-#         print(response["data"][i]["photo"]["images"]["large"]["url"])
-#         print("--------------------------------------")
-#     except:
-#         print("")
+for i in range(8):
+    try:
+        print(place[2])
+        print(response["data"][i]["name"])
+        print(response["data"][i]["price"])
+        print(response["data"][i]["web_url"])
+        print(response["data"][i]["address"])
+        print(response["data"][i]["photo"]["images"]["large"]["url"])
+        print("--------------------------------------")
+    except:
+        print("")
