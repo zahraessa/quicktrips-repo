@@ -3,7 +3,8 @@ from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
-from app.getimage import getCityImage
+from app.getImage import getCityImage
+
 
 
 @login.user_loader
@@ -46,6 +47,7 @@ class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(140))
     city = db.Column(db.String(140))
+    county = db.Column(db.String(140))
     hotel1 = db.Column(db.String(140))
     flight1 = db.Column(db.String(140))
     hotel2 = db.Column(db.String(140))
@@ -105,4 +107,8 @@ class Favourite(db.Model):
         return getCityImage(country)
 
 
-
+class ProcessedCity(db.Model):
+    city = db.Column(db.String(140), primary_key=True)
+    country = db.Column(db.String(140))
+    keywords = db.Column(db.PickleType(True))
+    sentiment = db.Column(db.Float)

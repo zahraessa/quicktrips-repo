@@ -1,5 +1,5 @@
 import requests
-from app.wikisearch import getWikiPages
+from app.getWikiPage import getWikiPages
 
 def getURLs(city):
     url = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI"
@@ -19,7 +19,7 @@ def getURLs(city):
 
     results.append(getWikiPages(city))
 
-    for i in range(5):
+    for i in range(2):
         try:
             results.append(jsonResp["value"][i]["url"])
         except:
@@ -36,7 +36,7 @@ def getURLs(city):
 
     jsonResp = response.json()
 
-    for i in range(5):
+    for i in range(2):
         try:
             results.append(jsonResp["value"][i]["url"])
         except:

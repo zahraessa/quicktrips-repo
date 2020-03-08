@@ -12,6 +12,7 @@
 7. Type "export FLASK_APP=app.py"
 8. Type "flask run"
 
+
 ##Preexisting login credentials:
 - Valid Username = 'z'
 - Valid Password = 'z'
