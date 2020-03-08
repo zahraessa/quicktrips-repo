@@ -49,24 +49,101 @@ function nextPrev(n) {
 
 function validateForm() {
   // This function deals with validation of the form fields
-  var x, y, i, valid = true;
+  var x, y, z, i, valid = true;
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
+  z = x[currentTab].getElementsByTagName("select");
+
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
-    if (y[i].value == "") {
+    if (y[i].value === "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
       // and set the current valid status to false:
       valid = false;
     }
   }
+
+  // A loop that checks every select field in the current tab:
+  for (i = 0; i < z.length; i++) {
+    // If a field is empty...
+    if (z[i].value === "") {
+      // add an "invalid" class to the field:
+      z[i].className += " invalid";
+      // and set the current valid status to false:
+      valid = false;
+    }
+  }
+
+  // If min is greater than max, then add is-invalid class
+  if (currentTab == 0) {
+    if (parseInt(z[0].value)  > parseInt(z[1].value)){
+      // add an "is-invalid" class to the field:
+      z[0].className += " is-invalid";
+      z[1].className += " is-invalid";
+      valid = false;
+    }
+  }
+
+  // If 0 person is selected, then add is-invalid class
+  if (currentTab == 1) {
+    if (z[0].value == "0"  && z[1].value == "0" && z[2].value == "0" && z[3].value == "0"){
+      // add an "is-invalid" class to the field:
+      z[0].className += " is-invalid";
+      z[1].className += " is-invalid";
+      z[2].className += " is-invalid";
+      z[3].className += " is-invalid";
+      z[4].className += " is-invalid";
+      valid = false;
+    }
+  }
+
+  if (currentTab == 2) {
+    var startDate = y[0].value.split("/");
+    var endDate = y[1].value.split("/");
+
+    // If start date is earlier than end date, then add is-invalid class
+    if((startDate[0] > endDate[0]) || ((startDate[0] === endDate[0]) && (startDate[1] > endDate[1])) || ((startDate[0] === endDate[0]) && (startDate[1] === endDate[1]) && (startDate[2] > endDate[2]))){
+      // add an "is-invalid" class to the field:
+      y[0].className += " is-invalid";
+      y[1].className += " is-invalid";
+      valid = false;
+    }
+
+    // If trip length longer than available date, then add is-invalid class
+    var start = new Date(y[0].value);
+    var end = new Date(y[1].value);
+    var inputLength = z[0].value;
+    var differenceInTime = end.getTime() - start.getTime();
+    var dateLength = differenceInTime / (1000 * 3600 * 24);
+    if(dateLength < inputLength) {
+      z[0].className += " is-invalid";
+      valid = false;
+    }
+  }
+
+
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
   }
   return valid; // return the valid status
+}
+
+function checkValid(currentTab) {
+  // If select is valid, then remove invalid class
+  var x = document.getElementsByClassName("tab");
+  var z = x[currentTab].getElementsByTagName("select");
+
+  for (i = 0; i < z.length; i++) {
+    if (z[i].value !== "") {
+      // remove an "invalid" class to the field:
+      var classVal = z[i].getAttribute("class");
+      classVal = classVal.replace("invalid", "").replace("is-invalid", "")
+      z[i].setAttribute("class", classVal);
+    }
+  }
 }
 
 function fixStepIndicator(n) {

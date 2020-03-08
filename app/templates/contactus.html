@@ -65,6 +65,7 @@
             <p class="mb-4 text-center">Everything is Welcome!</p>
           </div>
           <form class="user needs-validation" novalidate method="post">
+            {{ form.hidden_tag() }}
             <div class="row">
               <div class="col-6 form-group">
                 <input name="username" class="form-control form-control-user" placeholder="Your Name...">

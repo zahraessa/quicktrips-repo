@@ -69,7 +69,8 @@
 
           <div class="card mb-3">
             <div class="card-body">
-              <form class="user">
+              <form class="user" method="POST" novalidate>
+                {{ form.hidden_tag() }}
                 <div class="d-flex justify-content-center">
                   <img src="{{ url_for('static', filename='image/user.jpg') }}" width="200" height="200" alt="user" class="rounded-circle mb-3">
                 </div>

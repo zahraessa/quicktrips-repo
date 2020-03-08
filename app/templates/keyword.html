@@ -71,7 +71,8 @@
     <p>Don't hesitate. Each one is the best!</p>
   </div>
 
-
+  <form class="form-keywords" method="POST" novalidate>
+    {{ form.hidden_tag() }}
   <section id="photos">
     <label class="checkbox">
       <input class="form-check-input" type="checkbox" id="family">
@@ -359,10 +360,11 @@
       <span class="checkmark"></span>
     </label>
   </section>
+  </form>
 
   <!-- Done!-->
   <div class="justify-content-center pb-5 mb-5 px-5 mx-4">
-    <a href="result.html" class="btn btn-primary col js-scroll-trigger">Start Browser my trip!</a>
+    <a href="result.html" class="btn btn-primary col js-scroll-trigger">See Recommendations!</a>
   </div>
 
   <!-- FOOTER -->
