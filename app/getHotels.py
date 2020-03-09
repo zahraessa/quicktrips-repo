@@ -1,6 +1,7 @@
 import requests
 from app.getCityDetails import getCityId
 from app.getRandomCity import randomCityGenerator
+from app.getCityCoordinates import getCoordinates
 
 
 # the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
@@ -38,41 +39,90 @@ def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, tr
                 response = requests.request("GET", url, headers=headers, params=querystring)
                 return response
             except:
-                return ""
+                return "AAAA"
 
 
-def getHotelName(city, i):
+def getHotelName(i, text):
     try:
-        return getHotelDetails(city).json()['data'][i]['name']
+        name = text['data'][i]['name']
+        return name
     except:
         return ""
 
 
-def getHotelPhoto(city, i):
+def getHotelPhoto(i, text):
     try:
-        photo = getHotelDetails(city).json()['data'][i]['photo']['images']['large']['url']
+        photo = text['data'][i]['photo']['images']['large']['url']
         return photo
     except:
         return ""
 
 
+def getHotelPrice(i, text):
+    try:
+        price = text['data'][i]['price']
+        return price
+    except:
+        return ""
 
 
-a = randomCityGenerator()
-try:
-    city = a[2]
-    print(city)
-    # coordinates = getCoordinates(city)
-    # print(coordinates)
-    response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
-    print(response.text)
-    if response.json()[1]["status"]["unfiltered_total_size"].__str__:
-        print('iiiiiii')
-        raise Exception("Invalid")
-except:
-    county = a[0]
-    print(county)
-    # coordinates = getCoordinates(city)
-    # print(coordinates)
-    print(getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD"))
+def getHotelBookingURL(i, text):
+    try:
+        url = text['data'][i]['web_url']
+        return url
+    except:
+        return ""
 
+def getHotelClass(i, text):
+    try:
+        hotelClass = text['data'][i]['hotel_class']
+        return hotelClass
+    except:
+        return ""
+
+
+
+def getHotelList(city, country, region, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
+    response = ""
+    try:
+        response = getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+    except:
+        try:
+            response = getHotelDetails(region, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+        except:
+            try:
+                response = getHotelDetails(country, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+            except:
+                print("NONE")
+                return "None found"
+
+    hotels = {}
+    for i in range(6):
+        try:
+            hotels[city] = [getHotelName(i, response), getHotelPhoto(i, response), getHotelBookingURL(i, response),
+                            getHotelClass(i, response), getHotelPrice(i, response)]
+        except:
+            break
+    return hotels
+
+
+
+
+
+
+origin = "London"
+adults = 3
+children = 2
+numberOfPeople = adults + children
+startdate = "2020-05-21"
+enddate = "2020-05-25"
+currency = "USD"
+maxbudget = 10000
+minbudget = 0
+triplength = 3
+keywords = ["family", "wilderness", "food", "warm", "shopping"]
+
+hotels = getHotelList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
+
+for hotel in hotels:
+    print(hotels[hotel])

@@ -41,29 +41,29 @@ def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, tr
                 return ""
 
 
-place = randomCityGenerator()
-try:
-    city = place[2]
-    #print(city)
-    # coordinates = getCoordinates(city)
-    # print(coordinates)
-    response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
-    if response.json()[1]["status"]["unfiltered_total_size"].__str__:
-        print('iiiiiii')
-        raise Exception("Invalid")
-except:
-    county = place[0]
-    #print(county)
-    response = getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
-
-for i in range(8):
-    try:
-        print(place[2])
-        print(response["data"][i]["name"])
-        print(response["data"][i]["price"])
-        print(response["data"][i]["web_url"])
-        print(response["data"][i]["address"])
-        print(response["data"][i]["photo"]["images"]["large"]["url"])
-        print("--------------------------------------")
-    except:
-        print("")
+# place = randomCityGenerator()
+# try:
+#     city = place[2]
+#     #print(city)
+#     # coordinates = getCoordinates(city)
+#     # print(coordinates)
+#     response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
+#     if response.json()[1]["status"]["unfiltered_total_size"].__str__:
+#         print('iiiiiii')
+#         raise Exception("Invalid")
+# except:
+#     county = place[0]
+#     #print(county)
+#     response = getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
+#
+# for i in range(8):
+#     try:
+#         print(place[2])
+#         print(response["data"][i]["name"])
+#         print(response["data"][i]["price"])
+#         print(response["data"][i]["web_url"])
+#         print(response["data"][i]["address"])
+#         print(response["data"][i]["photo"]["images"]["large"]["url"])
+#         print("--------------------------------------")
+#     except:
+#         print("")

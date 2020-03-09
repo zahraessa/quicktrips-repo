@@ -43,5 +43,3 @@ def getCityImage(city):
     except:
         return 'https://images.pexels.com/photos/373912/pexels-photo-373912.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
 
-
-getCountryId('United Kingdom').text

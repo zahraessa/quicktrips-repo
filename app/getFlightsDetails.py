@@ -3,14 +3,14 @@ from app.getRandomCity import randomCityGenerator
 import json
 
 
-def generateClosestAirports(location):
+def generateClosestAirport(location):
     url = "https://tripadvisor1.p.rapidapi.com/airports/search"
     try:
         querystring = {"locale": "en_US", "query": location}
 
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+            'x-rapidapi-key': "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
         }
 
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -18,37 +18,35 @@ def generateClosestAirports(location):
             raise Exception("Invalid")
         else:
             airports = json.loads(response.text)
-            airportCodes = []
-            for airport in airports:
-                airportCodes.append(airport["code"])
-            return airportCodes
+            airportCode = airports[0]["code"]
+            return airportCode
     except:
         return "NO AIRPORT"
 
 
-def createFlightSession(originAirports, destinationAirports, adults, childAges, startdate, enddate, currency):
+def createFlightSession(originAirport, destinationAirport, adults, childAges, startdate, enddate, currency):
     flights = []
     url = "https://tripadvisor1.p.rapidapi.com/flights/create-session"
     searches = []
 
-    for originAirport in originAirports:
-        for destinationAirport in destinationAirports:
-            querystring = {"dd2": enddate, "currency": currency, "o2": destinationAirport, "d2": originAirport,
-                           "ta": adults, "tc": childAges, "d1": destinationAirport, "o1": originAirport,
-                           "dd1": startdate}
+    #print(originAirport)
+    #print(destinationAirport)
+    querystring = {"dd2": enddate, "currency": currency, "o2": destinationAirport, "d2": originAirport,
+                   "ta": adults, "tc": childAges, "d1": destinationAirport, "o1": originAirport,
+                   "dd1": startdate}
 
-            headers = {
-                'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                'x-rapidapi-key': "999c2985c6msh57d4cee167153ebp1476fdjsn9614b09d1759"
-            }
+    headers = {
+        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+        'x-rapidapi-key': "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+    }
 
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            # print(response.text)
-            try:
-                flights.append([response.json(), originAirport, destinationAirport])
-            except:
-                print("AA")
-                return
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    #print(response.text)
+    try:
+        flights.append([response.json(), originAirport, destinationAirport])
+    except:
+        pass
+        #print("AA")
 
     if len(flights) > 0:
         for flight in flights:
@@ -59,46 +57,53 @@ def createFlightSession(originAirports, destinationAirports, adults, childAges, 
             try:
                 itineraries = []
                 sh = flight[0]["summary"]["sh"]
-                # print("sh: " + sh)
+                #print("sh: " + sh)
                 sid = flight[0]["search_params"]["sid"]
-                # print("sid: " + sid)
-                f = getFlightPoll(sid)
-                # print(f)
+                #print("sid: " + sid)
+                f = getFlightPoll(sid, currency)
+                #print(f)
                 # print("++++++++++")
                 for i in f["itineraries"]:
+                    #print("i")
+                    #print(i)
                     for j in i["l"]:
+                        #print("j")
+                        #print(j)
                         x = j["id"]
+                        #print("x")
+                        #print(x)
                         itineraries.append([x, j["pr"]])
                 searches.append([originAirport, destinationAirport, sh, sid, itineraries])
 
             except:
+                pass
                 # print(f)
                 #print("none")
-                print("BBB")
-                return
+                #print("BBB")
             #print("-------------------------------------------")
     else:
         # TODO: REMOVE SUGGESTION IF NO FLIGHTS
         #print("No flights available")
-        print("CCC")
+        #print("CCC")
         return
 
     if len(searches) > 0:
-        getBookingURL(searches)
+        return getBookingURL(searches)
     else:
         # TODO: REMOVE SUGGESTION IF NO FLIGHTS
-        print("REDO")
+        #print("REDO")
+        return
+    return
 
-
-def getFlightPoll(sid):
+def getFlightPoll(sid, currency):
     url = "https://tripadvisor1.p.rapidapi.com/flights/poll"
 
-    querystring = {"currency": "GBP", "n": "3", "ns": "NON_STOP%2CONE_STOP", "so": "PRICE", "o": "0",
+    querystring = {"currency": currency, "n": "6", "ns": "NON_STOP%2CONE_STOP", "so": "PRICE", "o": "0",
                    "sid": sid}
 
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        'x-rapidapi-key': "999c2985c6msh57d4cee167153ebp1476fdjsn9614b09d1759"
+        'x-rapidapi-key': "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -124,11 +129,11 @@ def getBookingURL(searches):
             bookingURLS.append([itinerary[1]['p'], response.json()["partner_url"]])
 
     try:
-        for u in bookingURLS:
-            print("URL:")
-            print(u[1])
-            print("Price:")
-            print(u[0])
+        # for u in bookingURLS:
+        #     print("URL:")
+        #     print(u[1])
+        #     print("Price:")
+        #     print(u[0])
         return bookingURLS
     except:
 
@@ -136,22 +141,43 @@ def getBookingURL(searches):
         print("REMOVE RECOMMENDATION")
 
 
-def process(originCode, destinationCode):
-    o = randomCityGenerator()
-    d = randomCityGenerator()
+def getFlights(origin, destination, country, region, numberOfPeople, startdate, enddate, currency):
+    print("-----------------------------------------------------------------------")
+    #print(origin)
+    #print(destination)
+    originCode = generateClosestAirport(origin)
+    #print(originCode)
+    destinationCode = generateClosestAirport(destination)
+    #print(destinationCode)
 
-    # print("-----------------------------------------------------------------------")
-    originAirports = generateClosestAirports(originCode)
-    print(originAirports)
-    destinationAirports = generateClosestAirports(destinationCode)
-    print(destinationAirports)
-
-    if len(destinationAirports) != 0 and len(originAirports) != 0:
-        createFlightSession(originAirports, destinationAirports, "1", "", "2020-04-25", "2020-05-28", "GBP")
+    if destinationCode != "NO AIRPORT" and originCode != "NO AIRPORT":
+        #print("city - FOUND")
+        x = createFlightSession(originCode, destinationCode, numberOfPeople, "", startdate, enddate, currency)
+        #print(x)
+        return x
     else:
-        # TODO: Remove recommendation if has no airports - add to don't visit table in db
-        print("REMOVE RECOMMENDATION")
-
-
-process("Bahrain", "London")
-
+        originCode = generateClosestAirport(origin)
+        #print(originCode)
+        #print(region)
+        destinationCode = generateClosestAirport(region)
+        #print(destinationCode)
+        if destinationCode != "NO AIRPORT" and originCode != "NO AIRPORT":
+            #print("region - FOUND")
+            x = createFlightSession(originCode, destinationCode, numberOfPeople, "", startdate, enddate, currency)
+            #print(x)
+            return x
+        else:
+            originCode = generateClosestAirport(origin)
+            #print(originCode)
+            destinationCode = generateClosestAirport(country)
+            #print(country)
+            #print(destinationCode)
+            if destinationCode != "NO AIRPORT" and originCode != "NO AIRPORT":
+                #print("country - FOUND")
+                x = createFlightSession(originCode, destinationCode, numberOfPeople, "", startdate, enddate, currency)
+                #print(x)
+                return x
+            else:
+                # TODO: Remove recommendation if has no airports - add to don't visit table in db
+                print("REMOVE RECOMMENDATION")
+                pass

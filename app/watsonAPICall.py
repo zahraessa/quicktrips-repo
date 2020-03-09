@@ -27,8 +27,9 @@ def getAverageSentiment(urls):
                     keywords=KeywordsOptions(emotion=True, sentiment=True, limit=3),
                     categories=CategoriesOptions(limit=5))).get_result()
         except:
-            print(url)
-            print("invalid url")
+            pass
+            # print(url)
+            # print("invalid url")
 
     for i in range(5):
         try:
@@ -38,7 +39,6 @@ def getAverageSentiment(urls):
                 count += 1
                 sentiment_sum += sentiment_value
         except:
-            print('a')
             break
 
     try:
@@ -63,14 +63,14 @@ def getKeywords(urls):
 
             # print(json.dumps(response, indent=2))
         except:
-            print(url)
-            print("invalid url")
+            pass
+            # print(url)
+            # print("invalid url")
         # print(words)
         for i in range(5):
             try:
                 words.append(response['keywords'][i]["text"])
                 words.append(response['categories'][i]["label"])
             except:
-                print('b')
                 break
     return words

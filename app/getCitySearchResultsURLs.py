@@ -19,11 +19,12 @@ def getURLs(city):
 
     results.append(getWikiPages(city))
 
-    for i in range(2):
+    for i in range(4):
         try:
             results.append(jsonResp["value"][i]["url"])
         except:
-            print("No URL")
+            pass
+            # print("No URL")
 
     querystring = {"autoCorrect": "true", "pageNumber": "1", "pageSize": "20", "q": ("things to do " + city), "safeSearch": "true"}
 
@@ -36,11 +37,12 @@ def getURLs(city):
 
     jsonResp = response.json()
 
-    for i in range(2):
+    for i in range(4):
         try:
             results.append(jsonResp["value"][i]["url"])
         except:
-            print("No URL")
+            pass
+            #print("No URL")
 
 
     return results

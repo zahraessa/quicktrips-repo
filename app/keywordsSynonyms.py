@@ -4,7 +4,11 @@ keywords = {
         "friendly",
         "group",
         "children",
-        "kids"
+        "kids",
+        "comfortable",
+        "zoo",
+        "pets",
+        "big city"
     ],
     "wilderness": [
         "wilderness",
@@ -23,6 +27,13 @@ keywords = {
         "expedition",
         "trek",
         "hike"
+        "wildlife",
+        "pet",
+        "park",
+        "agriculture",
+        "nautical",
+        "zoo",
+        "river"
     ],
     "culinary": [
         "culinary",
@@ -41,7 +52,12 @@ keywords = {
         "brew",
         "masala",
         "seasoning",
-        "local"
+        "local",
+        "drink",
+        "dessert",
+        "dining",
+        "cookies",
+        "cake"
     ],
     "cultural": [
         "cultural",
@@ -54,7 +70,8 @@ keywords = {
         "explore",
         "monument",
         "history",
-        "landscape"
+        "landscape",
+        "historical"
     ],
     "volunteer": [
         "volunteer",
@@ -79,7 +96,10 @@ keywords = {
         "break"
         "alone",
         "refreshing",
-        "adventure"
+        "adventure",
+        "exercise",
+        "spirituality",
+        "religion"
     ],
     "adventure": [
         "adventure",
@@ -99,7 +119,9 @@ keywords = {
         "safari",
         "cruise",
         "expedition",
-        "trek"
+        "trek",
+        "exercise",
+        "fitness"
     ],
     "self drive": [
         "self drive",
@@ -110,7 +132,9 @@ keywords = {
         "solo",
         "remote",
         "freedom",
-        "meditate"
+        "meditate",
+        "spirituality",
+        "religion"
     ],
     "accessible": [
         "accessible",
@@ -157,7 +181,9 @@ keywords = {
         "party",
         "nightlife",
         "night",
-        "lively"
+        "lively",
+        "music",
+        "entertainment"
     ],
     "cold": [
         "snow",
@@ -165,6 +191,10 @@ keywords = {
         "ice"
     ],
     "shopping": [
+        "shopping",
+        "shop",
+        "store",
+        "stores",
         "mall",
         "centre",
         "shops",
@@ -212,6 +242,19 @@ keywords = {
         "taste",
         "flavour",
         "market",
-        "restaurant"
+        "restaurant",
+        "food",
+        "cuisine",
+        "seasoning",
+        "chef",
+        "baking",
+        "authentic",
+        "brew",
+        "masala",
+        "seasoning",
+        "local",
+        "drink",
+        "dessert",
+        "dining"
     ]
 }
