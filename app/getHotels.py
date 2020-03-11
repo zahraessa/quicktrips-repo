@@ -6,6 +6,26 @@ from app.getCityCoordinates import getCoordinates
 
 # the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
 
+def generateList(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
+    cityid = getCityId(city)
+    querystring = {"zff": "4%2C6", "pricesmin": minbudget, "offset": "0", "subcategory": "hotel%2Cbb%2Cspecialty",
+                   "pricesmax": maxbudget, "hotel_class": "1%2C2%2C3", "currency": currency,
+                   "amenities": "beach%2Cbar_lounge%2Cairport_transportation", "child_rm_ages": childAges, "limit": "6",
+                   "checkin": startdate, "order": "asc", "lang": "en_US", "sort": "price", "nights": triplength,
+                   "location_id": cityid, "adults": adults, "rooms": "2"}
+
+    headers = {
+        'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
+        "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    print(response)
+    return response.json()
+
+
+
+
 def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
     cityid = getCityId(city)
     print(cityid)
@@ -109,20 +129,22 @@ def getHotelList(city, country, region, maxbudget, minbudget, adults, childAges,
 
 
 
-
-origin = "London"
-adults = 3
-children = 2
-numberOfPeople = adults + children
-startdate = "2020-05-21"
-enddate = "2020-05-25"
-currency = "USD"
-maxbudget = 10000
-minbudget = 0
-triplength = 3
-keywords = ["family", "wilderness", "food", "warm", "shopping"]
-
-hotels = getHotelList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
-
-for hotel in hotels:
-    print(hotels[hotel])
+#
+# origin = "London"
+# adults = 3
+# children = 2
+# numberOfPeople = adults + children
+# startdate = "2020-05-21"
+# enddate = "2020-05-25"
+# currency = "USD"
+# maxbudget = 10000
+# minbudget = 0
+# triplength = 3
+# keywords = ["family", "wilderness", "food", "warm", "shopping"]
+# #
+# # hotels = getHotelList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
+# #
+# # for hotel in hotels:
+# #     print(hotels[hotel])
+#
+# #generateList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
