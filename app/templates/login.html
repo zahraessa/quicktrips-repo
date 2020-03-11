@@ -43,20 +43,25 @@
                     <form class="form-login" method="POST"novalidate >
                         {{ form.hidden_tag() }}
                      <div class="form-group">
-                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                       <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Your username..." oninput="this.className='form-control form-control-user'">
+                       <div class="invalid-feedback">
+                           Your username is not recorded, please register before login!
+                       </div>
                      </div>
                      <div class="form-group">
-                       <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                       <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" oninput="this.className='form-control form-control-user'">
+                       <div class="invalid-feedback">
+                           This password does not match the username!
+                       </div>
                      </div>
                      <div class="form-group">
                        <div class="custom-control custom-checkbox small">
-                         <input type="checkbox" class="custom-control-input" id="customCheck">
-                         <label class="custom-control-label" for="customCheck">Remember Me</label>
+                         <input type="checkbox" class="custom-control-input" id="rememberme">
+                         <label class="custom-control-label" for="rememberme">Remember Me</label>
                        </div>
                      </div>
-                     <a href="/index" class="btn btn-next btn-user btn-block">
-                       Login
-                     </a>
+                     <al class="btn btn-next btn-user btn-block" onclick="submit()">Login</al>
+
                      <hr>
                      <div class="row">
                        <p class="mr-3 ml-4 mt-4">Login with:</p>
@@ -71,7 +76,6 @@
                          </a>
                        </div>
                      </div>
-                   </form>
                    <hr>
                    <div class="text-center">
                      <a class="small" style="color: #385f71" href="/forgetpw">Forgot Password?</a>
@@ -96,6 +100,13 @@
      </div>
 
    </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
  </body>
 

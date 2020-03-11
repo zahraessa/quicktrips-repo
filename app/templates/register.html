@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="{{ url_for('static', filename='ccss/register.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/register.css') }}" rel="stylesheet">
 
 </head>
 
@@ -48,57 +48,66 @@
 
           <div class="px-5 pb-3">
             <form class="form-register" method="POST" novalidate>
-              {{ form.hidden_tag() }}
+                {{ form.hidden_tag() }}
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <label for="FirstName">First Name</label>
-                  <input type="text" class="form-control form-control-user" id="FirstName">
+                  <label for="firstName">First Name</label>
+                  <input type="text" class="form-control form-control-user" name="firstname" id="firstName" oninput="this.className='form-control form-control-user'">
                 </div>
                 <div class="col-sm-6">
-                  <label for="LastName">Last Name</label>
-                  <input type="text" class="form-control form-control-user" id="LastName">
+                  <label for="surname">Last Name</label>
+                  <input type="text" class="form-control form-control-user" id="surname" name="surname" oninput="this.className='form-control form-control-user'">
                 </div>
               </div>
               <div class="form-group">
-                <label for="Username">User Name</label>
-                <input type="text" class="form-control form-control-user" id="Username">
+                <label for="username">User Name</label>
+                <input type="text" class="form-control form-control-user" id="username" name="username" oninput="this.className='form-control form-control-user'">
+                <div class="invalid-feedback">
+                    This username has already been used by someone.
+                </div>
               </div>
               <div class="form-group">
-                <label for="Email">Email Address</label>
-                <input type="email" class="form-control form-control-user" id="Email">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control form-control-user" id="email" name="email" oninput="this.className='form-control form-control-user'">
+                <div class="invalid-feedback">
+                    This email has already been registered.
+                </div>
               </div>
               <div class="form-group row">
                 <div class="col-sm-8 mb-3 mb-sm-0">
-                  <label for="Address">Address</label>
-                  <input type="text" class="form-control form-control-user" id="Address">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control form-control-user" id="address" name="address" oninput="this.className='form-control form-control-user'">
                 </div>
                 <div class="col-sm-4">
-                  <label for="Postcode">Postcode</label>
-                  <input type="text" class="form-control form-control-user" id="Postcode">
+                  <label for="postcode">Postcode</label>
+                  <input type="text" class="form-control form-control-user" id="postcode" name="postcode" oninput="this.className='form-control form-control-user'">
                 </div>
               </div>
 
-              <div class="form-group row">
+
+                <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                  <label for="Country">Country</label>
-                  <input type="text" class="form-control form-control-user" id="Country">
+                  <label for="country">Country</label>
+                  <select name="country" class="form-control form-control-user" id="country"  onchange="this.className='form-control form-control-user'">
+                  </select>
+                  <!--<input type="text" class="form-control form-control-user" id="country" name="country" oninput="this.className='form-control form-control-user'">-->
                 </div>
                 <div class="col-sm-6">
-                  <label for="City">City</label>
-                  <input type="text" class="form-control form-control-user" id="City">
+                  <label for="state">State</label>
+                  <select name="state" class="form-control form-control-user" id="state" onchange="this.className='form-control form-control-user'"></select>
+                  <!--<input type="text" class="form-control form-control-user" id="city" name="city" oninput="this.className='form-control form-control-user'">-->
                 </div>
               </div>
+
               <div class="form-group">
-                <label for="Password">Password</label>
-                <input type="password" class="form-control form-control-user" id="Password">
+                <label for="password">Password</label>
+                <input type="password" class="form-control form-control-user" id="password" name="password" oninput="this.className='form-control form-control-user'">
               </div>
               <div class="form-group">
-                <label for="RepeatPassword">Repeat Password</label>
-                <input type="password" class="form-control form-control-user" id="RepeatPassword">
+                <label for="password2">Repeat Password</label>
+                <input type="password" class="form-control form-control-user" id="password2" name="password2" oninput="this.className='form-control form-control-user'">
               </div>
-              <a href="/login" class="btn btn-next btn-user btn-block">
-                Register Account
-              </a>
+              <al class="btn btn-next btn-user btn-block" onclick="submit()">Register</al>
             </form>
             <hr>
             <div class="text-center">
@@ -109,6 +118,17 @@
       </div>
     </div>
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- Js Plugin for country-state picker -->
+  <script src="{{ url_for('static', filename='List_Country_State-master/countries.js') }}"></script>
+  <script language="javascript">populateCountries("country", "state");</script>
+
+  <!-- Custom styles for this template -->
+  <script src="{{ url_for('static', filename='js/register.js') }}"></script>
 </body>
 
 </html>

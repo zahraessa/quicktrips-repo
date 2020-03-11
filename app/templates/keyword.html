@@ -75,7 +75,7 @@
     {{ form.hidden_tag() }}
   <section id="photos">
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="family">
+      <input class="form-check-input" type="checkbox" value="family" name="keywords">
       <li type="checkbox" class="portfolio-box mb-2">
         <img src="{{ url_for('static', filename='image/family.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -88,7 +88,7 @@
     </label>
     
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="adventure">
+      <input class="form-check-input" type="checkbox" value="adventure" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/adventure.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -101,7 +101,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="friends">
+      <input class="form-check-input" type="checkbox" value="friends" name="keywords">
       <li type="checkbox" class="portfolio-box mb-2">
         <img src="{{ url_for('static', filename='image/friends.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -114,7 +114,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="wilderness">
+      <input class="form-check-input" type="checkbox" value="wilderness" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/wilderness.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -127,7 +127,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="culinary">
+      <input class="form-check-input" type="checkbox" value="culinary" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/culinary.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -140,7 +140,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="accessible">
+      <input class="form-check-input" type="checkbox" value="accessible" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/accessible.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -153,7 +153,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="cultural">
+      <input class="form-check-input" type="checkbox" value="cultural" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/cultural.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -166,7 +166,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="sightseeing">
+      <input class="form-check-input" type="checkbox" value="sightseeing" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/sightseeing.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -179,7 +179,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="solo">
+      <input class="form-check-input" type="checkbox" value="solo" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/solo.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -192,7 +192,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="selfdrive">
+      <input class="form-check-input" type="checkbox" value="selfdrive" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/selfdrive.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -205,7 +205,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="lastminute">
+      <input class="form-check-input" type="checkbox" value="lastminute" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/lastminute.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -218,7 +218,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="snow">
+      <input class="form-check-input" type="checkbox" value="snow" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/snow.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -231,7 +231,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="beach">
+      <input class="form-check-input" type="checkbox" value="beach" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/beach.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -244,7 +244,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="volunteer">
+      <input class="form-check-input" type="checkbox" value="volunteer" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/volunteer.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -257,7 +257,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="partying">
+      <input class="form-check-input" type="checkbox" value="partying" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/partying.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -270,7 +270,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="cold">
+      <input class="form-check-input" type="checkbox" value="cold" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/cold.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -283,7 +283,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="shopping">
+      <input class="form-check-input" type="checkbox" value="shopping" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/shopping.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -296,7 +296,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="romantic">
+      <input class="form-check-input" type="checkbox" value="romantic" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/romantic.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -309,7 +309,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="warm">
+      <input class="form-check-input" type="checkbox" value="warm" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/warm.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -322,7 +322,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="themepark">
+      <input class="form-check-input" type="checkbox" value="themepark" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/themepark.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -335,7 +335,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="watersports">
+      <input class="form-check-input" type="checkbox" value="watersports" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/watersports.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -348,7 +348,7 @@
     </label>
 
     <label class="checkbox">
-      <input class="form-check-input" type="checkbox" id="food">
+      <input class="form-check-input" type="checkbox" value="food" name="keywords">
       <li class="portfolio-box my-2">
         <img src="{{ url_for('static', filename='image/food.jpg') }}" alt="">
         <div class="portfolio-box-caption">
@@ -364,7 +364,7 @@
 
   <!-- Done!-->
   <div class="justify-content-center pb-5 mb-5 px-5 mx-4">
-    <a href="result.html" class="btn btn-primary col js-scroll-trigger">See Recommendations!</a>
+    <button class="btn btn-primary btn-block js-scroll-trigger" name="submit" value="submit">See Recommendations!</button>
   </div>
 
   <!-- FOOTER -->

@@ -40,7 +40,7 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
-    self.location.href="http://127.0.0.1:5000/keyword";
+    document.getElementById("queForm").submit();
     return false;
   }
   // Otherwise, display the correct tab:
