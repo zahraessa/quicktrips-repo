@@ -1,7 +1,7 @@
 function submit() {
   // Exit the function if any field in the current tab is invalid:
   if (!validateForm()) return false;
-  document.getElementById("queForm").submit();
+  document.getElementById("form-register").submit();
 }
 
 
