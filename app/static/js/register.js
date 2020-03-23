@@ -1,7 +1,8 @@
 function submit() {
   // Exit the function if any field in the current tab is invalid:
   if (!validateForm()) return false;
-  document.getElementById("form-register").submit();
+  // Add submit keyword in value and name so that flask get the form
+  addSubmit();
 }
 
 
@@ -28,4 +29,17 @@ function validateForm() {
       y[i].className += " invalid";
     }
   }
+}
+
+function addSubmit(){
+  var x = document.getElementById("form-register-button")
+
+  var nameVal = x.getAttribute("name");
+  var valueVal = x.getAttribute("value");
+
+  nameVal = nameVal.add("submit");
+  valueVal = valueVal.add("submit");
+
+  x.setAttribute("name", nameVal);
+  x.setAttribute("value", valueVal);
 }

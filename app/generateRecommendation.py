@@ -94,4 +94,4 @@ def pickRecommendation(citiesdict):
 
 
 # select recommendation - highest number of keywords + highest sentiment score
-createRecommend(["family", "self drive", "accessible", "cold", "shopping"])
+#createRecommend(["family", "self drive", "accessible", "cold", "shopping"])

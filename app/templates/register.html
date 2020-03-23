@@ -20,6 +20,8 @@
   <!-- Custom styles for this template-->
   <link href="{{ url_for('static', filename='css/register.css') }}" rel="stylesheet">
 
+  <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}">
+
 </head>
 
 <body>
@@ -107,7 +109,7 @@
                 <label for="password2">Repeat Password</label>
                 <input type="password" class="form-control form-control-user" id="password2" name="password2" oninput="this.className='form-control form-control-user'">
               </div>
-              <al class="btn btn-next btn-user btn-block" onclick="submit()">Register</al>
+              <button class="btn btn-next btn-user btn-block" id="form-register-button" onclick="submit()" name="" value="">Register</button>
             </form>
             <hr>
             <div class="text-center">

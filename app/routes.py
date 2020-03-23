@@ -188,7 +188,7 @@ def edit_profile():
         current_user.postcode = form.postcode.data
         current_user.set_password(form.newPassword.data)
         db.session.commit()
-        flash('Your changes have been saved.')
+        print('Your changes have been saved.')
         return redirect(url_for('index'))
     elif request.method == 'GET':
         form.firstname.data = current_user.firstname

@@ -56,23 +56,23 @@ def getHotelPhoto(city, i):
         return ""
 
 
-
-
-a = randomCityGenerator()
-try:
-    city = a[2]
-    print(city)
-    # coordinates = getCoordinates(city)
-    # print(coordinates)
-    response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
-    print(response.text)
-    if response.json()[1]["status"]["unfiltered_total_size"].__str__:
-        print('iiiiiii')
-        raise Exception("Invalid")
-except:
-    county = a[0]
-    print(county)
-    # coordinates = getCoordinates(city)
-    # print(coordinates)
-    print(getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD"))
-
+#
+#
+# a = randomCityGenerator()
+# try:
+#     city = a[2]
+#     print(city)
+#     # coordinates = getCoordinates(city)
+#     # print(coordinates)
+#     response = getHotelDetails(city, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD")
+#     print(response.text)
+#     if response.json()[1]["status"]["unfiltered_total_size"].__str__:
+#         print('iiiiiii')
+#         raise Exception("Invalid")
+# except:
+#     county = a[0]
+#     print(county)
+#     # coordinates = getCoordinates(city)
+#     # print(coordinates)
+#     print(getHotelDetails(county, "10000", "300", "2", "7%2C10", "2020-06-08", "2", "USD"))
+#

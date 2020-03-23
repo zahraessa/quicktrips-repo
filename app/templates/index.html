@@ -88,7 +88,7 @@
            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                  <div class="carousel-item active">
-                   <div id="portfolio">
+                   <div >
                      <div class="container-fluid">
                        <div class="row">
                          {% for recommendation in current_user.recommendations %}
@@ -111,7 +111,7 @@
                     </div>
                  </div>
                  <div class="carousel-item">
-                   <div id="portfolio">
+                   <div>
                      <div class="container-fluid">
                        <div class="row">
                          {% for recommendation in current_user.recommendations %}
@@ -154,7 +154,7 @@
           <div class="row">
             <i class="icon fas fa-route pl-3"></i>
             <div class="row pt-5 d-flex justify-content-left">
-              <a href="{{ url_for('que') }}" class="btn btn-primary ">Get Started</a>
+              <a href="/que" class="btn btn-primary ">Get Started</a>
               <p class="choice pl-2">TO search according to interests</p>
             </div>
           </div>

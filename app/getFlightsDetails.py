@@ -108,7 +108,7 @@ def process():
         #TODO: Remove recommendation if has no airports - add to don't visit table in db
         print("REMOVE RECOMMENDATION")
         process()
-
-
-
-process()
+#
+#
+#
+# process()

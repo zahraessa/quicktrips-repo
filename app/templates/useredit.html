@@ -78,28 +78,28 @@
                 <a href="/usereditname" class="list-group-item stretched-link d-flex justify-content-between">
                   <div class="row">
                     <p class="heading col mt-auto">NAME</p>
-                    <p class="content col firstname">Jingyi</p>
-                    <p class="content col lastname">Zhang</p>
+                    <p class="content col firstname">{{current_user.firstname}}</p>
+                    <p class="content col lastname">{{current_user.surname}}</p>
                   </div>
                   <p class="heading">></p>
                 </a>
                 <a href="/usereditusername" class="list-group-item stretched-link d-flex justify-content-between">
                   <div class="row">
                     <p class="heading col mt-auto">USERNAME</p>
-                    <p class="content col username">Zmsw</p>
+                    <p class="content col username">{{current_user.username}}</p>
                   </div>
                   <p class="heading">></p>
                 </a>
                 <li class="list-group-item stretched-link d-flex justify-content-between">
                   <div class="row">
                     <p class="heading col mt-auto">USER ID</p>
-                    <p class="content col userid">12345678</p>
+                    <p class="content col userid">{{current_user.id}}</p>
                   </div>
                 </li>
                 <a href="/usereditemail" class="list-group-item stretched-link d-flex justify-content-between">
                   <div class="row">
                     <p class="heading col mt-auto">EMAIL ADDRESS</p>
-                    <p class="content col email">sthsthsth@gmail.com</p>
+                    <p class="content col email">{{current_user.email}}</p>
                   </div>
                   <p class="heading">></p>
                 </a>
@@ -122,19 +122,19 @@
                   <div class="col-9">
                     <div class="row">
                       <p class="heading col-4 mt-auto">ADDRESS</p>
-                      <p class="content col address">1 Cartwright Gardens, Kings Cross, London</p>
+                      <p class="content col address">{{current_user.address}}</p>
                     </div>
                     <div class="row">
                       <p class="heading col-4 mt-auto">POSTCODE</p>
-                      <p class="content col postcode">WC1H 9EN</p>
+                      <p class="content col postcode">{{current_user.postcode}}</p>
                     </div>
                     <div class="row">
                       <p class="heading col-4 mt-auto">COUNTRY</p>
-                      <p class="content col country">United Kingdom</p>
+                      <p class="content col country">{{current_user.country}}</p>
                     </div>
                     <div class="row">
                       <p class="heading col-4 mt-auto">CITY</p>
-                      <p class="content col city">London</p>
+                      <p class="content col city">{{current_user.city}}</p>
                     </div>
                   </div>
                   <p class="heading">></p>

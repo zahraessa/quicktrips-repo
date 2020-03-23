@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
 
+      <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}">
  </head>
 
  <body>
@@ -40,8 +41,8 @@
                      <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                    </div>
 
-                    <form id="form-login" class="form-login" method="POST"novalidate >
-                        {{ form.hidden_tag() }}
+                    <form id="form-login" class="form-login" method="POST" novalidate >
+
                      <div class="form-group">
                        <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Your username..." oninput="this.className='form-control form-control-user'">
                        <div class="invalid-feedback">
@@ -60,8 +61,8 @@
                          <label class="custom-control-label" for="rememberme">Remember Me</label>
                        </div>
                      </div>
-                     <al class="btn btn-next btn-user btn-block" onclick="submit()">Login</al>
-
+                     <button class="btn btn-next btn-user btn-block" name="" value="" id="form-login-button" onclick="submit()">Login</button>
+                        </form>
                      <hr>
                      <div class="row">
                        <p class="mr-3 ml-4 mt-4">Login with:</p>
@@ -80,7 +81,7 @@
                    <div class="text-center">
                      <a class="small" style="color: #385f71" href="/forgetpw">Forgot Password?</a>
                    </div>
-                   </form>
+
                  </div>
                </div>
                <div class="col-lg-5 d-lg-block border-left text-center pt-3 pr-5">
