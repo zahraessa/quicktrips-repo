@@ -147,13 +147,19 @@
 
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 921.9px) {
+    .text-center.mt-3 .rounded-circle {
+    width:100px !important;height:100px !important;
+}
 
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1100px) and (min-width: 922px) {
   .circle{width: 100px;height:100px;}.row {
 
+}
+  .text-center.mt-3 .rounded-circle {
+    width:150px;height:150px;
 }
 }
 
