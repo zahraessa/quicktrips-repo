@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quicktrip-result</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Fontawesome icon -->
+  <link href="{{ url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css') }}" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/result.css') }}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/index">
+      <img src="{{ url_for('static', filename='image/logo-white.png') }}" width="70" height="70" alt="logo img">
+      <img src="{{ url_for('static', filename='image/name-white.png') }}" width="100" height="30" alt="brand name">
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
+      <ul class="navbar-nav font-weight-light">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav font-weight-light mr-2 ml-4">
+        <li class="nav-item dropdown">
+          {% if current_user.is_active %}
+          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <div class="dropdown-item d-flex justify-content-between">
+              <img src="{{ current_user.avatar(128) }}" width="50" height="50" alt="user" class="rounded-circle">
+              <div class="ml-3 mt-3 d-flex justify-content-between">
+                <p class="ml-1">Username: </p>
+                <p class="ml-1">{{ current_user.username }}</p>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/useredit">Edit profile</a>
+            <a class="dropdown-item" href="/logout">Sign Out</a>
+          </div>
+          {% else %}
+          <div class="d-flex justify-content-between">
+            <a href="/login" class="btn-u btn-user">Sign in</a>
+            <a href="/register" class="btn-u btn-user ml-2">Register</a>
+          </div>
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+    <div class="bg-light mt-5 pt-5" id="result">
+      <!-- header -->
+      <div class="header d-flex justify-content-between" id="header">
+        <a href="/que" class="btn btn-primary">Edit Questionnaire</a>
+        <p>xxx results</p>
+      </div>
+      <!-- results -->
+      <a class="card mb-3" href="detail.html">
+        <div class="row no-gutters">
+          <div class="col-md-4 mb-0">
+            <img src="{{ url_for('static', filename='image/milan-result.jpg') }}" class="card-img" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h4 class="card-title">Milan</h4>
+                <div class="favourate">
+                  <form id="form-fav" method="POST" novalidate >
+
+                    <label for="toggle-heart-1" class="favourate">
+                      <input type="checkbox" id="toggle-heart-1" name="fav">
+                      <i class="fas fa-heart"></i>
+                      <i class="far fa-heart"></i>
+                    </label>
+                  </form>
+                </div>
+              </div>
+              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+              <p class="card-text">£ xxx </p>
+              <p class="card-text"><small class="text-muted">Cultural | Family | Friends</small></p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="card mb-3" href="detail.html">
+        <div class="row no-gutters">
+          <div class="col-md-4 mb-0">
+            <img src="{{ url_for('static', filename='image/new_york-result.jpg') }}" class="card-img" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h4 class="card-title">New York</h4>
+                <div class="favourate item2">
+                  <label for="toggle-heart-2" class="favourate">
+                    <input type="checkbox" id="toggle-heart-2">
+                    <i class="fas fa-heart"></i>
+                    <i class="far fa-heart"></i>
+                  </label>
+                </div>
+              </div>
+              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+              <p class="card-text">£ xxx </p>
+              <p class="card-text"><small class="text-muted">Luxury | Family | Friends</small></p>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="card mb-3" href="detail.html">
+        <div class="row no-gutters">
+          <div class="col-md-4 mb-0">
+            <img src="{{ url_for('static', filename='image/kyoto-result.jpg') }}" class="card-img" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h4 class="card-title">Kyoto</h4>
+                <div class="favourate item3">
+                  <label for="toggle-heart-3" class="favourate">
+                    <input type="checkbox" id="toggle-heart-3">
+                    <i class="fas fa-heart"></i>
+                    <i class="far fa-heart"></i>
+                  </label>
+                </div>
+              </div>
+              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+              <p class="card-text">£ xxx </p>
+              <p class="card-text"><small class="text-muted">Cultural | Family | Friends</small></p>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+<!-- FOOTER -->
+  <footer class="container py-5 border-top">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md">
+        <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
+        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Fearures</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/index">Home</a></li>
+          <li><a class="text-muted" href="/que">Get Started</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/userpage">My trips</a></li>
+          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
+          <li><a class="text-muted" href="/useredit">Profile</a></li>
+        </ul>
+      </div>
+      <div class="col-4 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/contactus">Contact us</a></li>
+          <li><a class="text-muted" href="/faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Bootstrap core JavaScript -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>

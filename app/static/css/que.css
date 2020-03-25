@@ -1,0 +1,185 @@
+body{
+  font-family: 'Titillium Web';
+}
+
+#mainNav {
+  min-height: 56px;
+  background-color: #102542;
+}
+
+#mainNav .navbar-toggler {
+  font-size: 80%;
+  padding: 0.75rem;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+#mainNav .navbar-toggler:focus {
+  outline: none;
+}
+
+#mainNav .navbar-brand {
+  padding: .9rem 0;
+}
+
+#mainNav .navbar-nav .nav-item:hover {
+  color: fade(white, 80%);
+  outline: none;
+  background-color: transparent;
+}
+
+#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+@media (min-width: 992px) {
+  #mainNav {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    background-color: #102542;
+    transition: background-color 0.3s ease-in-out;
+  }
+  #mainNav .navbar-brand {
+    padding: .5rem 0;
+  }
+  #mainNav .nav-link {
+    transition: none;
+    padding: 2rem 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  #mainNav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  #mainNav .nav-link:active {
+    color: white;
+  }
+}
+
+button {
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+  padding: 0.8rem 1.2rem;
+  font-family: 'Titillium Web';
+  font-size: 80%;
+  text-transform: uppercase;
+  letter-spacing: .15rem;
+  border: 0;
+}
+
+.btn-primary {
+  background-color: #385f71;
+}
+
+.btn-primary:hover {
+  background-color: #2C4B59;
+}
+
+.btn-primary:active {
+  background-color: #243D49;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 0.3rem;
+  width: 5rem;
+  margin: 0 2px;
+  background-color: #385f71;
+  border: none;
+  display: inline-block;
+  opacity: 0.2;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #385f71;
+  opacity: 1;
+}
+
+/* Style the form */
+#queForm {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 40px;
+  width: 80%;
+  min-width: 300px;
+}
+
+/* Style the input fields */
+input {
+  height: 2.4rem;
+  font-size: 80%;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Mark select boxes normal when valid */
+select {
+  background-color: #fff;
+}
+
+/* Mark select boxes that gets an error on validation: */
+select.invalid {
+  background-color: #ffdddd;
+}
+
+
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
+}
+
+@media (max-width: 575.98px) {
+
+}
+
+@media (max-width: 767.98px) {
+  .container{width: 100%;}
+  .card{width:100%; margin: 0 auto;position: absolute; left: 0px;}
+  .step{width: 35px; height: 2px;}
+  #regForm{padding: 20px;}
+}
+
+@media (max-width: 991.98px) {
+  .col-sm-5{
+    display:none
+  }
+}
+
+@media (max-width: 1199.98px) {
+
+}

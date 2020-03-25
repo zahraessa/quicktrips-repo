@@ -1,0 +1,107 @@
+body{
+  background-image: url("../image/greylogo.png");
+  background-size: 60%;
+  background-position: 10% 10%;
+  background-repeat: no-repeat;
+}
+
+.container {
+  margin-top: 10rem;
+  font-family: 'Titillium Web';
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+h2 {
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  color: #3a3b45;
+}
+
+.subtitle{
+  font-size: 0.9rem;
+  color: rgba(22, 22, 22, 0.5);
+  letter-spacing: 0.05rem;
+}
+
+/* Frequently Asked Questions Section
+--------------------------------*/
+
+#faq {
+  overflow: hidden;
+}
+
+#faq #faq-list {
+  padding: 0;
+  list-style: none;
+}
+
+#faq #faq-list li {
+  border-bottom: 1px solid #ebebeb;
+}
+
+#faq #faq-list a {
+  padding: 22px 0;
+  display: block;
+  position: relative;
+  font-size: 1.1rem;
+  letter-spacing: 0.08rem;
+  line-height: 1;
+  text-decoration: none !important;
+}
+
+#faq #faq-list i {
+  font-size: 1.2rem;
+  position: absolute;
+  right: 0;
+  top: 20px;
+}
+
+#faq #faq-list i.fa-plus {
+  opacity: 0;
+}
+
+#faq #faq-list .collapsed i.fa-plus {
+  opacity: 1;
+}
+
+#faq #faq-list p {
+  margin-bottom: 20px;
+  font-family: 'Raleway';
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+}
+
+#faq #faq-list a.collapsed {
+  color: #333;
+}
+
+#faq #faq-list a {
+  color: #2f7c96;
+}
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
+}
