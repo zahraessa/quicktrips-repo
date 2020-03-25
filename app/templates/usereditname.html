@@ -68,41 +68,41 @@
           <p class="subtitle mb-4 text-center">Update your real name</p>
 
           <div class="card mb-3">
-            <div class="card-body">
-              <form class="user" method="POST" novalidate>
+            <f class="card-body">
+              <form class="usereditnameform" action="" method="POST" novalidate>
                 {{ form.hidden_tag() }}
                 <div class="form-group">
-                  <label for="Firstname">Firstname</label>
-                  <input type="text" class="form-control form-control-user" id="Firstname">
+                  <label for="firstname">First name</label>
+                  <input type="text" id="firstname" name="firstname" value="{{current_user.firstname}}" placeholder="" class="form-control form-control-user">
                 </div>
                 <div class="form-group">
-                  <label for="Lastname">Lastname</label>
-                  <input type="text" class="form-control form-control-user" id="Lastname">
+                  <label for="surname">Surname</label>
+                  <input type="text" class="form-control form-control-user" id="surname" name="surname" value="{{current_user.firstname}}" placeholder="" >
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" type="submit" id="submit" name="submit" value="submit">
+                    Save changes
+                  </button>
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-              Save changes
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                    <p class="my-5 text-center">Changes saved!</p>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                      <p class="my-5 text-center">Changes saved!</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </f>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
     <!-- Bootstrap core JavaScript -->

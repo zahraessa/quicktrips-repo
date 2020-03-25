@@ -290,3 +290,28 @@ body h2 {
 #video{
   width: 100%;
 }
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-user:hover {
+  border: 0.05rem solid white ;
+  color: white;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
+}
+
+#mainNav .dropdown-item {
+  font-family: "Titillium Web";
+}

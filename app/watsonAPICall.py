@@ -4,11 +4,14 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, CategoriesOptions, EntitiesOptions, KeywordsOptions
 from app.getCitySearchResultsURLs import getURLs
 
-authenticator = IAMAuthenticator('S6bZmK-2XVgCTrx8tcayXshYV0rHzx6i94WXUrwvyswE')
+authenticator = IAMAuthenticator('S8PZIz2Ocql7gm188MRVOrwBdwgh5VT4OvlGgmlnZuWq')
 natural_language_understanding = NaturalLanguageUnderstandingV1(
-    version='2019-07-12',
+    version='2020-02-24',
     authenticator=authenticator
 )
+
+ser_url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/32a4173a-ec82-4421-b2c4-4b89c6bbd6fb'
+
 
 
 def getAverageSentiment(urls):
@@ -16,19 +19,21 @@ def getAverageSentiment(urls):
     count = 0.0
     sentiment_sum = 0.0
 
+    if len(urls) < 0:
+        return 0
+
     for url in urls:
         try:
-            natural_language_understanding.set_service_url(
-                'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/482ccd18-ba78-4b77'
-                '-80b1-5735550f7528')
+            natural_language_understanding.set_service_url(ser_url)
             response = natural_language_understanding.analyze(
                 url=url,
                 features=Features(
                     keywords=KeywordsOptions(emotion=True, sentiment=True, limit=3),
                     categories=CategoriesOptions(limit=5))).get_result()
         except:
-            print(url)
-            print("invalid url")
+            pass
+            # print(url)
+            # print("invalid url")
 
     for i in range(5):
         try:
@@ -38,7 +43,6 @@ def getAverageSentiment(urls):
                 count += 1
                 sentiment_sum += sentiment_value
         except:
-            print('a')
             break
 
     try:
@@ -50,27 +54,38 @@ def getAverageSentiment(urls):
 def getKeywords(urls):
     words = []
     response = ""
+
+    #print(len(urls))
+
+    if len(urls) < 1:
+        return words
+
     for url in urls:
+        #print(url)
         try:
-            natural_language_understanding.set_service_url(
-                'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/482ccd18-ba78-4b77'
-                '-80b1-5735550f7528')
+            #print("AAA")
+            natural_language_understanding.set_service_url(ser_url)
+            #print("BBBB")
             response = natural_language_understanding.analyze(
                 url=url,
                 features=Features(
                     keywords=KeywordsOptions(emotion=True, sentiment=True, limit=5),
                     categories=CategoriesOptions(limit=5))).get_result()
 
-            # print(json.dumps(response, indent=2))
+            #print("SMJDFK")
+            #print(response.text)
+            #print("qhdhdwjhjd")
+            #print(json.dumps(response, indent=2))
         except:
-            print(url)
-            print("invalid url")
+            pass
+            # print(url)
+            # print("invalid url")
         # print(words)
         for i in range(5):
+            #print(i)
             try:
                 words.append(response['keywords'][i]["text"])
                 words.append(response['categories'][i]["label"])
             except:
-                print('b')
                 break
     return words

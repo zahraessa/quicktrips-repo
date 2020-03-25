@@ -227,3 +227,28 @@ body h2 {
   font-weight: 400;
   letter-spacing: 0.1rem;
 }
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
+}

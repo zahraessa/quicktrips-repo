@@ -31,8 +31,14 @@ def getCityId(city):
         return ""
 
 
-def getCityDescription(city):
+def getCityDescription(city, region, country):
     try:
         return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
     except:
-        return ""
+        try:
+            return getCityInfo(region).json()['data'][0]['result_object']["geo_description"]
+        except:
+            try:
+                return getCityInfo(country).json()['data'][0]['result_object']["geo_description"]
+            except:
+                return "A great place to visit"

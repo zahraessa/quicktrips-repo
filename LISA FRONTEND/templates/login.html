@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Quicktrip-login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Fontawesome icon -->
+    <link href="{{ url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css') }}" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+
+ </head>
+
+ <body>
+   <div class="container">
+
+     <!-- Outer Row -->
+     <div class="row justify-content-center px-3">
+
+       <div class="col-xl-10 col-lg-12 col-md-9">
+
+         <div class="card border-0 shadow-lg my-5 py-4">
+           <div class="card-body p-0">
+             <!-- Nested Row within Card Body -->
+             <div class="row">
+               <div class="col-lg-7">
+                 <div class="px-5 py-3">
+                   <div class="text-center">
+                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                   </div>
+                   <form class="user">
+                     <div class="form-group">
+                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                     </div>
+                     <div class="form-group">
+                       <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                     </div>
+                     <div class="form-group">
+                       <div class="custom-control custom-checkbox small">
+                         <input type="checkbox" class="custom-control-input" id="customCheck">
+                         <label class="custom-control-label" for="customCheck">Remember Me</label>
+                       </div>
+                     </div>
+                     <a href="{{ url_for('index') }}" class="btn btn-next btn-user btn-block">
+                       Login
+                     </a>
+                     <hr>
+                     <div class="row">
+                       <p class="mr-3 ml-4 mt-4">Login with:</p>
+                       <div class="mr-3">
+                         <a href="{{ url_for('index') }}" class="btn btn-google pt-0">
+                           <i class="fab fa-google"></i>
+                         </a>
+                       </div>
+                       <div>
+                         <a href="{{ url_for('index') }}" class="btn btn-facebook pt-0 mt-0">
+                           <i class="fab fa-facebook-f"></i>
+                         </a>
+                       </div>
+                     </div>
+                   </form>
+                   <hr>
+                   <div class="text-center">
+                     <a class="small" style="color: #385f71" href="{{ url_for('forgetpw') }}">Forgot Password?</a>
+                   </div>
+                 </div>
+               </div>
+               <div class="col-lg-5 d-lg-block border-left text-center pt-3 pr-5">
+                 <img src="{{ url_for('static', filename='image/logo-dark.png') }}" width="350" height="350" alt="logo img">
+                 <div class="pt-3 px-3">
+                   <a href="{{ url_for('register') }}" class="btn btn-next btn-user btn-block">
+                     Create an Account!
+                   </a>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+
+       </div>
+
+     </div>
+
+   </div>
+
+ </body>
+
+ </html>

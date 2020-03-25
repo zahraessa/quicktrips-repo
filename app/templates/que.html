@@ -45,13 +45,28 @@
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/useredit" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {% if current_user.is_active %}
+          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/userpage/{{current_user.username}}">{{ current_user.username }}</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <div class="dropdown-item d-flex justify-content-between">
+              <img src="{{ current_user.avatar(128) }}" width="50" height="50" alt="user" class="rounded-circle">
+              <div class="ml-3 mt-3 d-flex justify-content-between">
+                <p class="ml-1">Username: </p>
+                <p class="ml-1">{{ current_user.username }}</p>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
+          {% else %}
+          <div class="d-flex justify-content-between">
+            <a href="/login" class="btn-u btn-user">Sign in</a>
+            <a href="/register" class="btn-u btn-user ml-2">Register</a>
+          </div>
+          {% endif %}
         </li>
       </ul>
     </div>
@@ -246,11 +261,6 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="4">5</option>
-                <option value="4">6</option>
-                <option value="4">7</option>
-                <option value="4">8</option>
-                <option value="4">9</option>
-                <option value="4">10</option>
               </select>
               <div class="invalid-feedback">
                 At least one person need to be chose!
@@ -435,7 +445,7 @@
     <div style="overflow:auto;">
       <div style="float:right;">
         <button class="btn-primary" type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button class="btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        <button class="btn-primary" type="button" id="nextBtn" onclick="nextPrev(1)" name="" value="">Next</button>
       </div>
     </div>
 

@@ -6,7 +6,14 @@ function toKeyword(n,m){
   var x = document.getElementsByClassName("tab");
   if (n == "Final Question!" && m == x.length) {
     self.location.href = "http://127.0.0.1:5000/keyword";
+    x.onclick = addSubmit(x);
   }
+
+}
+
+function addSubmit(x) {
+  x.setAttribute("name", "submit");
+  x.setAttribute("value", "submit");
 }
 
 function showTab(n) {
@@ -78,6 +85,8 @@ function validateForm() {
 
   // If min is greater than max, then add is-invalid class
   if (currentTab == 0) {
+    var min = parseInt(z[0].value.replace(",",""));
+    var max = parseInt(z[1].value.replace(",", ""));
     if (parseInt(z[0].value)  > parseInt(z[1].value)){
       // add an "is-invalid" class to the field:
       z[0].className += " is-invalid";

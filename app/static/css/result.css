@@ -37,7 +37,7 @@
   background-color: #2C4B59;
 }
 
-.btn-primary:focus {
+.btn-primary:active {
   background-color: #2C4B59;
   color: white;
 }
@@ -169,4 +169,29 @@
 
 .favourate input[type="checkbox"]:checked ~ .far {
   opacity: 0;
+}
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
 }
