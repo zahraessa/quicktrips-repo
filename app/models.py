@@ -6,10 +6,10 @@ from app import login
 from app.getImage import getCityImage
 
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +26,6 @@ class User(UserMixin, db.Model):
     favourites = db.relationship('Favourite', backref='users', lazy='dynamic')
     pastTrips = db.relationship('PastTrip', backref='users', lazy='dynamic')
 
-
     def __repr__(self):
         return '<User {}>'.format(self.email)
 
@@ -42,77 +41,56 @@ class User(UserMixin, db.Model):
             digest, size)
 
 
-
 class Recommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(140))
     city = db.Column(db.String(140))
-    county = db.Column(db.String(140))
-    hotel1 = db.Column(db.String(140))
-    flight1 = db.Column(db.String(140))
-    hotel2 = db.Column(db.String(140))
-    flight2 = db.Column(db.String(140))
-    hotel3 = db.Column(db.String(140))
-    flight3 = db.Column(db.String(140))
-    key_attraction = db.Column(db.String(140))
     description = db.Column(db.String(400))
+    image = db.Column(db.String(140))
+    flights = db.Column(db.PickleType(True))
+    keywords = db.Column(db.PickleType(True))
+    hotels = db.Column(db.PickleType(True))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Recommendation {}>'.format(self.city)
-
-    def image(self, city):
-        return getCityImage(city)
 
 
 class PastTrip(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(140))
-    city = db.Column(db.String(140))
-    hotel1 = db.Column(db.String(140))
-    flight1 = db.Column(db.String(140))
-    hotel2 = db.Column(db.String(140))
-    flight2 = db.Column(db.String(140))
-    hotel3 = db.Column(db.String(140))
-    flight3 = db.Column(db.String(140))
-    key_attraction = db.Column(db.String(140))
-    description = db.Column(db.String(400))
+    image = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Recommendation {}>'.format(self.city)
-
-    def image(self, country):
-        return getCityImage(country)
 
 
 class Favourite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(140))
     city = db.Column(db.String(140))
-    hotel1 = db.Column(db.String(140))
-    flight1 = db.Column(db.String(140))
-    hotel2 = db.Column(db.String(140))
-    flight2 = db.Column(db.String(140))
-    hotel3 = db.Column(db.String(140))
-    flight3 = db.Column(db.String(140))
-    key_attraction = db.Column(db.String(140))
     description = db.Column(db.String(400))
+    image = db.Column(db.String(140))
+    flights = db.Column(db.PickleType(True))
+    keywords = db.Column(db.PickleType(True))
+    hotels = db.Column(db.PickleType(True))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Recommendation {}>'.format(self.city)
 
-    def image(self, country):
-        return getCityImage(country)
+
+
+class CitiesToAvoid(db.Model):
+    city = db.Column(db.String(140), primary_key=True)
 
 
 class ProcessedCity(db.Model):
     city = db.Column(db.String(140), primary_key=True)
     country = db.Column(db.String(140))
+    region = db.Column(db.String(140))
     keywords = db.Column(db.PickleType(True))
     sentiment = db.Column(db.Float)
+    image = db.Column(db.String(140))
+    description = db.Column(db.String(140))
 
 
-class CitiesToAvoid(db.Model):
-    city = db.Column(db.String(140), primary_key=True)

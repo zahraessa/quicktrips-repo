@@ -6,20 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Login</title>
+    <title>Quicktrip-login</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Fontawesome icon -->
-    <link href="{{url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css') }}" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
 
+      <link rel="shortcut icon" href="{{url_for('static', filename='logo-white.png')}}">
  </head>
 
  <body>
@@ -40,52 +41,51 @@
                      <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                    </div>
 
-                    <form class="form-login" action="" method="POST" novalidate>
+                    <form id="form-login" class="form-login" method="POST" novalidate >
                         {{ form.hidden_tag() }}
                      <div class="form-group">
-                       <input type="text" class="form-control form-control-user" id="username" name='username' placeholder="Login">
-                         <div class="invalid-feedback">
-                          Username Required
-                        </div>
+                       <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Your username..." oninput="this.className='form-control form-control-user'">
+                       <div class="invalid-feedback">
+                           Your username is not recorded, please register before login!
+                       </div>
                      </div>
                      <div class="form-group">
-                       <input type="password" class="form-control form-control-user" id="password" name='password' placeholder="Password">
-                        <div class="invalid-feedback">
-                          Password Required
-                        </div>
+                       <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" oninput="this.className='form-control form-control-user'">
+                       <div class="invalid-feedback">
+                           This password does not match the username!
+                       </div>
                      </div>
                      <div class="form-group">
                        <div class="custom-control custom-checkbox small">
-                         <input type="rememberme" class="custom-control-input" id="rememberme">
+                         <input type="checkbox" class="custom-control-input" id="rememberme">
                          <label class="custom-control-label" for="rememberme">Remember Me</label>
                        </div>
                      </div>
-
-                    <button class="btn btn-next btn-user btn-block" type="submit" name="submit" value="submit">Login</button>
-
+                        <button class="btn btn-next btn-user btn-block" value="submit" name="submit" onclick="submit()">Login</button>
+                    </form>
                      <hr>
                      <div class="row">
                        <p class="mr-3 ml-4 mt-4">Login with:</p>
                        <div class="mr-3">
-                         <a href="/googlelogin" class="btn btn-google pt-0">
+                         <a href="/index" class="btn btn-google pt-0">
                            <i class="fab fa-google"></i>
                          </a>
                        </div>
                        <div>
-                         <a href="/facebooklogin" class="btn btn-facebook pt-0 mt-0">
+                         <a href="/index" class="btn btn-facebook pt-0 mt-0">
                            <i class="fab fa-facebook-f"></i>
                          </a>
                        </div>
                      </div>
-                   </form>
                    <hr>
                    <div class="text-center">
-                     <a class="small" style="color: #385f71" href="/forgotpassword">Forgot Password?</a>
+                     <a class="small" style="color: #385f71" href="/forgetpw">Forgot Password?</a>
                    </div>
+
                  </div>
                </div>
                <div class="col-lg-5 d-lg-block border-left text-center pt-3 pr-5">
-                 <img src="{{url_for('static', filename='logo-dark.png')}}" width="350" height="350" alt="logo img">
+                 <img src="{{ url_for('static', filename='image/logo-dark.png') }}" width="350" height="350" alt="logo img">
                  <div class="pt-3 px-3">
                    <a href="/register" class="btn btn-next btn-user btn-block">
                      Create an Account!
@@ -101,6 +101,13 @@
      </div>
 
    </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
  </body>
 

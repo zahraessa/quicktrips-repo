@@ -76,17 +76,6 @@ label{
   border-radius: 0.35rem;
 }
 
-.border-left{
-  border-width: medium !important;
-}
-
-
-.bg-register-image {
-  background: url("logo-dark.png");
-  background-position: center;
-  background-size: cover;
-}
-
 form.user .custom-checkbox.small label {
   line-height: 1.5rem;
 }
@@ -140,4 +129,13 @@ form.user .btn-user {
 .btn-google:focus, .btn-google.focus {
   background-color: rgba(56, 95, 113, 0.5);
   color: white;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+select.invalid {
+  background-color: #ffdddd;
 }

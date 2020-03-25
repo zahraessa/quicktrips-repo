@@ -3,12 +3,14 @@ from app.getFlightsDetails import getFlights
 from app.getHotels import getHotelList
 from app.getCityDetails import getCityDescription
 from app.getImage import getCityImage
+from app.getRandomCity import getRandomCities
+from app.models import ProcessedCity
 
 
 #GET FROM FRONT END FORMS
-origin = "London"
-adults = 3
-children = 2
+origin = "Mexico"
+adults = 1
+children = 1
 numberOfPeople = adults + children
 startdate = "2020-05-21"
 enddate = "2020-05-25"
@@ -16,13 +18,21 @@ currency = "USD"
 maxbudget = 10000
 minbudget = 0
 triplength = 3
-keywords = ["family", "wilderness", "food", "warm", "shopping"]
+keywords = ["family", "wilderness", "food", "friends", "shopping"]
+localorinternational = "global"
 
 
-def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, triplength, keywords):
+def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, triplength, keywords, localorinternational):
     recommendations = {}
-    #get cities
-    cities = createRecommendation(keywords)
+    #print("OOP")
+    # generate 20 random cities
+    if localorinternational == "local":
+        randomCities = getRandomCities(origin)
+    else:
+        randomCities = getRandomCities("global")
+    #filter cities
+    cities = createRecommendation(keywords, randomCities)
+    flights = []
 
     # get flights and hotels for each city
     for city in cities:
@@ -31,8 +41,11 @@ def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, 
         country = cities[city]["country"]
         #TODO: Parse flight JSON
         flights = getFlights(origin, city, country, region, numberOfPeople, startdate, enddate, currency)
-        # print("FLIGHTS")
-        # print(flights)
+        #print(flights)
+        if not flights:
+            flights = []
+        #print("FLIGHTS")
+        #print(flights)
         # try:
         #     for flight in flights:
         #         print(flight)
@@ -40,6 +53,11 @@ def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, 
         #     print("NO FLIGHTS")
         #TODO: Remove recommendations with errors in hotels / no hotels or flights
         hotels = getHotelList(city, country, region, maxbudget, minbudget, adults, "", startdate, triplength, currency)
+        #print(hotels)
+        if not hotels:
+            hotels = []
+        #print("HOTELS")
+        #print(hotels)
         # print("HOTELS")
         # print(hotels)
         # try:
@@ -48,21 +66,34 @@ def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, 
         # except:
         #     print("NO HOTELS")
         #TODO: GET DESCRIPTION AND PHOTO FROM COUNTRY/REGION
-        description = getCityDescription(city)
+        processsed = ProcessedCity.query.all()
+        for x in processsed:
+            if x.city == city:
+                description = x.description
+                image = x.image
         # print("DESCRIPTION")
         # print(description)
-        image = getCityImage(city)
         # print("IMAGE")
         # print(image)
-        recommendations[city] = [flights, hotels, description, image]
+        #TODO: GET MATCHED KEYWORDS
+        recommendations[city] = [flights, hotels, description, image, keywords]
+    #
+    # print("RESULTS")
+    # for x in recommendations:
+    #     print(x)                      #city
+    #     print(recommendations[x][0])  #hotels
+    #     print(recommendations[x][1])  #flights
+    #     print(recommendations[x][2])  #Description
+    #     print(recommendations[x][3])  #Photo
+    #     print("-----------------------------")
 
-        for x in recommendations:
-            print(x)
-            print(recommendations[x][0])
-            print(recommendations[x][1])
-            print(recommendations[x][2])
-            print(recommendations[x][3])
-            print("-----------------------------")
+    return recommendations
 
 
-getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, triplength, keywords)
+
+
+
+
+
+
+#getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, triplength, keywords, localorinternational)

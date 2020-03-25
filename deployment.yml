@@ -18,6 +18,7 @@ spec:
       containers:
       - name: "flask"
         image: "uk.icr.io/quicktrips/flask-image:latest"
+        imagePullPolicy: "IfNotPresent"
         ports:
           - containerPort: 5000
 
@@ -48,9 +49,9 @@ metadata:
   labels:
     app: "postgres"
 data:
-  POSTGRES_DB: "demo_db"
+  POSTGRES_DB: "postgres"
   POSTGRES_USER: "admin"
-  POSTGRES_PASSWORD: "12345"
+  POSTGRES_PASSWORD: "password"
 
 
 ---
@@ -129,4 +130,17 @@ spec:
   selector:
     app: postgres
 
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  selector:
+    app: flask-app
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer

@@ -19,45 +19,22 @@ keywords = {
         "animals",
         "forest",
         "remote",
-        "nature",
-        "green",
         "adventure",
         "safari",
-        "cruise",
-        "expedition",
         "trek",
         "hike"
         "wildlife",
-        "pet",
-        "park",
-        "agriculture",
-        "nautical",
-        "zoo",
-        "river"
+        "park"
     ],
     "culinary": [
         "culinary",
         "cooking",
         "food",
-        "eat",
         "taste",
         "flavour",
-        "market",
-        "restaurant",
+        "spices",
         "cuisine",
-        "seasoning",
-        "chef",
-        "baking",
-        "authentic",
-        "brew",
-        "masala",
-        "seasoning",
-        "local",
-        "drink",
-        "dessert",
-        "dining",
-        "cookies",
-        "cake"
+        "seasoning"
     ],
     "cultural": [
         "cultural",
@@ -78,8 +55,6 @@ keywords = {
         "help",
         "needy",
         "charity",
-        "animals",
-        "children",
         "poor",
         "conservation",
         "protection",
@@ -91,25 +66,19 @@ keywords = {
         "experience",
         "walk",
         "trek",
-        "city break",
         "flexible",
         "break"
         "alone",
         "refreshing",
-        "adventure",
-        "exercise",
-        "spirituality",
-        "religion"
+        "adventure"
     ],
     "adventure": [
         "adventure",
         "unique",
-        "unusual",
         "exciting",
         "daring",
         "thrill",
         "stimulating",
-        "remote",
         "active",
         "adrenaline",
         "climb",
@@ -119,9 +88,7 @@ keywords = {
         "safari",
         "cruise",
         "expedition",
-        "trek",
-        "exercise",
-        "fitness"
+        "trek"
     ],
     "self drive": [
         "self drive",
@@ -139,7 +106,6 @@ keywords = {
     "accessible": [
         "accessible",
         "wheelchair",
-        "safe",
         "handicap",
         "disabled",
         "special assistance"
@@ -147,22 +113,19 @@ keywords = {
     "last minute": [
         "last minute",
         "cheap",
-        "fun",
         "getaway",
-        "short",
         "deal",
         "spontaneous"
     ],
     "snow": [
         "snow",
-        "cold",
         "ski",
         "ice"
     ],
     "beach": [
+        "beach",
+        "resort",
         "sand",
-        "relax",
-        "hot",
         "sea",
         "pool",
         "sun"
@@ -179,13 +142,10 @@ keywords = {
         "bar",
         "club",
         "party",
-        "nightlife",
-        "night",
-        "lively",
-        "music",
-        "entertainment"
+        "nightlife"
     ],
     "cold": [
+        "cold",
         "snow",
         "ski",
         "ice"
@@ -203,32 +163,24 @@ keywords = {
         "shopping centre"
     ],
     "romantic": [
+        "romantic",
+        "honeymoon",
         "love",
-        "cute",
-        
-        "restaurant"
+        "cute"
     ],
     "warm": [
         "hot",
-        "beach",
-        "sun",
-        "temperature",
-        "pool"
+        "sun"
     ],
     "theme park": [
-        "park",
-        "thrill",
-        "adventure",
-        "activity",
+        "theme park",
         "water park",
-        "children",
-        "legoland"
+        "legoland",
+        "disneyland"
     ],
     "water sports": [
         "sea",
-        "beach",
         "surf",
-        "swim",
         "boat",
         "parasail",
         "raft",
@@ -238,23 +190,21 @@ keywords = {
     "food": [
         "cooking",
         "culinary",
-        "eat",
-        "taste",
         "flavour",
+        "spices",
         "market",
         "restaurant",
         "food",
+        "eat",
         "cuisine",
         "seasoning",
-        "chef",
-        "baking",
-        "authentic",
-        "brew",
-        "masala",
-        "seasoning",
-        "local",
-        "drink",
-        "dessert",
         "dining"
+    ],
+    "friends": [
+        "group",
+        "party",
+        "fun",
+        "happy",
+        "alcohol"
     ]
 }

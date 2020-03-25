@@ -4,6 +4,21 @@
   vertical-align: text-bottom;
 }
 
+.header {
+  width: 80%;
+  margin: 2rem auto 1.3rem;
+}
+
+#header p {
+  font-family: 'Titillium Web';
+  font-weight: 400;
+  color: rgba(150,150,150,1);
+  letter-spacing: .10rem;
+  font-size: 0.9rem;
+  align-self: center;
+  margin-bottom: 0 !important;
+}
+
 .btn {
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 0.5rem 0.8rem;
@@ -25,55 +40,6 @@
 .btn-primary:focus {
   background-color: #2C4B59;
   color: white;
-}
-
-.btn-primary:active {
-  background-color: #243D49 !important;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0rem;
-  bottom: 0rem;
-  left: 0;
-  z-index: 100; /* Behind the navbar */
-  padding: 103px 0 0; /* Height of navbar */
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-}
-
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: calc(100vh - 103px);
-  padding-top: .5rem;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-  }
-}
-
-.sidebar .nav-item {
-  font-family: 'Titillium Web';
-  font-weight: 400;
-  color: #333;
-}
-
-.sidebar p {
-  font-family: 'Titillium Web';
-  font-weight: 400;
-  color: rgba(150,150,150,1)
-}
-
-.sidebar pm {
-  font-family: 'Titillium Web';
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #333;
 }
 
 #mainNav {
@@ -131,29 +97,24 @@
   }
 }
 
-#result {
-  padding-top: 10rem; /* Space for fixed navbar */
+#result .card-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 #result .card{
   color: #333;
   border: #fff;
-  text-decoration: none !important
+  text-decoration: none !important;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #result .card:hover{
   color: #333;
   box-shadow: 0rem 0rem 0.3rem 0.1rem rgba(0, 0, 0, 0.1);
-}
-
-#result .card:active{
-  color: #333;
-}
-
-@media (min-width: 768px) {
-  #result {
-    padding-top: 10rem; /* Space for fixed navbar */
-  }
 }
 
 .card h4{
@@ -163,4 +124,49 @@
 
 .card p{
   font-family: 'Raleway';
+}
+
+.favourite label {
+  font-size: 1.5rem;
+}
+
+.favourite label input[type="checkbox"] {
+  display: none;
+}
+
+.favourite .fa-heart {
+  position: absolute;
+  top: 0.7em;
+  right: 1rem;
+  left: auto;
+}
+
+.favourite {
+  cursor: pointer;
+}
+
+.favourite .fas {
+  color: #ff6666;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.favourite .far {
+  color: #8c8c8c;
+}
+
+.favourite:hover .fas{
+  opacity: 0.5;
+}
+
+.favourite:hover .far{
+  opacity: 0;
+}
+
+.favourite input[type="checkbox"]:checked ~ .fas {
+  opacity: 1;
+}
+
+.favourite input[type="checkbox"]:checked ~ .far {
+  opacity: 0;
 }

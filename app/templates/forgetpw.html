@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quicktrip-forgetPassword</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Fontawesome icon -->
+  <link href="fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/forgetpw.css') }}" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center px-3">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card border-0 shadow-lg my-5 py-4">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+
+                <div class="px-5 py-3">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Forget your password? </h1>
+                    <p class="mb-4 text-center">Don't worry, just enter your email below and reset password by the link that we will send you. </p>
+                  </div>
+                  <form class="user needs-validation" novalidate method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <div class="invalid-feedback">
+                        Email does not exist
+                      </div>
+                    </div>
+                    <a href="/emailsent" class="btn btn-next btn-user btn-block" type="submit" name="submit" value="submit">
+                      Reset password
+                    </a>
+                  </form>
+                  <hr>
+                  <div class="text-center">
+                    <a class="small" style="color: #385f71" href="/register">Create an account</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

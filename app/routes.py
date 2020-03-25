@@ -1,16 +1,19 @@
-import flask_login
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, KeywordsForm, QuestionnaireForm, FavouritedDetailsForm
+from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireForm, \
+    FavouritedForm, ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm, ForgotPasswordForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Recommendation, Favourite
+from app.models import User, Recommendation, Favourite, ProcessedCity
 from app.getHotels import getHotelName, getHotelPhoto
 from app.getCityDetails import getCityDescription
 from app.getCountryDetails import getCountryDescription
-import requests
-import json
 from app.getRandomCity import randomCityGenerator
+from app.getAllInformationForARecommendation import getRecommendationInfo
+from datetime import date
+from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, ForgotPasswordEmail
+from app.getAllInformationForARecommendation import getRecommendationInfo
+from itsdangerous import URLSafeSerializer
 
 
 @app.route('/')
@@ -20,16 +23,20 @@ def index():
     return render_template("index.html", title='Home Page')
 
 
+
+
+#Login and register pages routing
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
-    print(form.validate_on_submit())
-    print(form.submit.data)
-    print(request.method)
+    #print(form.validate_on_submit())
+    #print(form.submit.data)
+    #print(request.method)
     if form.validate_on_submit():
-        print(form.username.data)
+        #print(form.username.data)
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
@@ -54,162 +61,97 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    print("AAA")
-    print(form.validate_on_submit())
-    print(form.submit.data)
-    print(request.method)
+    #print("AAA")
+    #print(form.validate_on_submit())
+    #print(form.submit.data)
     if form.validate_on_submit():
-        print("HEREEEEE")
+        #print("HEREEEEE")
         user = User(username=form.username.data, email=form.email.data, firstname=form.firstname.data,
                     surname=form.surname.data, address=form.address.data, country=form.country.data,
-                    city=form.city.data, postcode=form.postcode.data)
+                    city=form.state.data, postcode=form.postcode.data)
         user.set_password(form.password.data)
         user.avatar(128)
         db.session.add(user)
         db.session.commit()
-        placejson = randomCityGenerator()
-        country = placejson[1]
-        city = placejson[2]
-        r = Recommendation(country=country, city=city, hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
-                           flight1='British Airways', flight2='Easy Jet', flight3='Turkish Airlines',
-                           key_attraction='London Eye', description='London is a great place to visit', user_id=user.id)
-        db.session.add(r)
-        db.session.commit()
-        placejson = randomCityGenerator()
-        country = placejson[1]
-        city = placejson[2]
-        r = Recommendation(country=country, city=city, hotel1='Hilton', hotel2='Ibis', hotel3='Travelodge',
-                           flight1='KLM', flight2='Air France', flight3='Ryan Air',
-                           key_attraction='London Eye', description='Come see the Louvre!', user_id=user.id)
-        db.session.add(r)
-        db.session.commit()
-        placejson = randomCityGenerator()
-        country = placejson[1]
-        city = placejson[2]
-        r = Recommendation(country=country, city=city, hotel1='Four Seasons', hotel2='Emirates Hotel',
-                           hotel3='Ibis', flight1='British Airways', flight2='Gulf Air', flight3='Emirates',
-                           key_attraction='London Eye', description='Come see the worlds tallest building',
-                           user_id=user.id)
 
-        db.session.add(r)
-        db.session.commit()
-        placejson = randomCityGenerator()
-        country = placejson[1]
-        city = placejson[2]
-        r = Recommendation(country=country, city=city, hotel1='Hotel Chalet Swiss',
-                           hotel2='Grand Hotel National Luzern', hotel3='Travelodge', flight1='British Airways',
-                           flight2='Easy Jet', flight3='Emirates', key_attraction='London Eye', description='Fresh Air',
-                           user_id=user.id)
+        RegistrationConfirmation(name=form.firstname.data, username=form.username.data, email=form.username.data)
 
-        db.session.add(r)
-        db.session.commit()
+        cities = ProcessedCity.query.all()
+        i = 0
+        for city in cities:
+            if city.keywords != [] and city.sentiment > 0.5:
+                if i < 8:
+                    c = city.city
+                    image = city.image
+                    description = city.description
+                    keywords = city.keywords
+                    flights = []
+                    hotels = []
+                    rec = Recommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
+                                         description=description, image=image, user_id=user.id)
+
+                    db.session.add(rec)
+                    db.session.commit()
+
+                    i += 1
+                else:
+                    break
+
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     else:
-        print("BBB")
+        #print("BBB")
         return render_template('register.html', form=form)
 
 
-@app.route('/user/<username>')
-@login_required
-def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user)
 
-
-@app.route('/favourites/<username>')
-@login_required
-def favourites(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user-favourite.html', user=user)
-
-
-@app.route('/details/<city>')
-@login_required
-def details(city):
-    recommendations = Recommendation.query.all()
-    for recommendation in recommendations:
-        if recommendation.city == city:
-            current_recommendation = recommendation
-            break
-        else:
-            current_recommendation = recommendation
-    form = FavouritedDetailsForm()
-    a = request.form.get('toggle_heart.data')
-
-    print(a)
-
-    description = getCityDescription(city)
-    hotel1name = getHotelName(recommendation.city, 0)
-    hotel1photo = getHotelPhoto(recommendation.city, 0)
-    hotel2name = getHotelName(recommendation.city, 1)
-    hotel2photo = getHotelPhoto(recommendation.city, 1)
-    hotel3name = getHotelName(recommendation.city, 2)
-    hotel3photo = getHotelPhoto(recommendation.city, 2)
-    if description == "":
-        description = "country: " + recommendation.country
-        for recommendation in recommendations:
-            if recommendation.city == city:
-                description = getCountryDescription(recommendation.country)
-                hotel1name = getHotelName(recommendation.country, 0)
-                hotel1photo = getHotelPhoto(recommendation.country, 0)
-                hotel2name = getHotelName(recommendation.country, 1)
-                hotel2photo = getHotelPhoto(recommendation.country, 1)
-                hotel3name = getHotelName(recommendation.country, 2)
-                hotel3photo = getHotelPhoto(recommendation.country, 2)
-                break
-
-
-    if a == True:
-        newFavourite = Favourite(current_recommendation)
-        db.session.add(newFavourite)
-        db.session.commit()
-
-    return render_template('details.html', recommendation=current_recommendation,
-                           description=description,
-                           hotel1name=hotel1name,
-                           hotel1photo=hotel1photo,
-                           hotel2name=hotel2name,
-                           hotel2photo=hotel2photo,
-                           hotel3name=hotel3name,
-                           hotel3photo=hotel3photo)
-
-
-@app.route('/useredit', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    form = EditProfileForm()
-    if request.method == "POST" and form.validate_on_submit():
-        current_user.firstname = form.firstname.data
-        current_user.surname = form.surname.data
-        current_user.address = form.address.data
-        current_user.country = form.country.data
-        current_user.city = form.city.data
-        current_user.postcode = form.postcode.data
-        current_user.set_password(form.newPassword.data)
-        db.session.commit()
-        flash('Your changes have been saved.')
-        return redirect(url_for('index'))
-    elif request.method == 'GET':
-        form.firstname.data = current_user.firstname
-        form.surname.data = current_user.surname
-        form.address.data = current_user.address
-        form.country.data = current_user.country
-        form.city.data = current_user.city
-        form.postcode.data = current_user.postcode
-    return render_template('useredit.html', title='Edit Profile', form=form)
-
-
-@app.route('/result', methods=['GET', 'POST'])
-@login_required
-def result():
-    recommendations = Recommendation.query.all()
-    return render_template('result.html', title='Result', recommendations=recommendations)
-
-
-@app.route('/forgotpassword', methods=['GET', 'POST'])
+@app.route('/forgetpw', methods=['GET', 'POST'])
 def forgotPassword():
-    return render_template('forgotpassword.html')
+    form = ForgotPasswordForm()
+
+    # auth_s = URLSafeSerializer("secret key", "auth")
+    # token = auth_s.dumps([current_user.username])
+    #
+    # print(token)
+    # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
+    #
+    # data = auth_s.loads(token)
+    # print(data[0])
+    # # itsdangerous
+    return render_template('forgetpw.html', form=form)
+
+
+#TODO: CREATE PAGE
+@app.route('/forgetpwkey', methods=['GET', 'POST'])
+def forgotPasswordkey():
+    #
+    # auth_s = URLSafeSerializer("secret key", "auth")
+    # token = auth_s.dumps({"username": current_user.username})
+    #
+    # print(token)
+    # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
+    #
+    # data = auth_s.loads(token)
+    # print(data["username"])
+    # # itsdangerous
+    return render_template('forgetpw.html')
+
+
+#TODO: CREATE NEW PASSWORD PAGE
+@app.route('/newpassword', methods=['GET', 'POST'])
+def enterNewPassword():
+    form = ForgotPasswordForm()
+    #
+    # auth_s = URLSafeSerializer("secret key", "auth")
+    # token = auth_s.dumps({"id": current_user.id, "username": current_user.username})
+    #
+    # print(token)
+    # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
+    #
+    # data = auth_s.loads(token)
+    # print(data["username"])
+    # # itsdangerous
+    return render_template('forgetpw.html', form=form)
 
 
 @app.route('/googlelogin', methods=['GET', 'POST'])
@@ -222,67 +164,296 @@ def facebooklogin():
     return render_template('facebooklogin.html')
 
 
-@app.route('/question', methods=['GET', 'POST'])
+
+#User Profile Routing
+
+@app.route('/userpage/<username>', methods=['GET', 'POST'])
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('userpage.html', user=user)
+
+
+@app.route('/favourites/<username>')
+@login_required
+def favourites(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    return render_template('userfavourite.html', user=user)
+
+
+
+
+
+#Edit Profile Routing
+
+@app.route('/useredit', methods=['GET', 'POST'])
+@login_required
+def useredit():
+    return render_template('useredit.html', title='Edit Profile')
+
+
+@app.route('/usereditaddress')
+def usereditaddress():
+    form = EditProfileAddressForm()
+
+    if request.method == "POST" and form.validate_on_submit():
+        current_user.address = form.address.data
+        current_user.country = form.country.data
+        current_user.city = form.state.data
+        current_user.postcode = form.postcode.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('useredit'))
+    elif request.method == 'GET':
+        form.address.data = current_user.address
+        form.country.data = current_user.country
+        form.city.data = current_user.city
+        form.postcode.data = current_user.postcode
+
+    return render_template('usereditaddress.html', form=form)
+
+
+@app.route('/usereditname', methods=['GET', 'POST'])
+def usereditname():
+    form = EditProfileNameForm()
+    print("AA")
+    print(form.firstname.data)
+    print(form.surname.data)
+
+    if request.method == "POST" and form.validate_on_submit():
+        print("BB")
+        current_user.firstname = form.firstname.data
+        current_user.surname = form.surname.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('useredit'))
+    elif request.method == 'GET':
+        form.firstname.data = current_user.firstname
+        form.surname.data = current_user.surname
+
+    return render_template('usereditname.html', form=form)
+
+
+@app.route('/usereditpassword', methods=['GET', 'POST'])
+def usereditpassword():
+    form = EditProfilePasswordForm()
+
+    if request.method == "POST" and form.validate_on_submit() and current_user.check_password(form.password.data):
+        current_user.set_password(form.newPassword.data)
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('useredit'))
+
+    return render_template('usereditpassword.html', form=form)
+
+
+
+
+#Questionnaire edit form routing
+
+@app.route('/que', methods=['GET', 'POST'])
 @login_required
 def question():
     form = QuestionnaireForm()
-    print(request.method)
-    print(form.validate_on_submit())
-    print(form.errors)
-    print(form.localorabroad.data)
-    if request.method == "POST" and form.validate_on_submit():
-        maxcurrency = request.form.get('maxcurrency')
-        mincurrency = request.form.get('mincurrency')
+    # print(request.form.get('currency'))
+    # print(request.method)
+    # print(form.validate_on_submit())
+    # print(form.errors)
+    # print(form.localorabroad.data)
+    if request.method == "POST":
+        currency = request.form.get('currency')
         maxbudget = request.form.get('maxbudget')
         minbudget = request.form.get('minbudget')
         adults = request.form.get('adults')
-        children = request.form.get('children')
-        startdate = request.form.get('startdate')
-        enddate = request.form.get('enddate')
-        triplength = request.form.get('triplength')
+        children = request.form.get('children6') + request.form.get('children612') + request.form.get('children1218')
+        startdate = request.form.get('startDate')
+        enddate = request.form.get('endDate')
+        triplength = request.form.get('tripLength')
         localorabroad = request.form.get('localorabroad')
-        print(maxbudget)
-        print(minbudget)
-        print(adults)
-        print(children)
-        print(startdate)
-        print(enddate)
-        print(triplength)
-        print(localorabroad)
-        #print(maxcurrency)
-        #print(mincurrency)
-        return redirect(url_for('keywords', maxbudget=maxbudget,
+        origincountry = request.form.get('origincountry')
+        originstate = request.form.get('originstate')
+        # print(maxbudget)
+        # print(minbudget)
+        # print(adults)
+        # print(children)
+        # print(startdate)
+        # print(enddate)
+        # print(triplength)
+        # print(localorabroad)
+        # print(origincountry)
+        # print(originstate)
+        # print(maxcurrency)
+        # print(mincurrency)
+        return redirect(url_for('keywords', currency=currency, maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
                                 children=children, startdate=startdate,
                                 enddate=enddate, triplength=triplength,
-                                localorabroad=localorabroad))
-    return render_template('tempquestion.html', form=form)
+                                localorabroad=localorabroad, origin=origincountry))
+    return render_template('que.html', form=form)
 
 
-@app.route('/keywords', methods=['GET', 'POST'])
+@app.route('/keyword', methods=['GET', 'POST'])
 @login_required
 def keywords():
     form = KeywordsForm()
     maxbudget = request.args['maxbudget']
     minbudget = request.args['minbudget']
-    #maxcurrency = request.args['maxcurrency']
-    #mincurrency = request.args['mincurrency']
+    currency = request.args['currency']
     adults = request.args['adults']
     children = request.args['children']
     startdate = request.args['startdate']
     enddate = request.args['enddate']
     triplength = request.args['triplength']
     localorabroad = request.args['localorabroad']
+    origin = request.args['origin']
+    # print("AAAAA")
+    # print(maxbudget)
     if request.method == "POST" and form.validate_on_submit():
         selected = request.form.getlist('keywords')
-        print(selected)
-        return render_template('result.html', maxbudget=maxbudget,
-                               minbudget=minbudget, adults=adults,
-                               children=children, startdate=startdate,
-                               enddate=enddate, triplength=triplength,
-                               localorabroad=localorabroad)
-    return render_template('keywords.html', form=form, maxbudget=maxbudget,
+        #print(selected)
+
+        # TODO: GET ORIGIN
+        #print("RRRRRRRRRRRRRR")
+        torecommend = getRecommendationInfo(origin=origin, numberOfPeople=(adults + children), startdate=startdate,
+                                            enddate=enddate, currency=currency, triplength=triplength,
+                                            keywords=selected, localorinternational=localorabroad)
+        #print(len(torecommend))
+        #print("UMMMMMMM")
+        #print(torecommend)
+
+        recommendations = Recommendation.query.all()
+        for recommendation in recommendations:
+            if recommendation.user_id == current_user.id:
+                db.session.delete(recommendation)
+                db.session.commit()
+
+        #print("RESULTS")
+        for x in torecommend:
+            city = x  # city
+            print("city: " + city)
+            hotels = torecommend[x][1]  # hotels
+            print("oooooo hotels: ")
+            print(hotels)
+            flights = torecommend[x][0]  # flights
+            print("oooooo flights: ")
+            print(flights)
+            description = torecommend[x][2]  # Description
+            image = torecommend[x][3]  # Photo
+            keywords = torecommend[x][4]
+
+            db.session.add(Recommendation(city=city, description=description,
+                                          image=image, flights=flights,
+                                          keywords=keywords, hotels=hotels,
+                                          user_id=current_user.id))
+            db.session.commit()
+
+        return redirect(url_for('result', currency=currency))
+    return render_template('keyword.html', form=form, maxbudget=maxbudget,
                            minbudget=minbudget, adults=adults,
                            children=children, startdate=startdate,
                            enddate=enddate, triplength=triplength,
-                           localorabroad=localorabroad)
+                           localorabroad=localorabroad, origin=origin, currency=currency)
+
+
+
+
+
+
+#Generate Recommendation Routing
+
+
+@app.route('/result', methods=['GET', 'POST'])
+@login_required
+def result():
+    currency = request.args['currency']
+    #print("Hereeeee")
+    recommendations = Recommendation.query.all()
+    #print(len(recommendations))
+    return render_template('result.html', title='Result', recommendations=recommendations, currency=currency)
+
+
+
+@app.route('/details/<city>')
+@login_required
+def details(city):
+    isFavourited = False
+
+    recommendations = Recommendation.query.all()
+
+    for recommendation in recommendations:
+        if recommendation.city == city:
+            current_recommendation = recommendation
+            break
+        else:
+            current_recommendation = recommendation
+
+    favouritesList = Favourite.query.all()
+    fave = []
+    for favourite in favouritesList:
+        if favourite.city == city:
+            fave = favourite
+            isFavourited = True
+            break
+
+    description = current_recommendation.description
+    image = current_recommendation.image
+    hotels = current_recommendation.hotels
+    flights = current_recommendation.flights
+
+    form = FavouritedForm()
+    a = request.form.get('toggle_heart.data')
+    #print(a)
+    #print(form.submit.data)
+
+    if form.submit.data == "True":
+        if isFavourited:
+            db.session.delete(fave)
+            db.session.commit()
+        else:
+            newFavourite = Favourite(description=current_recommendation.description, city=current_recommendation.city,
+                                     image=current_recommendation.image, flights=current_recommendation.flights,
+                                     hotels=current_recommendation.hotels, keywords=current_recommendation.keywords,
+                                     user_id=current_user.id)
+            db.session.add(newFavourite)
+            db.session.commit()
+
+    return render_template('detail.html', city=city, recommendation=current_recommendation, form=form,
+                           isFavourited=isFavourited, hotels=hotels, flights=flights)
+
+
+
+
+
+#misc pages routing
+
+@app.route('/messagesent')
+def messagesent():
+    return render_template('messagesent.html')
+
+
+@app.route('/contactus', methods=['GET', 'POST'])
+def contactus():
+    form = ContactUsForm()
+    if request.method == 'POST':
+        name = request.form.get('username')
+        email = request.form.get('email')
+        query = request.form.get('messages')
+
+        contactUsConfirmation(name, email, query)
+        return redirect(url_for('messagesent'))
+    return render_template('contactus.html', form=form)
+
+
+@app.route('/emailsent')
+def emailsent():
+    return render_template('emailsent.html')
+
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

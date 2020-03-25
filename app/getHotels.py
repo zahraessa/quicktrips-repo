@@ -2,42 +2,43 @@ import requests
 from app.getCityDetails import getCityId
 from app.getRandomCity import randomCityGenerator
 from app.getCityCoordinates import getCoordinates
+from time import sleep
 
 
 # the api call limit is 500 calls so I've added extra API keys as a fail safe until we decide on an alternative
 
 def generateList(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
+    url = "https://tripadvisor1.p.rapidapi.com/hotels/list"
     cityid = getCityId(city)
     querystring = {"zff": "4%2C6", "pricesmin": minbudget, "offset": "0", "subcategory": "hotel%2Cbb%2Cspecialty",
                    "pricesmax": maxbudget, "hotel_class": "1%2C2%2C3", "currency": currency,
-                   "amenities": "beach%2Cbar_lounge%2Cairport_transportation", "child_rm_ages": childAges, "limit": "6",
+                   "amenities": "beach%2Cbar_lounge%2Cairport_transportation", "limit": "10",
                    "checkin": startdate, "order": "asc", "lang": "en_US", "sort": "price", "nights": triplength,
                    "location_id": cityid, "adults": adults, "rooms": "2"}
 
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+        "x-rapidapi-key": "999c2985c6msh57d4cee167153ebp1476fdjsn9614b09d1759"
     }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
-    print(response)
+    #print(response)
     return response.json()
 
 
 
 
-def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
-    cityid = getCityId(city)
-    print(cityid)
+def getHotelDetails(hotelId, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
+
     url = "https://tripadvisor1.p.rapidapi.com/hotels/get-details"
 
     querystring = {"adults": adults, "nights": triplength, "currency": currency, "lang": "en_US",
-                   "child_rm_ages": childAges, "checkin": startdate, "location_id": cityid}
+                   "child_rm_ages": childAges, "checkin": startdate, "location_id": hotelId}
 
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+            "x-rapidapi-key": "999c2985c6msh57d4cee167153ebp1476fdjsn9614b09d1759"
         }
 
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -46,7 +47,7 @@ def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, tr
         try:
             headers = {
                 'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                "x-rapidapi-key": "1f79334269mshfc4b60a19d501cep1244f7jsnaf9b5cb281bb"
+                "x-rapidapi-key": "999c2985c6msh57d4cee167153ebp1476fdjsn9614b09d1759"
             }
             response = requests.request("GET", url, headers=headers, params=querystring)
             return response
@@ -59,92 +60,82 @@ def getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, tr
                 response = requests.request("GET", url, headers=headers, params=querystring)
                 return response
             except:
-                return "AAAA"
+                return
 
 
-def getHotelName(i, text):
+def getHotelName(text):
     try:
-        name = text['data'][i]['name']
+        name = text["data"][0]["name"]
         return name
     except:
         return ""
 
 
-def getHotelPhoto(i, text):
+def getHotelPhoto(text):
     try:
-        photo = text['data'][i]['photo']['images']['large']['url']
+        photo = text["data"][0]["photo"]["images"]["original"]["url"]
         return photo
     except:
         return ""
 
 
-def getHotelPrice(i, text):
+def getHotelPrice(text):
     try:
-        price = text['data'][i]['price']
+        price = text["data"][0]["price"]
         return price
     except:
         return ""
 
 
-def getHotelBookingURL(i, text):
+def getHotelBookingURL(text):
     try:
-        url = text['data'][i]['web_url']
+        print("AAA")
+        # print(text["data"][0])
+        url = text["data"][0]["hac_offers"]["offers"][0]["link"]
         return url
     except:
         return ""
 
-def getHotelClass(i, text):
-    try:
-        hotelClass = text['data'][i]['hotel_class']
-        return hotelClass
-    except:
-        return ""
 
 
 
 def getHotelList(city, country, region, maxbudget, minbudget, adults, childAges, startdate, triplength, currency):
-    response = ""
+    list = []
     try:
-        response = getHotelDetails(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+        list = generateList(city, maxbudget, minbudget, adults, "", startdate, triplength, currency)
     except:
         try:
-            response = getHotelDetails(region, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+            list = generateList(region, maxbudget, minbudget, adults, "", startdate, triplength, currency)
         except:
             try:
-                response = getHotelDetails(country, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
+                list = generateList(country, maxbudget, minbudget, adults, "", startdate, triplength, currency)
             except:
-                print("NONE")
-                return "None found"
+                #print("NONE")
+                return []
 
-    hotels = {}
-    for i in range(6):
-        try:
-            hotels[city] = [getHotelName(i, response), getHotelPhoto(i, response), getHotelBookingURL(i, response),
-                            getHotelClass(i, response), getHotelPrice(i, response)]
-        except:
-            break
-    return hotels
+    hotels = []
 
+    #print(list)
 
+    if "data" in list:
+        for x in list["data"]:
+            sleep(4)
+            try:
+                id = x["location_id"]
+                details = getHotelDetails(id, maxbudget, minbudget, adults, "", startdate, triplength, currency)
+                name = getHotelName(details)
+                price = getHotelPrice(details)
+                photo = getHotelPhoto(details)
+                url = getHotelBookingURL(details)
+                if name == "" or price == "" or photo == "" or url == "":
+                    continue
+                else:
+                    hotels.append([id, name, price, photo, url])
 
-
-
-#
-# origin = "London"
-# adults = 3
-# children = 2
-# numberOfPeople = adults + children
-# startdate = "2020-05-21"
-# enddate = "2020-05-25"
-# currency = "USD"
-# maxbudget = 10000
-# minbudget = 0
-# triplength = 3
-# keywords = ["family", "wilderness", "food", "warm", "shopping"]
-# #
-# # hotels = getHotelList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
-# #
-# # for hotel in hotels:
-# #     print(hotels[hotel])
-#
-# #generateList("London", "United Kingdom", "England", maxbudget, minbudget, adults, "", startdate, triplength, currency)
+            except:
+                continue
+            # print("-------------------------------------")
+        print(hotels)
+        return hotels
+    else:
+        return ""
