@@ -19,6 +19,4 @@ websocket-client==0.48.0
 ibm_cloud_sdk_core==1.5.1
 flask_wtf
 opencage
-python-social-auth==0.2.14
-pymysql
 itsdangerous
