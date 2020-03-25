@@ -6,8 +6,8 @@
 3. pip install pipenv
 4. Cd into the correct directory
 5. Type "Cd Quicktrips"
-4. Type "pip install -r requirements.txt" to install the required libraries.
 5. Type "pipenv shell" to activate virtualenv.
+4. Type "pip install -r requirements.txt" to install the required libraries.
 6. Type "pip install python-dotenv"
 7. Type "export FLASK_APP=app.py"
 8. Type "flask run"

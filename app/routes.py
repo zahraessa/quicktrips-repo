@@ -25,12 +25,16 @@ def index():
     recommendations1 = []
     recommendations2 = []
     if current_user.is_authenticated:
-        recommendations = current_user.recommendations
-        for i in range(4):
-            recommendations1.append(recommendations[i])
-        for i in range(5, 9):
-            recommendations2.append(recommendations[i])
-
+        recommendations = Recommendation.query.all()
+        for recommendation in recommendations:
+            if recommendation.user_id == current_user.id:
+                i += 1
+                if i < 4:
+                    recommendations1.append(cities[i])
+                if i in range(5, 9):
+                    recommendations2.append(cities[i])
+                else:
+                    break
 
     else:
         for city in cities:

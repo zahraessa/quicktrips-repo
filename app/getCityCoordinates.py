@@ -16,15 +16,16 @@ def getCityFacts(city):
     timezone = cityfactsJSON[0]['annotations']['timezone']['short_name']
 
 def getCoordinates(city):
-    data = getCityFacts(city)
-    #print(data)
-    latitude = data[0]['annotations']['DMS']['lat']
-    #print(latitude)
-    longitude = data[0]['annotations']['DMS']['lng']
-    #print(longitude)
-    lat = latitude.partition("°")[0]
-    lng = longitude.partition("°")[0]
-    return [lat, lng]
+    # data = getCityFacts(city)
+    # #print(data)
+    # latitude = data[0]['annotations']['DMS']['lat']
+    # #print(latitude)
+    # longitude = data[0]['annotations']['DMS']['lng']
+    # #print(longitude)
+    # lat = latitude.partition("°")[0]
+    # lng = longitude.partition("°")[0]
+    # return [lat, lng]
+    return
 
 
 def getCountryCode(city):
