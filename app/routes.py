@@ -357,8 +357,8 @@ def keywords():
                                             enddate=enddate, currency=currency, triplength=triplength,
                                             keywords=selected, localorinternational=localorabroad)
         #print(len(torecommend))
-        #print("UMMMMMMM")
-        #print(torecommend)
+        print("UMMMMMMM")
+        print(torecommend)
 
         for x in torecommend:
             city = x  # city
