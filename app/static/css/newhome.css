@@ -307,19 +307,15 @@ footer{
 }
 
 @media (max-width: 650px) {
-   .masthead{
-    width:1000px;
-  }
-  article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
-
-    width: 1000px;
+   .masthead{width:800px;}
+  article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {width: 800px;}
+  .navbar-toggler.navbar-toggler-right {
+    margin-right: 500px !important;
 }
 }
 
 @media (max-width: 767.98px) {
-  .masthead{
-    margin-right:-40px;
-  }
+
 }
 
 @media (max-width: 991.98px) {
