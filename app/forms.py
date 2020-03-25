@@ -66,7 +66,6 @@ class QuestionnaireForm(FlaskForm):
                                                         ("5", "5")], validators=[DataRequired()])
     startDate = DateField('Start Date', validators=[DataRequired()])
     endDate = DateField('End Date', validators=[DataRequired()])
-    tripLength = StringField('Trip Length', validators=[DataRequired()])
     localorabroad = RadioField('Destination', choices=[('local', 'local'), ('abroad', 'abroad')])
     origincountry = StringField('Country', validators=[DataRequired()])
     originstate = StringField('State', validators=[DataRequired()])

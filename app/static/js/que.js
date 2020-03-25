@@ -5,7 +5,6 @@ toKeyword(document.getElementById("nextBtn").innerHTML, currentTab);
 function toKeyword(n,m){
   var x = document.getElementsByClassName("tab");
   if (n == "Final Question!" && m == x.length) {
-    self.location.href = "http://127.0.0.1:5000/keyword";
     x.onclick = addSubmit(x);
   }
 
@@ -85,9 +84,7 @@ function validateForm() {
 
   // If min is greater than max, then add is-invalid class
   if (currentTab == 0) {
-    var min = parseInt(z[0].value.replace(",",""));
-    var max = parseInt(z[1].value.replace(",", ""));
-    if (parseInt(z[0].value)  > parseInt(z[1].value)){
+    if (z[0].value  > z[1].value){
       // add an "is-invalid" class to the field:
       z[0].className += " is-invalid";
       z[1].className += " is-invalid";
@@ -120,16 +117,6 @@ function validateForm() {
       valid = false;
     }
 
-    // If trip length longer than available date, then add is-invalid class
-    var start = new Date(y[0].value);
-    var end = new Date(y[1].value);
-    var inputLength = z[0].value;
-    var differenceInTime = end.getTime() - start.getTime();
-    var dateLength = differenceInTime / (1000 * 3600 * 24);
-    if(dateLength < inputLength) {
-      z[0].className += " is-invalid";
-      valid = false;
-    }
   }
 
 

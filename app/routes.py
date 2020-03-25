@@ -97,7 +97,7 @@ def register():
                     break
 
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return redirect(url_for('registerdone'))
     else:
         #print("BBB")
         return render_template('register.html', form=form)
@@ -272,7 +272,8 @@ def question():
         children = request.form.get('children6') + request.form.get('children612') + request.form.get('children1218')
         startdate = request.form.get('startDate')
         enddate = request.form.get('endDate')
-        triplength = request.form.get('tripLength')
+        #TODO: Calculate trip length
+        triplength = 5
         localorabroad = request.form.get('localorabroad')
         origincountry = request.form.get('origincountry')
         originstate = request.form.get('originstate')
@@ -448,6 +449,11 @@ def contactus():
 @app.route('/emailsent')
 def emailsent():
     return render_template('emailsent.html')
+
+
+@app.route('/registerdone')
+def registerdone():
+    return render_template('registerdone.html')
 
 
 @app.route('/faq')
