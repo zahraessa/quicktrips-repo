@@ -18,7 +18,6 @@ from itsdangerous import URLSafeSerializer
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
     return render_template("index.html", title='Home Page')
 
@@ -258,7 +257,6 @@ def usereditpassword():
 #Questionnaire edit form routing
 
 @app.route('/que', methods=['GET', 'POST'])
-@login_required
 def question():
     form = QuestionnaireForm()
     # print(request.form.get('currency'))
@@ -299,7 +297,6 @@ def question():
 
 
 @app.route('/keyword', methods=['GET', 'POST'])
-@login_required
 def keywords():
     form = KeywordsForm()
     maxbudget = request.args['maxbudget']
@@ -369,7 +366,6 @@ def keywords():
 
 
 @app.route('/result', methods=['GET', 'POST'])
-@login_required
 def result():
     currency = request.args['currency']
     #print("Hereeeee")
@@ -380,7 +376,6 @@ def result():
 
 
 @app.route('/details/<city>')
-@login_required
 def details(city):
     isFavourited = False
 
