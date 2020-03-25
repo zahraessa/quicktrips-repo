@@ -77,84 +77,37 @@
         <a href="/que" class="btn btn-primary">Edit Questionnaire</a>
         <p>xxx results</p>
       </div>
-      <!-- results -->
-      <a class="card mb-3" href="detail.html">
+
+            <!-- results -->
+      {% for recommendation in current_user.recommendations %}
+      <a class="card mb-3" href="details/{{recommendation.city}}">
         <div class="row no-gutters">
           <div class="col-md-4 mb-0">
-            <img src="{{ url_for('static', filename='image/milan-result.jpg') }}" class="card-img" alt="...">
+            <img src={{recommendation.image}} class="card-img" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <h4 class="card-title">Milan</h4>
-                <div class="favourate">
-                  <form id="form-fav" method="POST" novalidate >
-
-                    <label for="toggle-heart-1" class="favourate">
-                      <input type="checkbox" id="toggle-heart-1" name="fav">
-                      <i class="fas fa-heart"></i>
-                      <i class="far fa-heart"></i>
-                    </label>
-                  </form>
-                </div>
-              </div>
-              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-              <p class="card-text">£ xxx </p>
-              <p class="card-text"><small class="text-muted">Cultural | Family | Friends</small></p>
-            </div>
-          </div>
-        </div>
-      </a>
-
-      <a class="card mb-3" href="detail.html">
-        <div class="row no-gutters">
-          <div class="col-md-4 mb-0">
-            <img src="{{ url_for('static', filename='image/new_york-result.jpg') }}" class="card-img" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <h4 class="card-title">New York</h4>
-                <div class="favourate item2">
-                  <label for="toggle-heart-2" class="favourate">
-                    <input type="checkbox" id="toggle-heart-2">
+                <h4 class="card-title">{{recommendation.city}}</h4>
+                <div class="favourite">
+                  <label for="toggle-heart-1" class="favourite">
+                    <input type="checkbox" id="toggle-heart-1">
                     <i class="fas fa-heart"></i>
                     <i class="far fa-heart"></i>
                   </label>
                 </div>
               </div>
-              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-              <p class="card-text">£ xxx </p>
-              <p class="card-text"><small class="text-muted">Luxury | Family | Friends</small></p>
+              <p class="card-text">{{recommendation.description}}</p>
+              <p class="card-text">{{currency}} xxxxx </p>
+              <p class="card-text"><small class="text-muted">
+                {% for keyword in recommendation.keywords %} | {{keyword}} | {% endfor %}
+              </small>
+              </p>
             </div>
           </div>
         </div>
       </a>
-
-      <a class="card mb-3" href="detail.html">
-        <div class="row no-gutters">
-          <div class="col-md-4 mb-0">
-            <img src="{{ url_for('static', filename='image/kyoto-result.jpg') }}" class="card-img" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
-                <h4 class="card-title">Kyoto</h4>
-                <div class="favourate item3">
-                  <label for="toggle-heart-3" class="favourate">
-                    <input type="checkbox" id="toggle-heart-3">
-                    <i class="fas fa-heart"></i>
-                    <i class="far fa-heart"></i>
-                  </label>
-                </div>
-              </div>
-              <p class="card-text">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-              <p class="card-text">£ xxx </p>
-              <p class="card-text"><small class="text-muted">Cultural | Family | Friends</small></p>
-            </div>
-          </div>
-        </div>
-      </a>
+   {% endfor %}
     </div>
 
 <!-- FOOTER -->

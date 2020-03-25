@@ -14,12 +14,47 @@ from datetime import date
 from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, ForgotPasswordEmail
 from app.getAllInformationForARecommendation import getRecommendationInfo
 from itsdangerous import URLSafeSerializer
+from app.getImage import getCityImage
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index.html", title='Home Page')
+    cities = ProcessedCity.query.all()
+    i = 0
+    recommendations1 = []
+    recommendations2 = []
+    if current_user.is_authenticated:
+        recommendations = current_user.recommendations
+        for i in range(4):
+            recommendations1.append(recommendations[i])
+        for i in range(5, 9):
+            recommendations2.append(recommendations[i])
+
+
+    else:
+        for city in cities:
+            if city.keywords != [] and city.sentiment > 0.5:
+                if i < 8:
+                    c = city.city
+                    image = getCityImage(city.city, city.country, city.region)
+                    description = city.description
+                    keywords = city.keywords
+                    flights = []
+                    hotels = []
+                    rec = Recommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
+                                         description=description, image=image, user_id="")
+
+                    if i<4:
+                        recommendations1.append(rec)
+                    else:
+                        recommendations2.append(rec)
+
+                    i += 1
+                else:
+                    break
+    return render_template("index.html", title='Home Page', recommendations1=recommendations1,
+                           recommendations2=recommendations2)
 
 
 
@@ -81,7 +116,7 @@ def register():
             if city.keywords != [] and city.sentiment > 0.5:
                 if i < 8:
                     c = city.city
-                    image = city.image
+                    image = getCityImage(city.city, city.country, city.region)
                     description = city.description
                     keywords = city.keywords
                     flights = []
@@ -325,13 +360,6 @@ def keywords():
         #print("UMMMMMMM")
         #print(torecommend)
 
-        recommendations = Recommendation.query.all()
-        for recommendation in recommendations:
-            if recommendation.user_id == current_user.id:
-                db.session.delete(recommendation)
-                db.session.commit()
-
-        #print("RESULTS")
         for x in torecommend:
             city = x  # city
             print("city: " + city)
@@ -345,13 +373,23 @@ def keywords():
             image = torecommend[x][3]  # Photo
             keywords = torecommend[x][4]
 
+
+        if current_user.is_authenticated:
+            for recommendation in recommendations:
+                if recommendation.user_id == current_user.id:
+                    db.session.delete(recommendation)
+                    db.session.commit()
+
             db.session.add(Recommendation(city=city, description=description,
                                           image=image, flights=flights,
                                           keywords=keywords, hotels=hotels,
                                           user_id=current_user.id))
             db.session.commit()
 
-        return redirect(url_for('result', currency=currency))
+
+
+        return redirect(url_for('result', currency=currency, recommendations=torecommend))
+
     return render_template('keyword.html', form=form, maxbudget=maxbudget,
                            minbudget=minbudget, adults=adults,
                            children=children, startdate=startdate,
@@ -369,9 +407,7 @@ def keywords():
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     currency = request.args['currency']
-    #print("Hereeeee")
-    recommendations = Recommendation.query.all()
-    #print(len(recommendations))
+    recommendations = request.args['recommendations']
     return render_template('result.html', title='Result', recommendations=recommendations, currency=currency)
 
 
@@ -397,27 +433,37 @@ def details(city):
             isFavourited = True
             break
 
-    description = current_recommendation.description
-    image = current_recommendation.image
+    country = ""
+    region = ""
+
+    for processed in ProcessedCity.query.all():
+        if processed.city == city:
+            country = processed.country
+            region = processed.country
+
+
+    image = getCityImage(city, country, region)
     hotels = current_recommendation.hotels
     flights = current_recommendation.flights
 
-    form = FavouritedForm()
-    a = request.form.get('toggle_heart.data')
-    #print(a)
-    #print(form.submit.data)
+    if current_user.is_authenticated:
+        form = FavouritedForm()
 
-    if form.submit.data == "True":
-        if isFavourited:
-            db.session.delete(fave)
-            db.session.commit()
-        else:
-            newFavourite = Favourite(description=current_recommendation.description, city=current_recommendation.city,
-                                     image=current_recommendation.image, flights=current_recommendation.flights,
-                                     hotels=current_recommendation.hotels, keywords=current_recommendation.keywords,
-                                     user_id=current_user.id)
-            db.session.add(newFavourite)
-            db.session.commit()
+        a = request.form.get('toggle_heart.data')
+        #print(a)
+        #print(form.submit.data)
+
+        if form.submit.data == "True":
+            if isFavourited:
+                db.session.delete(fave)
+                db.session.commit()
+            else:
+                newFavourite = Favourite(description=current_recommendation.description, city=current_recommendation.city,
+                                         image=image, flights=current_recommendation.flights,
+                                         hotels=current_recommendation.hotels, keywords=current_recommendation.keywords,
+                                         user_id=current_user.id)
+                db.session.add(newFavourite)
+                db.session.commit()
 
     return render_template('detail.html', city=city, recommendation=current_recommendation, form=form,
                            isFavourited=isFavourited, hotels=hotels, flights=flights)

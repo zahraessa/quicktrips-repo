@@ -106,7 +106,7 @@
                    <div >
                      <div class="container-fluid">
                        <div class="row">
-                         {% for recommendation in current_user.recommendations %}
+                         {% for recommendation in recommendations1 %}
                             <div class="col-3 mx-auto px-1 py-3">
                               <a class="portfolio-box" href="/details/{{  recommendation.city  }}">
                                 <img class="img-fluid" src="{{  recommendation.image  }}"  alt="">
@@ -132,7 +132,7 @@
                    <div>
                      <div class="container-fluid">
                        <div class="row">
-                          {% for recommendation in current_user.recommendations %}
+                          {% for recommendation in recommendations2 %}
                             <div class="col-3 mx-auto px-1 py-3">
                               <a class="portfolio-box" href="/details/{{  recommendation.city  }}">
                                 <img class="img-fluid" src="{{  recommendation.image  }}"  alt="">
