@@ -9,8 +9,9 @@ def generateClosestAirport(placeArray):
 
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
         }
+        sleep(2)
 
         response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -21,8 +22,9 @@ def generateClosestAirport(placeArray):
 
             headers = {
                 'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+                "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
             }
+            sleep(2)
 
             response = requests.request("GET", url, headers=headers, params=querystring)
 
@@ -32,8 +34,10 @@ def generateClosestAirport(placeArray):
 
             headers = {
                 'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+                "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
             }
+
+            sleep(2)
 
             response = requests.request("GET", url, headers=headers, params=querystring)
 

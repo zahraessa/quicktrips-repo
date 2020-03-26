@@ -7,44 +7,37 @@ from app.getRandomCity import getRandomCities
 from app.models import ProcessedCity
 
 
-#GET FROM FRONT END FORMS
-origin = "Mexico"
-adults = 1
-children = 1
-numberOfPeople = adults + children
-startdate = "2020-05-21"
-enddate = "2020-05-25"
-currency = "USD"
-maxbudget = 10000
-minbudget = 0
-triplength = 3
-keywords = ["family", "wilderness", "food", "friends", "shopping"]
-localorinternational = "global"
-
-
-def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, triplength, keywords, localorinternational):
+def getRecommendationInfo(origin, adults, children, startdate, enddate, currency, triplength, keywords,
+                          localorinternational, maxbudget, minbudget):
     recommendations = {}
     #print("OOP")
+    randomCities = []
     # generate 20 random cities
     if localorinternational == "local":
         randomCities = getRandomCities(origin)
     else:
         randomCities = getRandomCities("global")
     #filter cities
+    #print("LMNOP")
     cities = createRecommendation(keywords, randomCities)
     flights = []
 
+    #print(cities)
+
+    #print("FOBOBOBOBOFO")
     # get flights and hotels for each city
     for city in cities:
-        #print(city)
+        # print("ZOBOZOBOZOBO")
+        # print(city)
         region = cities[city]["region"]
         country = cities[city]["country"]
         #TODO: Parse flight JSON
-        flights = getFlights(origin, city, country, region, numberOfPeople, startdate, enddate, currency)
-        #print(flights)
+        # print("FFLLIIGGHHTTSS")
+        flights = getFlights(origin, city, country, region, adults+children, startdate, enddate, currency)
+        # print(flights)
         if not flights:
             flights = []
-        #print("FLIGHTS")
+        #print("FLIGHTS")222
         #print(flights)
         # try:
         #     for flight in flights:
@@ -52,8 +45,9 @@ def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, 
         # except:
         #     print("NO FLIGHTS")
         #TODO: Remove recommendations with errors in hotels / no hotels or flights
-        hotels = getHotelList(city, country, region, maxbudget, minbudget, adults, "", startdate, triplength, currency)
-        #print(hotels)
+        # print("HHOOTTEELLSS")
+        hotels = getHotelList(city, country, region, maxbudget, minbudget, adults, children, startdate, triplength, currency)
+        # print(hotels)
         if not hotels:
             hotels = []
         #print("HOTELS")
@@ -70,13 +64,12 @@ def getRecommendationInfo(origin, numberOfPeople, startdate, enddate, currency, 
         for x in processsed:
             if x.city == city:
                 description = x.description
-                image = x.image
         # print("DESCRIPTION")
         # print(description)
         # print("IMAGE")
         # print(image)
         #TODO: GET MATCHED KEYWORDS
-        recommendations[city] = [flights, hotels, description, image, keywords]
+        recommendations[city] = [flights, hotels, description, keywords]
     #
     # print("RESULTS")
     # for x in recommendations:

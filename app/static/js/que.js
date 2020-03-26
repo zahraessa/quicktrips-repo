@@ -84,7 +84,7 @@ function validateForm() {
 
   // If min is greater than max, then add is-invalid class
   if (currentTab == 0) {
-    if (z[0].value  > z[1].value){
+    if (parseInt(z[0].value)  > parseInt(z[1].value)){
       // add an "is-invalid" class to the field:
       z[0].className += " is-invalid";
       z[1].className += " is-invalid";

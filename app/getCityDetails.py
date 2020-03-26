@@ -1,5 +1,5 @@
 import requests
-
+from time import sleep
 
 def getCityInfo(city):
     url = "https://tripadvisor1.p.rapidapi.com/locations/search"
@@ -7,38 +7,58 @@ def getCityInfo(city):
     querystring = {"limit": 4, "sort": "relevance", "offset": "0", "lang": "en_US",
                    "currency": "USD", "units": "km", "query": city}
 
+    sleep(3)
+
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
         }
+        sleep(2)
 
         response = requests.request("GET", url, headers=headers, params=querystring)
+        #print("OLOLOL")
+        #print(response.json())
         return response
     except:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "1f79334269mshfc4b60a19d501cep1244f7jsnaf9b5cb281bb"
+            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
         }
+        sleep(2)
         response = requests.request("GET", url, headers=headers, params=querystring)
+        #print("DDD")
+        #print(response)
         return response
 
 
 def getCityId(city):
     try:
-        return getCityInfo(city).json()['data'][0]['result_object']["location_id"]
+        #print("AAAA")
+        x = getCityInfo(city).json()['data'][0]['result_object']["location_id"]
+        #print("XX?X")
+        #print(x)
+        return x
     except:
+        #print("N?AN?A")
         return ""
 
 
 def getCityDescription(city, region, country):
     try:
-        return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
+        #print("HERE")
+        x = getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
     except:
+        #print("HERE2")
         try:
-            return getCityInfo(region).json()['data'][0]['result_object']["geo_description"]
+            #print("HERE3")
+            x = getCityInfo(region).json()['data'][0]['result_object']["geo_description"]
         except:
             try:
-                return getCityInfo(country).json()['data'][0]['result_object']["geo_description"]
+                #print("HERE4")
+                x = getCityInfo(country).json()['data'][0]['result_object']["geo_description"]
             except:
-                return "A great place to visit"
+                x = "A great place to visit"
+    #print(x)
+
+    return x

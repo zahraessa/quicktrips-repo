@@ -46,7 +46,7 @@ class MultiCheckboxField(SelectMultipleField):
 class KeywordsForm(FlaskForm):
     SelectMultipleField(choices=('family', 'wilderness', 'culinary', 'cultural', 'volunteer', 'solo',
                                  'adventure', 'self drive', 'accessible', 'last minute', 'snow', 'beach',
-                                 'sight seeing', 'partying', 'cold', 'shopping', 'romantic', 'warm',
+                                 'sightseeing', 'partying', 'cold', 'shopping', 'romantic', 'warm',
                                  'theme park', 'water sports', 'food'))
     submit = SubmitField('Submit')
 

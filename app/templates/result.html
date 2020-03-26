@@ -83,7 +83,7 @@
       <a class="card mb-3" href="details/{{recommendation.city}}">
         <div class="row no-gutters">
           <div class="col-md-4 mb-0">
-            <img src={{recommendation.image}} class="card-img" alt="...">
+            <img src="{{  recommendation.image(recommendation.city)  }}" class="card-img" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -115,10 +115,10 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md">
         <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
+        <small class="d-block mb-3 text-mutexd">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
-        <h5>Fearures</h5>
+        <h5>Features</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/index">Home</a></li>
           <li><a class="text-muted" href="/que">Get Started</a></li>

@@ -1,5 +1,6 @@
 import requests
 from app.getWikiPage import getWikiPages
+from time import sleep
 
 def getURLs(city):
     url = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI"
@@ -8,9 +9,9 @@ def getURLs(city):
 
     headers = {
         'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
         }
-
+    sleep(2)
     response = requests.request("GET", url, headers=headers, params=querystring)
 
     #print(response.text)
@@ -37,10 +38,11 @@ def getURLs(city):
 
     headers = {
         'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        'x-rapidapi-key': "972ab58325mshaf4cbe07802218fp1fcb76jsn1e3664871862"
+        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
     }
 
     try:
+        sleep(2)
         response = requests.request("GET", url, headers=headers, params=querystring)
 
         jsonResp = response.json()

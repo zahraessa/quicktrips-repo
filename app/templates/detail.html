@@ -70,13 +70,12 @@
       </ul>
     </div>
   </nav>
-
-  <!-- Header -->
+ <!-- Header -->
   <header class="masthead text-white text-center" name="top">
     <div class="overlay"></div>
     <div class="container">
       <div class="col-xl-11 mx-auto" >
-        <h1 class="mx-auto my-auto text-center">Milan</h1>
+        <h1 class="mx-auto my-auto text-center">{{city}}</h1>
       </div>
     </div>
   </header>
@@ -100,31 +99,33 @@
   </div>
 
   <!-- Favourite -->
-  <div class="social-icons">
-    <ul class="list-unstyled text-center mb-0">
-      <li class="list-unstyled-item">
-        <a data-toggle="modal" data-target="#exampleModal">
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a>
-          <input id="toggle-heart" type="checkbox" />
-          <label for="toggle-heart">
-            <i class="fas fa-heart"></i>
-          </label>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#top">
-          <i class="fas fa-chevron-up"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
+  <form id="favouriteform" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="social-icons">
+      <ul class="list-unstyled text-center mb-0">
+        <li class="list-unstyled-item">
+          <a data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+        </li>
+        <li class="list-unstyled-item">
+          <a>
+            <input id="toggle-heart" type="checkbox" name="submit" value="submit"/>
+            <label for="toggle-heart">
+              <i class="fas fa-heart"></i>
+            </label>
+          </a>
+        </li>
+        <li class="list-unstyled-item">
+          <a href="#top">
+            <i class="fas fa-chevron-up"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </form>
 
-
-   <!-- Detail -->
+  <!-- Detail -->
   <section id="detail" class="album py-5">
     <div>
       <h2 class="text-center mx-5 px-4">About the place</h2>

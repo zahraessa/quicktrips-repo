@@ -13,28 +13,38 @@ def createRecommendation(formKeywords, cities):
     # get sentiment score for each url
     # get keywords from urls
     cityStatistics = {}
+    # print("HEREEEEExxxxfxfxfx")
+    # print(cities)
     for city in cities:
-        #print(city)
+        # print("CCCCC")
+        # print(city)
         cityKeywords = set()
         averageSentiment = 0
         URLkeywords = []
         processsed = ProcessedCity.query.all()
         found = False
         for x in processsed:
+            # print(x)
+            # print("PROPPO")
             if x.city == city:
-                print(cities.get(city)[0])
+                found = True
+                # print(cities.get(city)[0])
                 if x.country == cities.get(city)[0]:
-                    print('true')
-                    found = True
+                    # print('YASSSSSSS')
                     averageSentiment = x.sentiment
                     cityKeywords = x.keywords
-                    break
+                else:
+                    # print('anomaly')
+                    averageSentiment = 0
+                    cityKeywords = []
+                break
 
 
+        # print(found)
         country = cities.get(city)[0]
         region = cities.get(city)[1]
         if not found:
-            print('false')
+            print('rip no')
             urls = getURLs(city)
             averageSentiment = getAverageSentiment(urls)
             watsonKeywords = getKeywords(urls)
@@ -44,16 +54,24 @@ def createRecommendation(formKeywords, cities):
                     for z in keywords[y]:
                         if z in x:
                             cityKeywords.add(y)
-            image = getCityImage(city, country, region)
+            image = getCityImage(city)
+            # print(image)
             description = getCityDescription(city, region, country)
             c = ProcessedCity(city=city, country=country, region=region, keywords=cityKeywords,
-                              sentiment=averageSentiment, image=image, description=description)
+                              sentiment=averageSentiment, description=description)
             db.session.add(c)
             db.session.commit()
+
+        # print("FK")
+        # print(formKeywords)
+        # print("CK")
+        # print(cityKeywords)
         matchedKeywords = compareKeywordsToForm(formKeywords, cityKeywords)
+        # print(matchedKeywords)
         cityStatistics[city] = {'sentiment': averageSentiment, 'keywordsCount': matchedKeywords.__len__(),
                                 'keywords': matchedKeywords, 'country': cities[city][1], 'region': cities[city][1]}
-        #print(cityStatistics[city])
+        # print("stats")
+        # print(cityStatistics[city])
     return pickRecommendation(cityStatistics)
 
 
@@ -80,19 +98,20 @@ def pickRecommendation(citiesdict):
     maxKeywords = 0
     maxcities = []
     maxcitiesdict = {}
+    print("PICKY PICKY")
     for city in citiesdict:
-        #print(city)
+        # print(city)
         keywordCount = citiesdict[city]['keywordsCount']
         sentiment = citiesdict[city]['sentiment']
         #print(keywordCount)
         #print(sentiment)
-        #print("-----------------")
+        # print("-----------------")
 
         if keywordCount > 0 and sentiment > 0.5:
             maxcitiesdict[city] = citiesdict[city].copy()
-    #print("MAX CITIES")
+    # print("MAX CITIES")
     # for city in maxcitiesdict:
-    #     #print(city)
+    #     print(city)
     return maxcitiesdict
 
 

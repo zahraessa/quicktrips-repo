@@ -130,7 +130,7 @@ keywords = {
         "pool",
         "sun"
     ],
-    "sight seeing": [
+    "sightseeing": [
         "museum",
         "culture",
         "tourism",
