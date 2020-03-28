@@ -5,12 +5,8 @@ from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireFo
     ForgotPasswordForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Recommendation, Favourite, ProcessedCity, CurrentRecommendation
-from app.getHotels import getHotelName, getHotelPhoto
-from app.getCityDetails import getCityDescription
-from app.getRandomCity import randomCityGenerator
-from app.getAllInformationForARecommendation import getRecommendationInfo
-from datetime import date
+from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, Favourite
+from datetime import datetime
 from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, ForgotPasswordEmail
 from app.getAllInformationForARecommendation import getRecommendationInfo
 from itsdangerous import URLSafeSerializer
@@ -35,7 +31,6 @@ def index():
                     recommendations2.append(cities[i])
                 else:
                     break
-
     else:
         for city in cities:
             if city.keywords != [] and city.sentiment > 0.5:
@@ -47,15 +42,17 @@ def index():
                     hotels = []
                     rec = CurrentRecommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
                                                 description=description, image=getCityImage(c))
-
                     if i < 4:
                         recommendations1.append(rec)
                     else:
                         recommendations2.append(rec)
-
                     i += 1
                 else:
                     break
+
+    for x in CurrentQuestionnaire.query.all():
+        db.session.delete(x)
+    db.session.commit()
     return render_template("index.html", title='Home Page', recommendations1=recommendations1,
                            recommendations2=recommendations2)
 
@@ -265,20 +262,17 @@ def usereditname():
     elif request.method == 'GET':
         form.firstname.data = current_user.firstname
         form.surname.data = current_user.surname
-
     return render_template('usereditname.html', form=form)
 
 
 @app.route('/usereditpassword', methods=['GET', 'POST'])
 def usereditpassword():
     form = EditProfilePasswordForm()
-
     if request.method == "POST" and form.validate_on_submit() and current_user.check_password(form.password.data):
         current_user.set_password(form.newPassword.data)
         db.session.commit()
         flash('Your changes have been saved.')
         return redirect(url_for('useredit'))
-
     return render_template('usereditpassword.html', form=form)
 
 
@@ -288,10 +282,20 @@ def usereditpassword():
 def question():
     form = QuestionnaireForm()
     if request.method == 'GET':
-        print("TT")
-        form = request.args.get('questionnaire')
-        if form is None:
-            form = QuestionnaireForm()
+        oldanswers = CurrentQuestionnaire.query.first()
+        if oldanswers is not None:
+            form.currency.data = oldanswers.currency
+            form.maxbudget.data = oldanswers.maxbudget
+            form.minbudget.data = oldanswers.minbudget
+            form.adults.data = oldanswers.adults
+            form.children6.data = oldanswers.children6
+            form.children612.data = oldanswers.children612
+            form.children1218.data = oldanswers.children1218
+            form.startDate = oldanswers.startdate
+            form.endDate = oldanswers.enddate
+            form.localorabroad = oldanswers.localorabroad
+            form.origincountry = oldanswers.origincountry
+            form.originstate = oldanswers.originstate
         return render_template('que.html', form=form)
     else:
         currency = request.form.get('currency')
@@ -302,68 +306,30 @@ def question():
                    int(request.form.get('children1218'))
         startdate = request.form.get('startDate')
         enddate = request.form.get('endDate')
-        # TODO: Calculate trip length
-        triplength = 5
         localorabroad = request.form.get('localorabroad')
         origincountry = request.form.get('origincountry')
         originstate = request.form.get('originstate')
+        q = CurrentQuestionnaire(currency=currency, maxbudget=maxbudget, minbudget=minbudget, adults=adults,
+                                 children6=request.form.get('children6'), children612=request.form.get('children612'),
+                                 children1218=request.form.get('children1218'), startdate=startdate, enddate=enddate,
+                                 localorabroad=localorabroad, origincountry=origincountry, originstate=originstate)
+        for x in CurrentQuestionnaire.query.all():
+            db.session.delete(x)
+        db.session.commit()
+        db.session.add(q)
+        db.session.commit()
+        formatDate = '%Y-%m-%d'
+        triplength = datetime.strptime(enddate, formatDate) - datetime.strptime(startdate, formatDate)
         return redirect(url_for('keywords', currency=currency, maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
                                 children=children, startdate=startdate,
                                 enddate=enddate, triplength=triplength,
-                                localorabroad=localorabroad, origin=origincountry, questionnaire=form))
-
-
-
-#TODO: Edit Questionnaire = prefill
-@app.route('/editque/<questionnaire>', methods=['GET', 'POST'])
-def editquestion(questionnaire):
-    form = QuestionnaireForm()
-    print(form)
-    print(questionnaire)
-    if request.method == 'GET':
-        print("TT")
-        if questionnaire is not None:
-            pass
-            # form.currency.data = questionnaire.currency.data
-            # form.maxbudget = questionnaire.maxbudget.data
-            # form.minbudget = questionnaire.minbudget.data
-            # form.adults = questionnaire.adults.data
-            # form.children6 = questionnaire.children6.data
-            # form.children612 = questionnaire.children612.data
-            # form.children1218 = questionnaire.children1218.data
-            # form.startDate = questionnaire.startDate.data
-            # form.endDate = questionnaire.endDate.data
-            # form.localorabroad = questionnaire.localorabroad.data
-            # form.origincountry = questionnaire.origincountry.data
-            # form.originstate = questionnaire.originstate.data
-        return render_template('que.html', form=form)
-    else:
-        currency = request.form.get('currency')
-        maxbudget = request.form.get('maxbudget')
-        minbudget = request.form.get('minbudget')
-        adults = request.form.get('adults')
-        children = int(request.form.get('children6')) + int(request.form.get('children612')) + \
-                   int(request.form.get('children1218'))
-        startdate = request.form.get('startDate')
-        enddate = request.form.get('endDate')
-        # TODO: Calculate trip length
-        triplength = 5
-        localorabroad = request.form.get('localorabroad')
-        origincountry = request.form.get('origincountry')
-        originstate = request.form.get('originstate')
-        return redirect(url_for('keywords', currency=currency, maxbudget=maxbudget,
-                                minbudget=minbudget, adults=adults,
-                                children=children, startdate=startdate,
-                                enddate=enddate, triplength=triplength,
-                                localorabroad=localorabroad, origin=origincountry, questionnaire=form))
-
+                                localorabroad=localorabroad, origin=origincountry))
 
 
 @app.route('/keyword', methods=['GET', 'POST'])
 def keywords():
     form = KeywordsForm()
-    questionnaire = request.args['questionnaire']
     maxbudget = request.args['maxbudget']
     minbudget = request.args['minbudget']
     currency = request.args['currency']
@@ -374,33 +340,22 @@ def keywords():
     triplength = request.args['triplength']
     localorabroad = request.args['localorabroad']
     origin = request.args['origin']
-    # print("AAAAA")
-    # print(maxbudget)
     if request.method == "POST" and form.validate_on_submit():
         selected = request.form.getlist('keywords')
-
-        print("SELECTED")
-        print(selected)
-
         return redirect(url_for('result', maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
                                 children=children, startdate=startdate,
                                 enddate=enddate, triplength=triplength, localorabroad=localorabroad,
-                                origin=origin, currency=currency, keywords=selected, questionnaire=questionnaire))
-
+                                origin=origin, currency=currency, keywords=selected))
     return render_template('keyword.html', form=form, maxbudget=maxbudget,
                            minbudget=minbudget, adults=adults,
                            children=children, startdate=startdate,
                            enddate=enddate, triplength=triplength,
-                           localorabroad=localorabroad, origin=origin, currency=currency, questionnaire=questionnaire)
-
-
-# Generate Recommendation Routing
+                           localorabroad=localorabroad, origin=origin, currency=currency)
 
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
-    questionnaire = request.args['questionnaire']
     maxbudget = request.args['maxbudget']
     minbudget = request.args['minbudget']
     currency = request.args['currency']
@@ -413,90 +368,36 @@ def result():
     origin = request.args['origin']
     keywords = request.args.getlist('keywords')
 
-    searchQueries = [maxbudget, minbudget, currency, adults, children, startdate, enddate, localorabroad, origin, keywords]
+    searchQueries = [maxbudget, minbudget, currency, adults, children, startdate, enddate, localorabroad, origin,
+                     keywords]
 
-    #print(keywords)
-
-    # TODO: GET ORIGIN
     torecommend = getRecommendationInfo(origin=origin, adults=int(adults), children=int(children),
                                         startdate=startdate, enddate=enddate, currency=currency, triplength=triplength,
                                         keywords=keywords, localorinternational=localorabroad, maxbudget=maxbudget,
                                         minbudget=minbudget)
-    # print("TORECO")
-    # print(torecommend)
-
-    for x in torecommend:
-        city = x  # city
-        # print("city: " + city)
-        hotels = torecommend[x][1]  # hotels
-        # print("oooooo hotels: ")
-        # print(hotels)
-        flights = torecommend[x][0]  # flights
-        # print("oooooo flights: ")
-        # print(flights)
-        description = torecommend[x][2]  # Description
-        keywords = torecommend[x][3]
-
     if current_user.is_authenticated:
         db.session.query(Recommendation).filter(Recommendation.user_id == current_user.id).delete()
         db.session.commit()
-
         for x in torecommend:
-            print("XXXXXXXXXXxxxXXXXXXXXXxxxxxXxxXXxXXxxx")
-            print(x)
-            print(torecommend[x][1])
-            print(torecommend[x][3])
-            print(torecommend[x][2])
-            print(torecommend[x][0])
-
             new = Recommendation(city=x, description=torecommend[x][2],
                                  flights=torecommend[x][0], keywords=torecommend[x][3],
                                  hotels=torecommend[x][1], user_id=current_user.id)
-
-            print("NEWWMRMEFKMRKMNFE")
-            print(new.city)
-            print(new.image(new.city))
-            print("--------------")
-
             db.session.add(new)
             db.session.commit()
-
         recommendations = db.session.query(Recommendation).filter(Recommendation.user_id == current_user.id).all()
-
-        print("URRURURURURU")
-        print(recommendations)
-
     else:
         db.session.query(CurrentRecommendation).delete()
         db.session.commit()
-
         for x in torecommend:
             new = CurrentRecommendation(city=x, description=torecommend[x][2],
                                         flights=torecommend[x][0], keywords=torecommend[x][3],
                                         hotels=torecommend[x][1])
-
-            # print("NEWWMRMEFKMRKMNFE")
-            # print(new)
-            # print(new.city)
-
             db.session.add(new)
             db.session.commit()
-
-        # print("ALLLLLLLLLLLLLLL")
-
         recommendations = CurrentRecommendation.query.all()
-
-        # print(recommendations)
-
-    print("NEWWWWW")
-    print(len(recommendations))
-
-    print("FINALLLLLLLLL")
-    for r in recommendations:
-        print(r)
-
+    numberOfRecommendation = (len(recommendations))
     return render_template('result.html', title='Result', recommendations=recommendations, currency=currency,
-                           searchQueries=searchQueries, questionnaire=questionnaire)
+                           searchQueries=searchQueries, totalNumber=numberOfRecommendation)
 
 
 @app.route('/details/<city>', methods=['GET', 'POST'])
@@ -516,19 +417,42 @@ def details(city):
     isFavourited = False
 
     for recommendation in recommendations:
-        # print("Recoreco")
         if recommendation.city == city:
-            # print("FOUND CITY")
             flights = recommendation.flights
             hotels = recommendation.hotels
             description = recommendation.description
-            image = recommendation.image(recommendation.city)
+            image = recommendation.image()
             rec_id = recommendation.id
             current_recommendation = recommendation
             isFavourited = recommendation.isFavourited()
             break
+    return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
+                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited)
 
 
+@app.route('/favourites/favourite-details/<city>', methods=['GET', 'POST'])
+def favouritedetails(city):
+    form = FavouritedForm()
+    current_recommendation = []
+    favourites = db.session.query(Favourite).filter(Recommendation.user_id == current_user.id)
+
+    flights = []
+    hotels = []
+    description = ""
+    image = ""
+    rec_id = 10000000000
+    isFavourited = False
+
+    for recommendation in favourites:
+        if recommendation.city == city:
+            flights = recommendation.flights
+            hotels = recommendation.hotels
+            description = recommendation.description
+            image = recommendation.image()
+            rec_id = recommendation.id
+            current_recommendation = recommendation
+            isFavourited = True
+            break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
                            flights=flights, image=image, description=description, form=form, isFavourited=isFavourited)
 
@@ -537,11 +461,7 @@ def details(city):
 @login_required
 def favouriteRecommendation_action(recommendation_id):
     recommendation = Recommendation.query.filter_by(id=recommendation_id).first_or_404()
-    print("HIII")
-
     isFavourited = recommendation.isFavourited()
-    print(isFavourited)
-
     if isFavourited == False:
         recommendation.favourite()
         db.session.commit()
@@ -549,7 +469,6 @@ def favouriteRecommendation_action(recommendation_id):
         recommendation.unfavourite()
         db.session.commit()
     return redirect(request.referrer)
-
 
 
 # misc pages routing
@@ -565,7 +484,6 @@ def contactus():
         name = request.form.get('username')
         email = request.form.get('email')
         query = request.form.get('messages')
-
         contactUsConfirmation(name, email, query)
         return redirect(url_for('messagesent'))
     return render_template('contactus.html', form=form)

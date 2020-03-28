@@ -8,6 +8,7 @@
   <meta name="author" content="">
 
   <title>Quicktrip-result</title>
+  <link rel="shortcut icon" href="{{url_for('static', filename='image/logo-white.png')}}"  />
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -74,8 +75,8 @@
     <div class="bg-light mt-5 pt-5" id="result">
       <!-- header -->
       <div class="header d-flex justify-content-between" id="header">
-        <a href="/editque/{{questionnaire}}" class="btn btn-primary">Edit Questionnaire</a>
-        <p>xxx results</p>
+        <a href="/que" class="btn btn-primary">Edit Questionnaire</a>
+        <p>{{totalNumber}} results</p>
       </div>
 
       <!-- results -->
@@ -83,7 +84,7 @@
       <a class="card mb-3" href="details/{{recommendation.city}}">
         <div class="row no-gutters">
           <div class="col-md-4 mb-0">
-            <img src="{{  recommendation.image(recommendation.city)  }}" class="card-img" alt="...">
+            <img src="{{  recommendation.image()  }}" class="card-img" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -103,7 +104,6 @@
                 </div>
               </div>
               <p class="card-text">{{recommendation.description}}</p>
-              <p class="card-text">{{currency}} xxxxx </p>
               <p class="card-text"><small class="text-muted">
                 {% for keyword in recommendation.keywords %} | {{keyword}} | {% endfor %}
               </small>

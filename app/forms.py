@@ -37,7 +37,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 
-
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
@@ -75,17 +74,18 @@ class QuestionnaireForm(FlaskForm):
 class FavouritedForm(FlaskForm):
     submit = SubmitField('toggle-heart')
 
+
 class ContactUsForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     query = StringField('Query', validators=[DataRequired()])
 
 
-
 class EditProfileNameForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired()])
     surname = StringField('Surname', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
 
 class EditProfileAddressForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
@@ -105,5 +105,3 @@ class EditProfilePasswordForm(FlaskForm):
 class ForgotPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Submit')
-
-

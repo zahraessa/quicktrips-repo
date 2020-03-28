@@ -8,6 +8,7 @@
   <meta name="author" content="">
 
   <title>Quicktrip-user</title>
+  <link rel="shortcut icon" href="{{url_for('static', filename='image/logo-white.png')}}"  />
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -85,7 +86,7 @@
           <a class="card mb-3 bg-light"  href="#">
             <div class="row no-gutters">
               <div class="col-md-4 mb-0">
-                <img src="{{  pasttrip.image(recommendation.city)  }}" class="card-img" alt="...">
+                <img src="{{  pasttrip.image()  }}" class="card-img" alt="...">
               </div>
               <div class="col-md-8">
                 <div class="card-body">

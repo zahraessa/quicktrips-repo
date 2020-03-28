@@ -53,8 +53,8 @@ class Recommendation(db.Model):
     def __repr__(self):
         return '<Recommendation {}>'.format(self.city)
 
-    def image(self, city):
-        return getCityImage(city)
+    def image(self):
+        return getCityImage(self.city)
 
     def favourite(self):
         if not self.isFavourited():
@@ -81,10 +81,10 @@ class PastTrip(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Recommendation {}>'.format(self.city)
+        return '<PastTrip {}>'.format(self.city)
 
-    def image(self, city):
-        return getCityImage(city)
+    def image(self):
+        return getCityImage(self.city)
 
 
 class Favourite(db.Model):
@@ -97,10 +97,10 @@ class Favourite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Recommendation {}>'.format(self.city)
+        return '<Favourite {}>'.format(self.city)
 
-    def image(self, city):
-        return getCityImage(city)
+    def image(self):
+        return getCityImage(self.city)
 
 
 class CitiesToAvoid(db.Model):
@@ -125,8 +125,37 @@ class CurrentRecommendation(db.Model):
     hotels = db.Column(db.PickleType(True))
 
     def __repr__(self):
-        return '<Recommendation {}>'.format(self.city)
+        return '<CurrentRecommendation {}>'.format(self.city)
 
-    def image(self, city):
-        return getCityImage(city)
+    def image(self):
+        return getCityImage(self.city)
 
+class CurrentQuestionnaire(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    currency = db.Column(db.String(400))
+    maxbudget = db.Column(db.String(400))
+    minbudget = db.Column(db.String(400))
+    adults = db.Column(db.String(400))
+    children6 = db.Column(db.String(400))
+    children612 = db.Column(db.String(400))
+    children1218 = db.Column(db.String(400))
+    startdate = db.Column(db.String(400))
+    enddate = db.Column(db.String(400))
+    localorabroad = db.Column(db.String(400))
+    origincountry = db.Column(db.String(400))
+    originstate = db.Column(db.String(400))
+
+
+class sharedRecommendations(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(140))
+    description = db.Column(db.String(400))
+    flights = db.Column(db.PickleType(True))
+    keywords = db.Column(db.PickleType(True))
+    hotels = db.Column(db.PickleType(True))
+
+    def __repr__(self):
+        return '<sharedRecommendations {}>'.format(self.city)
+
+    def image(self):
+        return getCityImage(self.city)

@@ -1,8 +1,4 @@
-import time
-import json
 import requests
-from app.getRandomCity import randomCityGenerator
-
 
 def getCityImage(city):
     from app.models import ProcessedCity
