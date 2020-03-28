@@ -8,7 +8,7 @@ package = Package('https://datahub.io/core/world-cities/datapackage.json')
 def getRandomCities(country):
     cities = {}
     if country == "global":
-        for i in range(1):
+        for i in range(2):
             try:
                 x = randomCityGenerator()
                 cities[x[2]] = [x[1], x[0]]

@@ -14,10 +14,10 @@ def createRecommendation(formKeywords, cities):
     # get keywords from urls
     cityStatistics = {}
     # print("HEREEEEExxxxfxfxfx")
-    # print(cities)
+    print(cities)
     for city in cities:
         # print("CCCCC")
-        # print(city)
+        print(city)
         cityKeywords = set()
         averageSentiment = 0
         URLkeywords = []
@@ -54,8 +54,6 @@ def createRecommendation(formKeywords, cities):
                     for z in keywords[y]:
                         if z in x:
                             cityKeywords.add(y)
-            image = getCityImage(city)
-            # print(image)
             description = getCityDescription(city, region, country)
             c = ProcessedCity(city=city, country=country, region=region, keywords=cityKeywords,
                               sentiment=averageSentiment, description=description)

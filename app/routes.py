@@ -528,25 +528,9 @@ def details(city):
             isFavourited = recommendation.isFavourited()
             break
 
-    #
-    # if request.form.get('submit') == 'like':
-    #     return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='unlike'))
-    # else:
-    #     return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='like'))
-
-    # print(form.validate_on_submit())
-    # print(form.submit.data)
-    # print(request.form.get('submit'))
-    # if form.validate_on_submit():
-    #     print("VAL")
-    #     if isFavourited:
-    #         return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='unlike'))
-    #     else:
-    #         return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='like'))
-
 
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
-                           flights=flights, image=image, description=description, form=form)
+                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited)
 
 
 @app.route('/favourite/<recommendation_id>')

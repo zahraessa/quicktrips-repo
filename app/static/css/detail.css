@@ -1,3 +1,24 @@
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-user:hover {
+  border: 0.05rem solid white ;
+  color: white;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
+}
+
 #mainNav {
   min-height: 56px;
   background-color: #fff;
@@ -74,8 +95,7 @@
 
 header.masthead {
   position: relative;
-  background-color: #343a40;
-  background: url("../image/milan-result.jpg") no-repeat center center;
+  background: url("../image/12.jpg") center center;
   background-size: cover;
   padding-top: 8rem;
   padding-bottom: 8rem;
@@ -287,31 +307,18 @@ body h2 {
   letter-spacing: 0.1rem;
 }
 
-#video{
-  width: 100%;
+.video{
+  height: 25rem;
+  width: 39rem;
 }
 
-.btn-u {
-  padding: 0.3rem 0.8rem;
-  border-radius: 0.8rem;
-  text-decoration: none !important;
-}
-
-.btn-user {
-  border: 0.05rem solid rgba(255, 255, 255, 0.5);
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.btn-user:hover {
-  border: 0.05rem solid white ;
-  color: white;
-}
-
-.btn-user:active {
-  border-color: #2C4B59;
-  color: #2C4B59;
-}
-
-#mainNav .dropdown-item {
+footer {
   font-family: "Titillium Web";
+}
+
+#detail .img-fluid{
+
+  width: 39rem;
+  height: 25rem;
+  object-fit: cover;
 }

@@ -145,13 +145,16 @@ def getBookingURL(searches):
 
             response = requests.request("GET", url, headers=headers, params=querystring)
             print("RPJ")
-            print(response)
-            print(response.json())
-            price = itinerary[1]['p']
-            booking = response.json()["partner_url"]
-            # print(price)
-            # print(booking)
-            bookingURLS.append([price, booking])
+            try:
+                print(response)
+                print(response.json())
+                price = itinerary[1]['p']
+                booking = response.json()["partner_url"]
+                # print(price)
+                # print(booking)
+                bookingURLS.append([price, booking])
+            except:
+                continue
     #         print("---------------------")
     #     print("++++++++++++++++++++++++")
     #
