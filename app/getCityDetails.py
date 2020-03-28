@@ -12,7 +12,7 @@ def getCityInfo(city):
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+            "x-rapidapi-key": "9cb72a3b19msh9272cdb2d1ae07cp133e32jsnb4dd320937b9"
         }
         sleep(2)
 
@@ -21,15 +21,7 @@ def getCityInfo(city):
         #print(response.json())
         return response
     except:
-        headers = {
-            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
-        }
-        sleep(2)
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        #print("DDD")
-        #print(response)
-        return response
+        return
 
 
 def getCityId(city):
@@ -59,6 +51,6 @@ def getCityDescription(city, region, country):
                 x = getCityInfo(country).json()['data'][0]['result_object']["geo_description"]
             except:
                 x = "A great place to visit"
-    #print(x)
+    print(x)
 
     return x

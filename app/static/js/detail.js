@@ -39,4 +39,20 @@
   // Collapse the navbar when page is scrolled
   $(window).scroll(navbarCollapse);
 
-})(jQuery); // End of use strict
+  const whiteHeart = '\u2661';
+  const blackHeart = '\u2665';
+  const button = document.querySelector('button');
+  button.addEventListener('click', toggle);
+
+  function toggle() {
+    const like = button.textContent;
+    if(like==whiteHeart) {
+      button.textContent = blackHeart;
+    } else {
+      button.textContent = whiteHeart;
+    }
+  }
+
+}
+
+)(jQuery); // End of use strict

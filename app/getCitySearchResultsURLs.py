@@ -9,7 +9,7 @@ def getURLs(city):
 
     headers = {
         'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
         }
     sleep(2)
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -38,7 +38,7 @@ def getURLs(city):
 
     headers = {
         'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
     }
 
     try:

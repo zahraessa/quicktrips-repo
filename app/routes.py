@@ -287,12 +287,13 @@ def usereditpassword():
 @app.route('/que', methods=['GET', 'POST'])
 def question():
     form = QuestionnaireForm()
-    # print(request.form.get('currency'))
-    # print(request.method)
-    # print(form.validate_on_submit())
-    # print(form.errors)
-    # print(form.localorabroad.data)
-    if request.method == "POST":
+    if request.method == 'GET':
+        print("TT")
+        form = request.args.get('questionnaire')
+        if form is None:
+            form = QuestionnaireForm()
+        return render_template('que.html', form=form)
+    else:
         currency = request.form.get('currency')
         maxbudget = request.form.get('maxbudget')
         minbudget = request.form.get('minbudget')
@@ -306,29 +307,63 @@ def question():
         localorabroad = request.form.get('localorabroad')
         origincountry = request.form.get('origincountry')
         originstate = request.form.get('originstate')
-        # print(maxbudget)
-        # print(minbudget)
-        # print(adults)
-        # print(children)
-        # print(startdate)
-        # print(enddate)
-        # print(triplength)
-        # print(localorabroad)
-        # print(origincountry)
-        # print(originstate)
-        # print(maxcurrency)
-        # print(mincurrency)
         return redirect(url_for('keywords', currency=currency, maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
                                 children=children, startdate=startdate,
                                 enddate=enddate, triplength=triplength,
-                                localorabroad=localorabroad, origin=origincountry))
-    return render_template('que.html', form=form)
+                                localorabroad=localorabroad, origin=origincountry, questionnaire=form))
+
+
+
+#TODO: Edit Questionnaire = prefill
+@app.route('/editque/<questionnaire>', methods=['GET', 'POST'])
+def editquestion(questionnaire):
+    form = QuestionnaireForm()
+    print(form)
+    print(questionnaire)
+    if request.method == 'GET':
+        print("TT")
+        if questionnaire is not None:
+            pass
+            # form.currency.data = questionnaire.currency.data
+            # form.maxbudget = questionnaire.maxbudget.data
+            # form.minbudget = questionnaire.minbudget.data
+            # form.adults = questionnaire.adults.data
+            # form.children6 = questionnaire.children6.data
+            # form.children612 = questionnaire.children612.data
+            # form.children1218 = questionnaire.children1218.data
+            # form.startDate = questionnaire.startDate.data
+            # form.endDate = questionnaire.endDate.data
+            # form.localorabroad = questionnaire.localorabroad.data
+            # form.origincountry = questionnaire.origincountry.data
+            # form.originstate = questionnaire.originstate.data
+        return render_template('que.html', form=form)
+    else:
+        currency = request.form.get('currency')
+        maxbudget = request.form.get('maxbudget')
+        minbudget = request.form.get('minbudget')
+        adults = request.form.get('adults')
+        children = int(request.form.get('children6')) + int(request.form.get('children612')) + \
+                   int(request.form.get('children1218'))
+        startdate = request.form.get('startDate')
+        enddate = request.form.get('endDate')
+        # TODO: Calculate trip length
+        triplength = 5
+        localorabroad = request.form.get('localorabroad')
+        origincountry = request.form.get('origincountry')
+        originstate = request.form.get('originstate')
+        return redirect(url_for('keywords', currency=currency, maxbudget=maxbudget,
+                                minbudget=minbudget, adults=adults,
+                                children=children, startdate=startdate,
+                                enddate=enddate, triplength=triplength,
+                                localorabroad=localorabroad, origin=origincountry, questionnaire=form))
+
 
 
 @app.route('/keyword', methods=['GET', 'POST'])
 def keywords():
     form = KeywordsForm()
+    questionnaire = request.args['questionnaire']
     maxbudget = request.args['maxbudget']
     minbudget = request.args['minbudget']
     currency = request.args['currency']
@@ -350,14 +385,14 @@ def keywords():
         return redirect(url_for('result', maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
                                 children=children, startdate=startdate,
-                                enddate=enddate, triplength=triplength,
-                                localorabroad=localorabroad, origin=origin, currency=currency, keywords=selected))
+                                enddate=enddate, triplength=triplength, localorabroad=localorabroad,
+                                origin=origin, currency=currency, keywords=selected, questionnaire=questionnaire))
 
     return render_template('keyword.html', form=form, maxbudget=maxbudget,
                            minbudget=minbudget, adults=adults,
                            children=children, startdate=startdate,
                            enddate=enddate, triplength=triplength,
-                           localorabroad=localorabroad, origin=origin, currency=currency)
+                           localorabroad=localorabroad, origin=origin, currency=currency, questionnaire=questionnaire)
 
 
 # Generate Recommendation Routing
@@ -365,6 +400,7 @@ def keywords():
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
+    questionnaire = request.args['questionnaire']
     maxbudget = request.args['maxbudget']
     minbudget = request.args['minbudget']
     currency = request.args['currency']
@@ -376,6 +412,8 @@ def result():
     localorabroad = request.args['localorabroad']
     origin = request.args['origin']
     keywords = request.args.getlist('keywords')
+
+    searchQueries = [maxbudget, minbudget, currency, adults, children, startdate, enddate, localorabroad, origin, keywords]
 
     #print(keywords)
 
@@ -457,37 +495,80 @@ def result():
     for r in recommendations:
         print(r)
 
-    return render_template('result.html', title='Result', recommendations=recommendations, currency=currency)
+    return render_template('result.html', title='Result', recommendations=recommendations, currency=currency,
+                           searchQueries=searchQueries, questionnaire=questionnaire)
 
 
-@app.route('/details/<city>')
+@app.route('/details/<city>', methods=['GET', 'POST'])
 def details(city):
     form = FavouritedForm()
-    isFavourited = False
     current_recommendation = []
     if current_user.is_authenticated:
         recommendations = db.session.query(Recommendation).filter(Recommendation.user_id == current_user.id)
     else:
         recommendations = CurrentRecommendation.query.all()
 
-    # print("ielse")
+    flights = []
+    hotels = []
+    description = ""
+    image = ""
+    rec_id = 10000000000
+    isFavourited = False
 
     for recommendation in recommendations:
         # print("Recoreco")
         if recommendation.city == city:
             # print("FOUND CITY")
-            # print(recommendation.flights)
-            # print(recommendation.hotels)
-            # print(recommendation.description)
+            flights = recommendation.flights
+            hotels = recommendation.hotels
+            description = recommendation.description
+            image = recommendation.image(recommendation.city)
+            rec_id = recommendation.id
             current_recommendation = recommendation
+            isFavourited = recommendation.isFavourited()
             break
-    return render_template('detail.html', city=city, recommendation=current_recommendation, form=form,
-                           isFavourited=isFavourited, hotels=current_recommendation.hotels,
-                           flights=current_recommendation.flights)
+
+    #
+    # if request.form.get('submit') == 'like':
+    #     return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='unlike'))
+    # else:
+    #     return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='like'))
+
+    # print(form.validate_on_submit())
+    # print(form.submit.data)
+    # print(request.form.get('submit'))
+    # if form.validate_on_submit():
+    #     print("VAL")
+    #     if isFavourited:
+    #         return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='unlike'))
+    #     else:
+    #         return redirect(url_for('favouriteRecommendation_action', recommendation_id=rec_id, action='like'))
+
+
+    return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
+                           flights=flights, image=image, description=description, form=form)
+
+
+@app.route('/favourite/<recommendation_id>')
+@login_required
+def favouriteRecommendation_action(recommendation_id):
+    recommendation = Recommendation.query.filter_by(id=recommendation_id).first_or_404()
+    print("HIII")
+
+    isFavourited = recommendation.isFavourited()
+    print(isFavourited)
+
+    if isFavourited == False:
+        recommendation.favourite()
+        db.session.commit()
+    else:
+        recommendation.unfavourite()
+        db.session.commit()
+    return redirect(request.referrer)
+
 
 
 # misc pages routing
-
 @app.route('/messagesent')
 def messagesent():
     return render_template('messagesent.html')

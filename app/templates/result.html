@@ -74,12 +74,12 @@
     <div class="bg-light mt-5 pt-5" id="result">
       <!-- header -->
       <div class="header d-flex justify-content-between" id="header">
-        <a href="/que" class="btn btn-primary">Edit Questionnaire</a>
+        <a href="/editque/{{questionnaire}}" class="btn btn-primary">Edit Questionnaire</a>
         <p>xxx results</p>
       </div>
 
-            <!-- results -->
-      {% for recommendation in recommendations %}
+      <!-- results -->
+            {% for recommendation in recommendations %}
       <a class="card mb-3" href="details/{{recommendation.city}}">
         <div class="row no-gutters">
           <div class="col-md-4 mb-0">
@@ -90,11 +90,16 @@
               <div class="d-flex justify-content-between">
                 <h4 class="card-title">{{recommendation.city}}</h4>
                 <div class="favourite">
-                  <label for="toggle-heart-1" class="favourite">
-                    <input type="checkbox" id="toggle-heart-1">
-                    <i class="fas fa-heart"></i>
-                    <i class="far fa-heart"></i>
-                  </label>
+                  {% if current_user.is_authenticated %}
+                  <div class="favourite">
+                    <a>
+                      <input id="toggle-heart-1" type="checkbox" href="/favourite/{{recommendation.id}}"/>
+                      <label for="toggle-heart-1">
+                        <a href="/favourite/{{recommendation.id}}"><i class="fas fa-heart"></i></a>
+                      </label>
+                    </a>
+                  </div>
+                {% endif %}
                 </div>
               </div>
               <p class="card-text">{{recommendation.description}}</p>
@@ -109,6 +114,7 @@
       </a>
    {% endfor %}
     </div>
+
 
 <!-- FOOTER -->
   <footer class="container py-5 border-top">

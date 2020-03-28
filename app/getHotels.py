@@ -20,7 +20,7 @@ def generateList(city, maxbudget, minbudget, adults, childAges, startdate, tripl
 
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "6a8593230emshb307f117bc19b76p164d0cjsnb9fa28ced57e"
     }
 
     sleep(2)
@@ -42,35 +42,15 @@ def getHotelDetails(hotelId, maxbudget, minbudget, adults, childAges, startdate,
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+            "x-rapidapi-key": "6a8593230emshb307f117bc19b76p164d0cjsnb9fa28ced57e"
         }
         sleep(2)
 
         response = requests.request("GET", url, headers=headers, params=querystring)
-        # print(response.json())
+        #print(response.json())
         return response.json()
     except:
-        try:
-            headers = {
-                'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
-            }
-            sleep(2)
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            # print(response.json())
-            return response.json()
-        except:
-            try:
-                headers = {
-                    'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-                    "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
-                }
-                sleep(2)
-                response = requests.request("GET", url, headers=headers, params=querystring)
-                # print(response.json())
-                return response.json()
-            except:
-                return
+        return
 
 
 def getHotelName(text):
@@ -117,15 +97,15 @@ def getHotelList(city, country, region, maxbudget, minbudget, adults, childAges,
 
     list = []
     try:
-        # print("TESTONE")
+        print("TESTONE - city")
         list = generateList(city, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
     except:
         try:
-            # print("TESTTWO")
+            print("TESTTWO - region")
             list = generateList(region, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
         except:
             try:
-                # print("TESTTHREE")
+                print("TESTTHREE - country")
                 list = generateList(country, maxbudget, minbudget, adults, childAges, startdate, triplength, currency)
             except:
                 # print("NONE")
@@ -159,7 +139,7 @@ def getHotelList(city, country, region, maxbudget, minbudget, adults, childAges,
                 continue
             print("-----------ee--------------------------")
         print("HoTeLs")
-        print(hotels)
+        #print(hotels)
         return hotels
     else:
         # print("NOPE-NULL")

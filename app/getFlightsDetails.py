@@ -11,7 +11,7 @@ def generateClosestAirport(location):
 
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+            "x-rapidapi-key": "c452bfd43dmsh0916bd1f1375ea3p120b94jsnbda594295b2a"
         }
 
         sleep(2)
@@ -41,7 +41,7 @@ def createFlightSession(originAirport, destinationAirport, adults, childAges, st
 
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "c452bfd43dmsh0916bd1f1375ea3p120b94jsnbda594295b2a"
     }
 
     #print(response.text)
@@ -109,7 +109,7 @@ def getFlightPoll(sid, currency):
 
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "fdc1bb028dmsh89558dd26d5702bp165be9jsn63c09bee8aeb"
     }
     sleep(7)
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -127,7 +127,7 @@ def getBookingURL(searches):
     url = "https://tripadvisor1.p.rapidapi.com/flights/get-booking-url"
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "7f013bf63emshb796529cfd93ecep1ea3bejsn50d632cc0f0c"
+        "x-rapidapi-key": "fdc1bb028dmsh89558dd26d5702bp165be9jsn63c09bee8aeb"
     }
 
     bookingURLS = []
@@ -144,7 +144,9 @@ def getBookingURL(searches):
             sleep(2)
 
             response = requests.request("GET", url, headers=headers, params=querystring)
-            #print(response.json())
+            print("RPJ")
+            print(response)
+            print(response.json())
             price = itinerary[1]['p']
             booking = response.json()["partner_url"]
             # print(price)

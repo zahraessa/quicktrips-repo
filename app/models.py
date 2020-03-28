@@ -56,6 +56,24 @@ class Recommendation(db.Model):
     def image(self, city):
         return getCityImage(city)
 
+    def favourite(self):
+        if not self.isFavourited():
+            like = Favourite(user_id=self.user_id, city=self.city, description=self.description, flights=self.flights,
+                             keywords=self.keywords, hotels=self.hotels)
+            db.session.add(like)
+
+    def unfavourite(self):
+        if self.isFavourited():
+            Favourite.query.filter_by(
+                user_id=self.user_id,
+                city=self.city).delete()
+
+    def isFavourited(self):
+        faves = Favourite.query.all()
+        for fave in faves:
+            if fave.user_id == self.user_id and fave.city == self.city:
+                return True
+        return False
 
 class PastTrip(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,7 +89,7 @@ class PastTrip(db.Model):
 
 class Favourite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(140))
+    city = db.Column(db.String(140), index=True)
     description = db.Column(db.String(400))
     flights = db.Column(db.PickleType(True))
     keywords = db.Column(db.PickleType(True))

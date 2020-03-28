@@ -101,35 +101,39 @@
   <!-- Favourite -->
   <form id="favouriteform" method="POST" novalidate>
     {{ form.hidden_tag() }}
-    <div class="social-icons">
-      <ul class="list-unstyled text-center mb-0">
-        <li class="list-unstyled-item">
-          <a data-toggle="modal" data-target="#exampleModal">
-            <i class="fas fa-external-link-alt"></i>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a>
-            <input id="toggle-heart" type="checkbox" name="submit" value="submit"/>
-            <label for="toggle-heart">
-              <i class="fas fa-heart"></i>
-            </label>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#top">
-            <i class="fas fa-chevron-up"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+         <div class="social-icons">
+          <ul class="list-unstyled text-center mb-0">
+            <li class="list-unstyled-item">
+              <a data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </li>
+
+            {% if current_user.is_authenticated %}
+              <li class="list-unstyled-item">
+                <a>
+                  <input id="toggle-heart" type="checkbox" />
+                  <label for="toggle-heart" class="favourite">
+                    <a href="/favourite/{{recid}}"><i class="fas fa-heart"></i></a>
+                  </label>
+                </a>
+              </li>
+            {% endif %}
+
+            <li class="list-unstyled-item">
+              <a href="#top">
+                <i class="fas fa-chevron-up"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
   </form>
 
   <!-- Detail -->
   <section id="detail" class="album py-5">
     <div>
       <h2 class="text-center mx-5 px-4">About the place</h2>
-      <p class="mx-5 px-5">{{recommendation.description}}</p>
+      <p class="mx-5 px-5">{{description}}</p>
     </div>
   </section>
 
@@ -139,7 +143,7 @@
       <h2 class="text-center pt-5">Suitable place to stay</h2>
       <p class="text-center pb-3">Here is our recommendations for you</p>
       <div class="row">
-        {% for hotel in recommendation.hotels %}
+        {% for hotel in hotels %}
           <div class="col-3 mx-auto px-1 py-3" href="{{  hotel[4]  }}">
             <a class="portfolio-box" >
               <img class="img-fluid" src="{{  hotel[3]  }}" alt="">
@@ -162,7 +166,7 @@
   <section id="flight">
     <h2 class="text-center pt-5 pb-4">Flights Recommended</h2>
     <div class="row pt-3 pb-5">
-      {%for flight in recommendation.flights %}
+      {%for flight in flights %}
         <div class="col-xl-4 col-md-6 mb-4">
           <a class="card shadow h-100" href="{{flight[1]}}">
             <div class="card-body">
