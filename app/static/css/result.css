@@ -37,7 +37,7 @@
   background-color: #2C4B59;
 }
 
-.btn-primary:focus {
+.btn-primary:active {
   background-color: #2C4B59;
   color: white;
 }
@@ -126,47 +126,72 @@
   font-family: 'Raleway';
 }
 
-.favourite label {
+.favourate label {
   font-size: 1.5rem;
 }
 
-.favourite label input[type="checkbox"] {
+.favourate label input[type="checkbox"] {
   display: none;
 }
 
-.favourite .fa-heart {
+.favourate .fa-heart {
   position: absolute;
   top: 0.7em;
   right: 1rem;
   left: auto;
 }
 
-.favourite {
+.favourate {
   cursor: pointer;
 }
 
-.favourite .fas {
+.favourate .fas {
   color: #ff6666;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
-.favourite .far {
+.favourate .far {
   color: #8c8c8c;
 }
 
-.favourite:hover .fas{
+.favourate:hover .fas{
   opacity: 0.5;
 }
 
-.favourite:hover .far{
+.favourate:hover .far{
   opacity: 0;
 }
 
-.favourite input[type="checkbox"]:checked ~ .fas {
+.favourate input[type="checkbox"]:checked ~ .fas {
   opacity: 1;
 }
 
-.favourite input[type="checkbox"]:checked ~ .far {
+.favourate input[type="checkbox"]:checked ~ .far {
   opacity: 0;
+}
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
 }

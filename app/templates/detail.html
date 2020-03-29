@@ -9,6 +9,9 @@
 
   <title>Quicktrip-detail</title>
 
+  <link rel="shortcut icon" href="{{url_for('static', filename='image/logo-white.png')}}"  />
+
+
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -38,25 +41,41 @@
         <li class="nav-item active">
           <a class="nav-link" href="/index">Home</a>
         </li>
+        {% if current_user.is_active %}
         <li class="nav-item">
           <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
         </li>
+        {% endif %}}
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/useredit" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       <li class="nav-item dropdown">
+          {% if current_user.is_active %}
+          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/userpage/{{current_user.username}}">{{ current_user.username }}</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <div class="dropdown-item d-flex justify-content-between">
+              <img src="{{ current_user.avatar(128) }}" width="50" height="50" alt="user" class="rounded-circle">
+              <div class="ml-3 mt-3 d-flex justify-content-between">
+                <p class="ml-1">Username: </p>
+                <p class="ml-1">{{ current_user.username }}</p>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
+          {% else %}
+          <div class="d-flex justify-content-between">
+            <a href="/login" class="btn-u btn-user">Sign in</a>
+            <a href="/register" class="btn-u btn-user ml-2">Register</a>
+          </div>
+          {% endif %}
         </li>
       </ul>
     </div>
   </nav>
-
-  <!-- Header -->
+ <!-- Header -->
   <header class="masthead text-white text-center" name="top">
     <div class="overlay"></div>
     <div class="container">
@@ -66,9 +85,7 @@
     </div>
   </header>
 
-  <section class="text-center">
-    <iframe src="https://andreil26.github.io/Team7CollaborationHosting/" width="950rem" height="500rem" onload="this.contentWindow.focus()"></iframe>
-  </section>
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -78,46 +95,58 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <p class="mt-5 text-center">Copy the link below and share it with your friends!</p>
-          <p class="mb-5 text-center">Link: </p>
+          <p class="mb-5 text-center">Link: http://0.0.0.0:5000/{{toShare}}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Favourite -->
-  <form id="favouriteform" method="POST" novalidate>
-    {{ form.hidden_tag() }}
-    <div class="social-icons">
-      <ul class="list-unstyled text-center mb-0">
+  <!-- Favourate -->
+  <div class="social-icons">
+    <ul class="list-unstyled text-center mb-0">
+      <li class="list-unstyled-item">
+        <a data-toggle="modal" data-target="#exampleModal">
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+      </li>
+      {% if current_user.is_authenticated %}
         <li class="list-unstyled-item">
-          <a data-toggle="modal" data-target="#exampleModal">
-            <i class="fas fa-external-link-alt"></i>
-          </a>
+          <form id="favouriteform" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+              <a>
+                <input id="toggle-heart" type="checkbox" />
+                <label for="toggle-heart" class="favourite">
+                  <a href="/favourite/{{recid}}"><i class="fas fa-heart"></i></a>
+                </label>
+              </a>
+          </form>
         </li>
-        <li class="list-unstyled-item">
-          <a>
-            <input id="toggle-heart" type="checkbox" name="submit" value="submit"/>
-            <label for="toggle-heart">
-              <i class="fas fa-heart"></i>
-            </label>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#top">
-            <i class="fas fa-chevron-up"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </form>
+      {% endif %}
+      <li class="list-unstyled-item">
+        <a href="#top">
+          <i class="fas fa-chevron-up"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 
   <!-- Detail -->
-  <section id="detail" class="album py-5">
-    <div>
-      <h2 class="text-center mx-5 px-4">About the place</h2>
-      <p class="mx-5 px-5">{{recommendation.description}}</p>
+  <section id="detail" class="album py-5 px-5 mx-4 row">
+     <div class="text-center col">
+       {% if city == 'England' %}
+          <iframe class="video" src="https://andreil26.github.io/Team7CollaborationHosting/" width="100%" onload="this.contentWindow.focus()"></iframe>
+       {% else %}
+          <img src="{{image}}" class="img-fluid">
+       {% endif %}
+     </div>
+    <div class="col d-flex align-self-center">
+      <div>
+        <h2 class="text-center mx-1 py-1">About the place</h2>
+        <p class="mx-5 px-5">{{description}}</p>
+      </div>
     </div>
   </section>
+
 
   <!-- hotel -->
   <section id="hotel" class="bg-light px-5">
@@ -125,9 +154,9 @@
       <h2 class="text-center pt-5">Suitable place to stay</h2>
       <p class="text-center pb-3">Here is our recommendations for you</p>
       <div class="row">
-        {% for hotel in recommendation.hotels %}
-          <div class="col-3 mx-auto px-1 py-3" href="{{  hotel[4]  }}">
-            <a class="portfolio-box" >
+        {% for hotel in hotels %}
+          <div class="col-3 mx-auto px-1 py-3" >
+            <a class="portfolio-box" href="{{  hotel[4]  }}">
               <img class="img-fluid" src="{{  hotel[3]  }}" alt="">
               <div class="portfolio-box-caption">
                 <div class="project-category text-white-50">
@@ -148,26 +177,26 @@
   <section id="flight">
     <h2 class="text-center pt-5 pb-4">Flights Recommended</h2>
     <div class="row pt-3 pb-5">
-      {%for flight in recommendation.flights %}
+      {%for flight in flights %}
         <div class="col-xl-4 col-md-6 mb-4">
           <a class="card shadow h-100" href="{{flight[1]}}">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="border-bottom mb-2">
-                    <h4 class="text-uppercase">xxxx</h4>
+                    <h4 class="text-uppercase">{{flight[0][6]}}</h4>
                   </div>
                   <div class="row">
-                    <px class="mb-2 ml-3 mr-1">Departure at: </px>
-                    <p class="mb-0">xxxx</p>
+                    <px class="mb-2 ml-3 mr-1">Departure: </px>
+                    <p class="mb-0">{{flight[0][4]}}       {{flight[0][2]}}</p>
                   </div>
                   <div class="row">
-                    <px class="mb-2 ml-3 mr-1">Flight Duration: </px>
-                    <p class="mb-0">xxxxx</p>
+                    <px class="mb-2 ml-3 mr-1">Arrive At: </px>
+                    <p class="mb-0">{{flight[0][5]}}        {{flight[0][3]}}</p>
                   </div>
                   <div class="row">
                     <px class="mb-0 ml-3 mr-1">{{currency}}</px>
-                    <p class="mb-0">{{flight[0]}}</p>
+                    <p class="mb-0">    {{flight[0][1]}}</p>
                   </div>
                 </div>
               </div>
@@ -182,6 +211,7 @@
   <section id="comment">
   </section>
 
+
   <!-- FOOTER -->
   <footer class="container py-5 border-top">
     <div class="row justify-content-center">
@@ -190,20 +220,22 @@
         <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
-        <h5>Fearures</h5>
+        <h5>Features</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/index">Home</a></li>
           <li><a class="text-muted" href="/que">Get Started</a></li>
         </ul>
       </div>
-      <div class="col-4 col-md">
-        <h5>Mine</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/userpage">My trips</a></li>
-          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
-          <li><a class="text-muted" href="/useredit">Profile</a></li>
-        </ul>
-      </div>
+      {% if current_user.is_active %}
+        <div class="col-4 col-md">
+          <h5>Mine</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
+            <li><a class="text-muted" href="/userfavourite/{{current_user.username}}">Favourite</a></li>
+            <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
+          </ul>
+        </div>
+      {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
@@ -213,7 +245,6 @@
       </div>
     </div>
   </footer>
-
   <!-- Bootstrap core JavaScript -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

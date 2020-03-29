@@ -21,7 +21,7 @@ for x in new_recommendations:
     description = recommendations[x][2]  # Description
     image = recommendations[x][3]  # Photo
 
-    rec = Recommendation(city=city, hotels=hotels, flights=flights, description=description, image=image,
+    rec = Recommendation(city=city, hotels=hotels, flights=flights, description=description,
                          user_id=user.id)
 
     db.session.add(rec)

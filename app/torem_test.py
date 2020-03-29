@@ -9,5 +9,4 @@ for city in cities:
     print(city.city)
     print(city.keywords)
     print(city.sentiment)
-    print(city.image)
     print(city.description)

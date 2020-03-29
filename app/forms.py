@@ -37,7 +37,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 
-
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
@@ -46,7 +45,7 @@ class MultiCheckboxField(SelectMultipleField):
 class KeywordsForm(FlaskForm):
     SelectMultipleField(choices=('family', 'wilderness', 'culinary', 'cultural', 'volunteer', 'solo',
                                  'adventure', 'self drive', 'accessible', 'last minute', 'snow', 'beach',
-                                 'sight seeing', 'partying', 'cold', 'shopping', 'romantic', 'warm',
+                                 'sightseeing', 'partying', 'cold', 'shopping', 'romantic', 'warm',
                                  'theme park', 'water sports', 'food'))
     submit = SubmitField('Submit')
 
@@ -66,7 +65,6 @@ class QuestionnaireForm(FlaskForm):
                                                         ("5", "5")], validators=[DataRequired()])
     startDate = DateField('Start Date', validators=[DataRequired()])
     endDate = DateField('End Date', validators=[DataRequired()])
-    tripLength = StringField('Trip Length', validators=[DataRequired()])
     localorabroad = RadioField('Destination', choices=[('local', 'local'), ('abroad', 'abroad')])
     origincountry = StringField('Country', validators=[DataRequired()])
     originstate = StringField('State', validators=[DataRequired()])
@@ -76,17 +74,18 @@ class QuestionnaireForm(FlaskForm):
 class FavouritedForm(FlaskForm):
     submit = SubmitField('toggle-heart')
 
+
 class ContactUsForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
     query = StringField('Query', validators=[DataRequired()])
 
 
-
 class EditProfileNameForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired()])
     surname = StringField('Surname', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
 
 class EditProfileAddressForm(FlaskForm):
     address = StringField('Address', validators=[DataRequired()])
@@ -106,5 +105,3 @@ class EditProfilePasswordForm(FlaskForm):
 class ForgotPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Submit')
-
-

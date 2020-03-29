@@ -75,13 +75,8 @@ button {
   background-color: #2C4B59;
 }
 
-.btn-primary:focus {
-  background-color: #2C4B59;
-  color: white;
-}
-
 .btn-primary:active {
-  background-color: #243D49 !important;
+  background-color: #243D49;
 }
 
 /* Make circles that indicate the steps of the form: */
@@ -141,4 +136,29 @@ select.invalid {
 /* Hide all steps by default: */
 .tab {
   display: none;
+}
+
+.dropdown-item {
+  font-family: "Titillium Web";
+}
+
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid #afafaf;
+  color: #afafaf;
+}
+
+.btn-user:hover {
+  border: 0.05rem solid black ;
+  color: black;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
 }

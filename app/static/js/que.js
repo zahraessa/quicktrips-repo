@@ -5,8 +5,14 @@ toKeyword(document.getElementById("nextBtn").innerHTML, currentTab);
 function toKeyword(n,m){
   var x = document.getElementsByClassName("tab");
   if (n == "Final Question!" && m == x.length) {
-    self.location.href = "http://127.0.0.1:5000/keyword";
+    x.onclick = addSubmit(x);
   }
+
+}
+
+function addSubmit(x) {
+  x.setAttribute("name", "submit");
+  x.setAttribute("value", "submit");
 }
 
 function showTab(n) {
@@ -111,16 +117,6 @@ function validateForm() {
       valid = false;
     }
 
-    // If trip length longer than available date, then add is-invalid class
-    var start = new Date(y[0].value);
-    var end = new Date(y[1].value);
-    var inputLength = z[0].value;
-    var differenceInTime = end.getTime() - start.getTime();
-    var dateLength = differenceInTime / (1000 * 3600 * 24);
-    if(dateLength < inputLength) {
-      z[0].className += " is-invalid";
-      valid = false;
-    }
   }
 
 

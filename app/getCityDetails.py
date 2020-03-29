@@ -1,27 +1,22 @@
 import requests
+from time import sleep
 
 
 def getCityInfo(city):
     url = "https://tripadvisor1.p.rapidapi.com/locations/search"
-
     querystring = {"limit": 4, "sort": "relevance", "offset": "0", "lang": "en_US",
                    "currency": "USD", "units": "km", "query": city}
-
+    sleep(3)
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "26b3163ca2msh844469326aee594p16a283jsn6ef730a33995"
+            "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
         }
-
+        sleep(2)
         response = requests.request("GET", url, headers=headers, params=querystring)
         return response
     except:
-        headers = {
-            'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "1f79334269mshfc4b60a19d501cep1244f7jsnaf9b5cb281bb"
-        }
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        return response
+        return
 
 
 def getCityId(city):
@@ -33,7 +28,7 @@ def getCityId(city):
 
 def getCityDescription(city, region, country):
     try:
-        return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
+         getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
     except:
         try:
             return getCityInfo(region).json()['data'][0]['result_object']["geo_description"]
@@ -41,4 +36,4 @@ def getCityDescription(city, region, country):
             try:
                 return getCityInfo(country).json()['data'][0]['result_object']["geo_description"]
             except:
-                return "A great place to visit"
+                return (city + " is a great place to visit.")

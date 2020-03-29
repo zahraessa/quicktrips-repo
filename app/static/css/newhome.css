@@ -29,6 +29,10 @@
   background-color: transparent;
 }
 
+#mainNav .dropdown-item {
+  font-family: "Titillium Web";
+}
+
 @media (min-width: 992px) {
   #mainNav {
     padding-top: 0;
@@ -150,13 +154,30 @@ button {
   background-color: #2C4B59;
 }
 
-.btn-primary:focus {
+.btn-primary:active {
   background-color: #2C4B59;
   color: white;
 }
 
-.btn-primary:active {
-  background-color: #243D49 !important;
+.btn-u {
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.8rem;
+  text-decoration: none !important;
+}
+
+.btn-user {
+  border: 0.05rem solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-user:hover {
+  border: 0.05rem solid white ;
+  color: white;
+}
+
+.btn-user:active {
+  border-color: #2C4B59;
+  color: #2C4B59;
 }
 
 #portfolio .container-fluid {
