@@ -312,12 +312,11 @@
   </div>
 
 
-  <!-- FOOTER -->
+    <!-- FOOTER -->
   <footer class="container py-5 border-top">
     <div class="row justify-content-center">
       <div class="col-12 col-md">
         <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
         <h5>Features</h5>
@@ -327,14 +326,14 @@
         </ul>
       </div>
       {% if current_user.is_active %}
-        <div class="col-4 col-md">
-          <h5>Mine</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
-            <li><a class="text-muted" href="/userfavourite/{{current_user.username}}">Favourite</a></li>
-            <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
-          </ul>
-        </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
+          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
+          <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
+        </ul>
+      </div>
       {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>

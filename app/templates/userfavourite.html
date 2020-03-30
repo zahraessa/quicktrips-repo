@@ -46,7 +46,7 @@
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
 
-          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/useredit/{{current_user.username}}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -58,7 +58,7 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/useredit">Edit profile</a>
+            <a class="dropdown-item" href="/useredit/{{current_user.username}}">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
 
@@ -80,7 +80,7 @@
             <p class="text-center mt-5">User name: {{current_user.username}}</p>
             <p class="text-center">User ID: {{current_user.id}}</p>
             <div class="text-center">
-              <a href="/useredit" class="btn btn-next text-uppercase col-10 mx-1 my-3">Edit profile</a>
+              <a href="/useredit/{{current_user.username}}" class="btn btn-next text-uppercase col-10 mx-1 my-3">Edit profile</a>
             </div>
           </div>
         </div>
@@ -120,28 +120,29 @@
   </div>
 
 
-  <!-- FOOTER -->
+    <!-- FOOTER -->
   <footer class="container py-5 border-top">
     <div class="row justify-content-center">
       <div class="col-12 col-md">
         <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
-        <h5>Fearures</h5>
+        <h5>Features</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/index">Home</a></li>
           <li><a class="text-muted" href="/que">Get Started</a></li>
         </ul>
       </div>
+      {% if current_user.is_active %}
       <div class="col-4 col-md">
         <h5>Mine</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/userpage">My trips</a></li>
+          <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
           <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
-          <li><a class="text-muted" href="/useredit">Profile</a></li>
+          <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
         </ul>
       </div>
+      {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">

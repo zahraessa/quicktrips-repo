@@ -39,14 +39,16 @@
         <li class="nav-item active">
           <a class="nav-link" href="/index">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
-        </li>
+        {% if current_user.is_active %}
+          <li class="nav-item">
+            <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
+          </li>
+        {% end if %}
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
           {% if current_user.is_active %}
-          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/useredit/{{current_user.username}}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -58,7 +60,7 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/useredit">Edit profile</a>
+            <a class="dropdown-item" href="/useredit/{{current_user.username}}">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
           {% else %}
@@ -263,7 +265,6 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md">
         <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
         <h5>Features</h5>
@@ -273,14 +274,14 @@
         </ul>
       </div>
       {% if current_user.is_active %}
-        <div class="col-4 col-md">
-          <h5>Mine</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
-            <li><a class="text-muted" href="/userfavourite/{{current_user.username}}">Favourite</a></li>
-            <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
-          </ul>
-        </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
+          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
+          <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
+        </ul>
+      </div>
       {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>

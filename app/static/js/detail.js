@@ -42,4 +42,11 @@
 })(jQuery); // End of use strict
 
 
-$('')
+var id = '{{ recommendation.id|tojson }}';
+
+function favourited() {
+  var url = "/favourite/" + id;
+  if (document.getElementById('toggle-heart').checked) {
+    window.location.href = url;
+  }
+}
