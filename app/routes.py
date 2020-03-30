@@ -1,16 +1,17 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireForm, \
-    FavouritedForm, ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm, \
-    ForgotPasswordForm
+from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireForm, ForgotPasswordForm,\
+    FavouritedForm, ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, Favourite
+from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, Favourite, \
+    SharedRecommendations
 from datetime import datetime
 from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, ForgotPasswordEmail
 from app.getAllInformationForARecommendation import getRecommendationInfo
 from itsdangerous import URLSafeSerializer
 from app.getImage import getCityImage
+from random import randint
 
 
 @app.route('/')
@@ -50,9 +51,14 @@ def index():
                 else:
                     break
 
-    for x in CurrentQuestionnaire.query.all():
-        db.session.delete(x)
-    db.session.commit()
+    try:
+        for x in CurrentQuestionnaire.query.all():
+            db.session.delete(x)
+        db.session.commit()
+        return render_template("index.html", title='Home Page', recommendations1=recommendations1,
+                               recommendations2=recommendations2)
+    except:
+        pass
     return render_template("index.html", title='Home Page', recommendations1=recommendations1,
                            recommendations2=recommendations2)
 
@@ -64,11 +70,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
-    # print(form.validate_on_submit())
-    # print(form.submit.data)
-    # print(request.method)
     if form.validate_on_submit():
-        # print(form.username.data)
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
@@ -93,11 +95,7 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    # print("AAA")
-    # print(form.validate_on_submit())
-    # print(form.submit.data)
     if form.validate_on_submit():
-        # print("HEREEEEE")
         user = User(username=form.username.data, email=form.email.data, firstname=form.firstname.data,
                     surname=form.surname.data, address=form.address.data, country=form.country.data,
                     city=form.state.data, postcode=form.postcode.data)
@@ -105,9 +103,7 @@ def register():
         user.avatar(128)
         db.session.add(user)
         db.session.commit()
-
         RegistrationConfirmation(name=form.firstname.data, username=form.username.data, email=form.username.data)
-
         cities = ProcessedCity.query.all()
         i = 0
         for city in cities:
@@ -120,21 +116,16 @@ def register():
                     hotels = []
                     rec = Recommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
                                          description=description, user_id=user.id)
-
                     db.session.add(rec)
                     db.session.commit()
-
                     i += 1
                 else:
                     break
-
-        flash('Congratulations, you are now a registered user!')
         return redirect(url_for('registerdone'))
-    else:
-        # print("BBB")
-        return render_template('register.html', form=form)
+    return render_template('register.html', form=form)
 
 
+#TODO: FORGOT PASSWORD - Unique Code - New page
 @app.route('/forgetpw', methods=['GET', 'POST'])
 def forgotPassword():
     form = ForgotPasswordForm()
@@ -205,7 +196,6 @@ def facebooklogin():
 @app.route('/userpage/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
-    form =
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('userpage.html', user=user)
 
@@ -218,7 +208,6 @@ def favourites(username):
 
 
 # Edit Profile Routing
-
 @app.route('/useredit', methods=['GET', 'POST'])
 @login_required
 def useredit():
@@ -228,7 +217,6 @@ def useredit():
 @app.route('/usereditaddress')
 def usereditaddress():
     form = EditProfileAddressForm()
-
     if request.method == "POST" and form.validate_on_submit():
         current_user.address = form.address.data
         current_user.country = form.country.data
@@ -242,19 +230,13 @@ def usereditaddress():
         form.country.data = current_user.country
         form.city.data = current_user.city
         form.postcode.data = current_user.postcode
-
     return render_template('usereditaddress.html', form=form)
 
 
 @app.route('/usereditname', methods=['GET', 'POST'])
 def usereditname():
     form = EditProfileNameForm()
-    print("AA")
-    print(form.firstname.data)
-    print(form.surname.data)
-
     if request.method == "POST" and form.validate_on_submit():
-        print("BB")
         current_user.firstname = form.firstname.data
         current_user.surname = form.surname.data
         db.session.commit()
@@ -278,12 +260,14 @@ def usereditpassword():
 
 
 # Questionnaire edit form routing
-
 @app.route('/que', methods=['GET', 'POST'])
 def question():
     form = QuestionnaireForm()
     if request.method == 'GET':
-        oldanswers = CurrentQuestionnaire.query.first()
+        try:
+            oldanswers = CurrentQuestionnaire.query.first()
+        except:
+            pass
         if oldanswers is not None:
             form.currency.data = oldanswers.currency
             form.maxbudget.data = oldanswers.maxbudget
@@ -368,10 +352,8 @@ def result():
     localorabroad = request.args['localorabroad']
     origin = request.args['origin']
     keywords = request.args.getlist('keywords')
-
     searchQueries = [maxbudget, minbudget, currency, adults, children, startdate, enddate, localorabroad, origin,
                      keywords]
-
     torecommend = getRecommendationInfo(origin=origin, adults=int(adults), children=int(children),
                                         startdate=startdate, enddate=enddate, currency=currency, triplength=triplength,
                                         keywords=keywords, localorinternational=localorabroad, maxbudget=maxbudget,
@@ -403,47 +385,57 @@ def result():
 
 @app.route('/details/<city>', methods=['GET', 'POST'])
 def details(city):
-    form = FavouritedForm()
     current_recommendation = []
+    recommendations = []
     if current_user.is_authenticated:
         recommendations = db.session.query(Recommendation).filter(Recommendation.user_id == current_user.id)
     else:
         recommendations = CurrentRecommendation.query.all()
-
     flights = []
     hotels = []
     description = ""
     image = ""
     rec_id = 10000000000
     isFavourited = False
-
+    url = ""
+    print("HII")
+    print(recommendations)
     for recommendation in recommendations:
+        print(recommendation)
         if recommendation.city == city:
+            print(city)
             flights = recommendation.flights
             hotels = recommendation.hotels
             description = recommendation.description
             image = recommendation.image()
+            print("IM")
+            print(image)
             rec_id = recommendation.id
             current_recommendation = recommendation
-            isFavourited = recommendation.isFavourited()
+            if current_user.is_authenticated:
+                isFavourited = recommendation.isFavourited()
+            code = randint(0, 2147483647)
+            url = "shared/" + city + "/" + str(code)
+            toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
+                                            keywords=keywords, code=code)
+            db.session.add(toShare)
+            db.session.commit()
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
-                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited)
+                           flights=flights, image=image, description=description, isFavourited=isFavourited,
+                           toShare=url)
 
 
 @app.route('/favourites/favourite-details/<city>', methods=['GET', 'POST'])
 def favouritedetails(city):
-    form = FavouritedForm()
     current_recommendation = []
     favourites = db.session.query(Favourite).filter(Recommendation.user_id == current_user.id)
-
     flights = []
     hotels = []
     description = ""
     image = ""
     rec_id = 10000000000
     isFavourited = False
-
     for recommendation in favourites:
         if recommendation.city == city:
             flights = recommendation.flights
@@ -453,9 +445,36 @@ def favouritedetails(city):
             rec_id = recommendation.id
             current_recommendation = recommendation
             isFavourited = True
+            code = randint(0, 2147483647)
+            url = "shared/" + city + "/" + str(code)
+            toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
+                                            keywords=keywords, code=code)
+            db.session.add(toShare)
+            db.session.commit()
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
-                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited)
+                           flights=flights, image=image, description=description, isFavourited=isFavourited,
+                           toShare=url)
+
+
+@app.route('/shared/<city>/<identifier>', methods=['GET', 'POST'])
+def sharedRecommendationDetails(city, identifier):
+    isFavourited = False
+    recommendations = db.session.query(SharedRecommendations).filter(SharedRecommendations.code == identifier)
+    for current_recommendation in recommendations:
+        if current_recommendation.city == city:
+            flights = current_recommendation.flights
+            hotels = current_recommendation.hotels
+            description = current_recommendation.description
+            image = current_recommendation.image()
+            rec_id = current_recommendation.id
+            if current_user.is_authenticated:
+                isFavourited = current_recommendation.isFavourited()
+            url = "shared/" + city + "/" + identifier
+            return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels,
+                                   recid=rec_id, flights=flights, image=image, description=description,
+                                   isFavourited=isFavourited, toShare=url)
+    return render_template('404.html')
 
 
 @app.route('/favourite/<recommendation_id>')

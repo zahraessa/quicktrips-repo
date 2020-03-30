@@ -45,11 +45,14 @@ def parseFlightInfo(flights, origin, destination, currency):
     searches = []
     if len(flights) > 0:
         for flight in flights:
-            sh = flight[0]["summary"]["sh"]
-            sid = flight[0]["search_params"]["sid"]
-            f = getFlightPoll(sid, currency)
-            for x in parseF(f):
-                searches.append([origin, destination, sh, sid, x])
+            try:
+                sh = flight[0]["summary"]["sh"]
+                sid = flight[0]["search_params"]["sid"]
+                f = getFlightPoll(sid, currency)
+                for x in parseF(f):
+                    searches.append([origin, destination, sh, sid, x])
+            except:
+                continue
     if len(searches) > 0:
         return getBookingURL(searches)
     return

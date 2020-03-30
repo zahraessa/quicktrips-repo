@@ -320,20 +320,22 @@
         <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
-        <h5>Fearures</h5>
+        <h5>Features</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/index">Home</a></li>
           <li><a class="text-muted" href="/que">Get Started</a></li>
         </ul>
       </div>
-      <div class="col-4 col-md">
-        <h5>Mine</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="/userpage">My trips</a></li>
-          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
-          <li><a class="text-muted" href="/useredit">Profile</a></li>
-        </ul>
-      </div>
+      {% if current_user.is_active %}
+        <div class="col-4 col-md">
+          <h5>Mine</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
+            <li><a class="text-muted" href="/userfavourite/{{current_user.username}}">Favourite</a></li>
+            <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
+          </ul>
+        </div>
+      {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
@@ -343,7 +345,6 @@
       </div>
     </div>
   </footer>
-
 
 
 
