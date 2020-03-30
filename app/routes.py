@@ -385,7 +385,6 @@ def result():
 
 @app.route('/details/<city>', methods=['GET', 'POST'])
 def details(city):
-    form = FavouritedForm()
     current_recommendation = []
     recommendations = []
     if current_user.is_authenticated:
@@ -423,13 +422,12 @@ def details(city):
             db.session.commit()
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
-                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited,
+                           flights=flights, image=image, description=description, isFavourited=isFavourited,
                            toShare=url)
 
 
 @app.route('/favourites/favourite-details/<city>', methods=['GET', 'POST'])
 def favouritedetails(city):
-    form = FavouritedForm()
     current_recommendation = []
     favourites = db.session.query(Favourite).filter(Recommendation.user_id == current_user.id)
     flights = []
@@ -455,13 +453,12 @@ def favouritedetails(city):
             db.session.commit()
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
-                           flights=flights, image=image, description=description, form=form, isFavourited=isFavourited,
+                           flights=flights, image=image, description=description, isFavourited=isFavourited,
                            toShare=url)
 
 
 @app.route('/shared/<city>/<identifier>', methods=['GET', 'POST'])
 def sharedRecommendationDetails(city, identifier):
-    form = FavouritedForm()
     isFavourited = False
     recommendations = db.session.query(SharedRecommendations).filter(SharedRecommendations.code == identifier)
     for current_recommendation in recommendations:
@@ -475,9 +472,8 @@ def sharedRecommendationDetails(city, identifier):
                 isFavourited = current_recommendation.isFavourited()
             url = "shared/" + city + "/" + identifier
             return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels,
-                                   recid=rec_id, flights=flights, image=image, description=description, form=form,
-                                   isFavourited=isFavourited,
-                                   toShare=url)
+                                   recid=rec_id, flights=flights, image=image, description=description,
+                                   isFavourited=isFavourited, toShare=url)
     return render_template('404.html')
 
 

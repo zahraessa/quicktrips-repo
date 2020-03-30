@@ -23,8 +23,6 @@ RUN \
  apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
 RUN pip install -r requirements.txt
 
-USER app
-
 EXPOSE 5000
 #CMD ["python", "app.py"]
 CMD ["/bin/bash", "entrypoint.sh"]

@@ -111,15 +111,12 @@
       </li>
       {% if current_user.is_authenticated %}
         <li class="list-unstyled-item">
-          <form id="favouriteform" method="POST" novalidate>
-            {{ form.hidden_tag() }}
-              <a>
-                <input id="toggle-heart" type="checkbox" />
-                <label for="toggle-heart" class="favourite">
-                  <a href="/favourite/{{recid}}"><i class="fas fa-heart"></i></a>
-                </label>
-              </a>
-          </form>
+          <a>
+            <input id="toggle-heart" type="checkbox" />
+            <label for="toggle-heart" class="favourite">
+              <a href="/favourite/{{recid}}"><i class="fas fa-heart"></i></a>
+            </label>
+          </a>
         </li>
       {% endif %}
       <li class="list-unstyled-item">
