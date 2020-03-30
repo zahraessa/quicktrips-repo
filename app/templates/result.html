@@ -50,13 +50,13 @@
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <div class="dropdown-item d-flex justify-content-between">
+            <a class="dropdown-item d-flex justify-content-between"href="/userpage/{{current_user.username}}">
               <img src="{{ current_user.avatar(128) }}" width="50" height="50" alt="user" class="rounded-circle">
               <div class="ml-3 mt-3 d-flex justify-content-between">
                 <p class="ml-1">Username: </p>
                 <p class="ml-1">{{ current_user.username }}</p>
               </div>
-            </div>
+            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
@@ -90,18 +90,22 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <h4 class="card-title">{{recommendation.city}}</h4>
-                <div class="favourite">
                   {% if current_user.is_authenticated %}
                   <div class="favourite">
-                    <a>
-                      <input id="toggle-heart-1" type="checkbox" href="/favourite/{{recommendation.id}}"/>
-                      <label for="toggle-heart-1">
-                        <a href="/favourite/{{recommendation.id}}"><i class="fas fa-heart"></i></a>
-                      </label>
-                    </a>
+                    <label for="{{recommendation.city}}" class="favourite">
+                      <input type="checkbox" id="{{recommendation.city}}" name="fav">
+                      <i class="fas fa-heart"></i>
+                      <i class="far fa-heart"></i>
+                    </label>
+
+<!--                    <a>-->
+<!--                      <input id="toggle-heart-1" type="checkbox" href="/favourite/{{recommendation.id}}"/>-->
+<!--                      <label for="toggle-heart-1">-->
+<!--                        <a href="/favourite/{{recommendation.id}}"><i class="fas fa-heart"></i></a>-->
+<!--                      </label>-->
+<!--                    </a>-->
                   </div>
                 {% endif %}
-                </div>
               </div>
               <p class="card-text">{{recommendation.description}}</p>
               <p class="card-text"><small class="text-muted">
