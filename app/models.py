@@ -146,8 +146,9 @@ class CurrentQuestionnaire(db.Model):
     originstate = db.Column(db.String(400))
 
 
-class sharedRecommendations(db.Model):
+class SharedRecommendations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.Integer)
     city = db.Column(db.String(140))
     description = db.Column(db.String(400))
     flights = db.Column(db.PickleType(True))
