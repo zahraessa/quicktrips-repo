@@ -51,9 +51,14 @@ def index():
                 else:
                     break
 
-    for x in CurrentQuestionnaire.query.all():
-        db.session.delete(x)
-    db.session.commit()
+    try:
+        for x in CurrentQuestionnaire.query.all():
+            db.session.delete(x)
+        db.session.commit()
+        return render_template("index.html", title='Home Page', recommendations1=recommendations1,
+                               recommendations2=recommendations2)
+    except:
+        pass
     return render_template("index.html", title='Home Page', recommendations1=recommendations1,
                            recommendations2=recommendations2)
 
@@ -259,7 +264,10 @@ def usereditpassword():
 def question():
     form = QuestionnaireForm()
     if request.method == 'GET':
-        oldanswers = CurrentQuestionnaire.query.first()
+        try:
+            oldanswers = CurrentQuestionnaire.query.first()
+        except:
+            pass
         if oldanswers is not None:
             form.currency.data = oldanswers.currency
             form.maxbudget.data = oldanswers.maxbudget
@@ -379,6 +387,7 @@ def result():
 def details(city):
     form = FavouritedForm()
     current_recommendation = []
+    recommendations = []
     if current_user.is_authenticated:
         recommendations = db.session.query(Recommendation).filter(Recommendation.user_id == current_user.id)
     else:
@@ -389,12 +398,19 @@ def details(city):
     image = ""
     rec_id = 10000000000
     isFavourited = False
+    url = ""
+    print("HII")
+    print(recommendations)
     for recommendation in recommendations:
+        print(recommendation)
         if recommendation.city == city:
+            print(city)
             flights = recommendation.flights
             hotels = recommendation.hotels
             description = recommendation.description
             image = recommendation.image()
+            print("IM")
+            print(image)
             rec_id = recommendation.id
             current_recommendation = recommendation
             if current_user.is_authenticated:
