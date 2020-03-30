@@ -142,3 +142,35 @@
     color: white;
   }
 }
+
+#usertrip {
+  height: 40rem;
+}
+
+.add_more {
+  font-family: "Titillium Web";
+  color: #8e979d !important;
+}
+
+.add_more:hover {
+  text-decoration: underline black !important;
+  color: #0e0e0e !important;
+}
+
+.add_more:active {
+  color: black !important;
+}
+
+p {
+  font-family: "Titillium Web";
+  font-size: 80%;
+}
+
+h1 {
+  font-family: "Titillium Web";
+  font-size: 150%;
+}
+
+.modal-body {
+  padding: 3rem 3rem 3rem 3rem;
+}

@@ -205,6 +205,7 @@ def facebooklogin():
 @app.route('/userpage/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
+    form =
     user = User.query.filter_by(username=username).first_or_404()
     return render_template('userpage.html', user=user)
 
