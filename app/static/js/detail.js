@@ -42,9 +42,7 @@
 })(jQuery); // End of use strict
 
 
-var id = '{{ recommendation.id|tojson }}';
-
-function favourited() {
+function favourited(id) {
   var url = "/favourite/" + id;
   if (document.getElementById('toggle-heart').checked) {
     window.location.href = url;
