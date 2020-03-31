@@ -44,7 +44,5 @@
 
 function favourited(id) {
   var url = "/favourite/" + id;
-  if (document.getElementById('toggle-heart').checked) {
-    window.location.href = url;
-  }
+  window.location.href = url;
 }

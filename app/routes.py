@@ -224,8 +224,10 @@ def user(username):
 @app.route('/favourites/<username>')
 @login_required
 def favourites(username):
+    print("faves")
     user = User.query.filter_by(username=username).first_or_404()
-    favourites = Recommendation.query.filter_by(user_id=user.id).all()
+    favourites = Recommendation.query.filter_by(isFavourited=True).all()
+    print(favourites)
     return render_template('userfavourite.html', user=user, favourites=favourites)
 
 
@@ -452,7 +454,6 @@ def favouritedetails(city):
     description = ""
     image = ""
     rec_id = 10000000000
-    isFavourited = False
     for recommendation in favourites:
         if recommendation.city == city and recommendation.user_id == current_user.id:
             flights = recommendation.flights
@@ -462,6 +463,7 @@ def favouritedetails(city):
             rec_id = recommendation.id
             current_recommendation = recommendation
             isFavourited = recommendation.isFavourited
+            print(isFavourited)
             code = randint(0, 2147483647)
             url = "shared/" + city + "/" + str(code)
             toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
