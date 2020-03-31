@@ -2,15 +2,20 @@ from os import environ as env
 import multiprocessing
 import os
 
+from flask import Flask
+
 
 class Config(object):
-    PORT = int(env.get("PORT", 8080))
+    app = Flask(__name__)
+
+    PORT = int(env.get("PORT", 5000))
     DEBUG_MODE = int(env.get("DEBUG_MODE", 1))
 
     basedir = os.path.abspath(os.path.dirname(__file__))\
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
                                    'sqlite:///' + os.path.join(basedir, 'app.db')
+
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
