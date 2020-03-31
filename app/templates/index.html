@@ -43,7 +43,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
           </li>
-        {% end if %}
+        {% endif %}
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
@@ -278,7 +278,7 @@
         <h5>Mine</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
-          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
+          <li><a class="text-muted" href="/favourites/{{current_user.username}}">Favourite</a></li>
           <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
         </ul>
       </div>

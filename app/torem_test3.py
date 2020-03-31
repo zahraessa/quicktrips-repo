@@ -1,4 +1,4 @@
-from app.models import SharedRecommendations as Favourite
+from app.models import PastTrip as Favourite
 from app import db
 
 

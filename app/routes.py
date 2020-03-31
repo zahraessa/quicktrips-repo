@@ -1,11 +1,11 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireForm, ForgotPasswordForm,\
-    FavouritedForm, ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm
+    FavouritedForm, ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm, PastTripForm
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, Favourite, \
-    SharedRecommendations
+    SharedRecommendations, PastTrip
 from datetime import datetime
 from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, ForgotPasswordEmail
 from app.getAllInformationForARecommendation import getRecommendationInfo
@@ -196,8 +196,42 @@ def facebooklogin():
 @app.route('/userpage/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
+    print("HERE")
+    form = PastTripForm()
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('userpage.html', user=user)
+    print("AA")
+    if form.validate_on_submit():
+        print('submit')
+        country = form.country.data
+        print(country)
+        rating = form.rate.data
+        print(rating)
+        toAdd = PastTrip(country=country, rating=rating, user_id=current_user.id)
+        db.session.add(toAdd)
+        db.session.commit()
+        print('done')
+    return render_template('userpage.html', user=user, form=form)
+
+
+@app.route('/map')
+@login_required
+def getMap():
+    print('get')
+    trips = PastTrip.query.filter_by(user_id=current_user.id).all()
+    print(trips)
+    list = ""
+    i=0
+    for trip in trips:
+        print(i)
+        i+=1
+        print(trip.country)
+        list += trip.country
+        list += ","
+    if len(list) > 0:
+        list = list[:-1]
+    print(list)
+    #req = request.__setattr__('list', list)
+    return render_template('map-index.html', list=list)
 
 
 @app.route('/favourites/<username>')

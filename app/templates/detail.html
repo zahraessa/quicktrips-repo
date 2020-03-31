@@ -45,7 +45,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
           </li>
-          {% end if %}
+          {% endif %}
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
        <li class="nav-item dropdown">
@@ -111,15 +111,12 @@
       </li>
       {% if current_user.is_authenticated %}
         <li class="list-unstyled-item">
-<!--          <form id="favouriteform" method="POST" novalidate>-->
-<!--            {{ form.hidden_tag() }}-->
               <a>
                 <input id="toggle-heart" type="checkbox" name="favourite-checked" onclick="favourited()">
                 <label for="toggle-heart">
                   <i class="fas fa-heart"></i>
                 </label>
               </a>
-<!--          </form>-->
         </li>
       {% endif %}
       <li class="list-unstyled-item">
@@ -230,7 +227,7 @@
         <h5>Mine</h5>
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
-          <li><a class="text-muted" href="/userfavourite">Favourite</a></li>
+          <li><a class="text-muted" href="/favourites/{{current_user.username}}">Favourite</a></li>
           <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
         </ul>
       </div>
