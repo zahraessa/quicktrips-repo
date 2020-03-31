@@ -94,7 +94,7 @@
           </div>
           <a data-toggle="modal" data-target="#exampleModal" class="add_more text-uppercase mx-1 my-3 pt-3">Add More Countries I've been to!</a>
         </div>
-        <iframe class="map mt-3" width="100%" height="100%" frameborder="no" border="0" scrolling="no" src="{{ url_for('getMap', list=list) }}" id="countryIframe"></iframe>
+        <iframe class="map mt-3" width="100%" height="100%" frameborder="no" border="0" scrolling="no" src="/map?list='{{list}}'" id="countryIframe"></iframe>
       </div>
     </div>
   </div>
@@ -359,5 +359,4 @@
 
   <!-- Custom styles for this template -->
   <script src="{{ url_for('static', filename='js/newhome.js') }}"></script>
-<script src="{{ url_for('static', filename='js/map-index.js') }}"></script>
 </body>

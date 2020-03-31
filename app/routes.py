@@ -210,28 +210,31 @@ def user(username):
         db.session.add(toAdd)
         db.session.commit()
         print('done')
-    return render_template('userpage.html', user=user, form=form)
 
-
-@app.route('/map')
-@login_required
-def getMap():
+    list = ""
     print('get')
     trips = PastTrip.query.filter_by(user_id=current_user.id).all()
+    trips = set(trips)
     print(trips)
-    list = ""
-    i=0
+    i = 0
     for trip in trips:
         print(i)
-        i+=1
+        i += 1
         print(trip.country)
         list += trip.country
         list += ","
     if len(list) > 0:
         list = list[:-1]
     print(list)
-    #req = request.__setattr__('list', list)
-    return render_template('map-index.html', list=list)
+
+    return render_template('userpage.html', user=user, form=form, list=list)
+
+
+@app.route('/map/list')
+@login_required
+def getMap(list):
+    print(list)
+    return render_template('map-index.html', list="?list=" + list)
 
 
 @app.route('/favourites/<username>')
