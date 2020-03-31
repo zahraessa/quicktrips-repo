@@ -434,7 +434,7 @@ def details(city):
                 isFavourited = recommendation.isFavourited
                 print(isFavourited)
             code = randint(0, 2147483647)
-            url = "shared/" + city + "/" + str(code)
+            # url = "/shared/" + city + "/" + str(code)
             toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
                                             keywords=keywords, code=code)
             db.session.add(toShare)
@@ -442,7 +442,7 @@ def details(city):
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
                            flights=flights, image=image, description=description, isFavourited=isFavourited,
-                           toShare=url)
+                           code=code)
 
 
 @app.route('/favourites/favourite-details/<city>', methods=['GET', 'POST'])

@@ -95,7 +95,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <p class="mt-5 text-center">Copy the link below and share it with your friends!</p>
-          <p class="mb-5 text-center" id="link">Link:  </p>
+          <p class="mb-5 text-center" id="link"></p>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@
   <div class="social-icons">
     <ul class="list-unstyled text-center mb-0">
       <li class="list-unstyled-item">
-        <a data-toggle="modal" data-target="#exampleModal">
+        <a data-toggle="modal" data-target="#exampleModal" onclick="getUrl({{code}});" >
           <i class="fas fa-external-link-alt"></i>
         </a>
       </li>
