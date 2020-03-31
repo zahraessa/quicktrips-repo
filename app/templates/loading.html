@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="{{ url_for('static', filename='css/faq.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/loading.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -71,65 +71,20 @@
     </nav>
   </header>
 
-  <div class="container" id="faq">
+  <div class="container" id="load">
 
     <div class="row justify-content-center px-3">
 
       <div class="col-xl-10 col-lg-12 col-md-9">
         <div class="px-5 py-3">
           <div class="text-center">
-            <h2 class="mb-4">FAQ</h2>
-            <p class="subtitle mb-4 text-center">Click to view the frequently asked questions</p>
+            <h2 class="mb-4">Loading...</h2>
+            <p class="subtitle mb-4 text-center">We are now generating your results, recommendations will be shown shortly</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
           </div>
-          <ul id="faq-list">
-            <li>
-              <a data-toggle="collapse" class="collapsed" href="#faq1">How to find the suitable distination for my next trip? <i class="fas fa-plus"></i> <i class="fas fa-minus"></i></a>
-              <div id="faq1" class="collapse" data-parent="#faq-list">
-                <p>
-                  You could choose to start from "GET STARTED" button on home page and enter the questionnire as guided, then the recommended results of distination will be shown!
-                  You could also choose to start by select buttons below on home page beside "Search according to Interests or type" or "Worry about budget?" or "Aboard or local?".
-                  If the destination in recommendation section on home page interests you, that's a good starting point as well!
-                </p>
-              </div>
-            </li>
 
-            <li>
-              <a data-toggle="collapse" href="#faq2" class="collapsed">How to log in? <i class="fas fa-plus"></i> <i class="fas fa-minus"></i></a>
-              <div id="faq2" class="collapse" data-parent="#faq-list">
-                <p>
-                  If you do have an account, you could login by enter your password and email address, or registered Goodle or Facebook account. Otherwise, you could register through Google account, Facebook account or manually enter your user details.
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <a data-toggle="collapse" href="#faq3" class="collapsed">Could I book my holiday in this website? <i class="fas fa-plus"></i> <i class="fas fa-minus"></i></a>
-              <div id="faq3" class="collapse" data-parent="#faq-list">
-                <p>
-                  No. The page will navigate you to an external website where you could book your hotel or flight.
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <a data-toggle="collapse" href="#faq4" class="collapsed">How is my recommended holiday distination been generated? <i class="fas fa-plus"></i> <i class="fas fa-minus"></i></a>
-              <div id="faq4" class="collapse" data-parent="#faq-list">
-                <p>
-                  The server will take the choices you entered in the questionnire required and generate recommendations accordingly.
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <a data-toggle="collapse" href="#faq5" class="collapsed">How long does it take to get a responde after "contact us" form is submitted? <i class="fas fa-plus"></i> <i class="fas fa-minus"></i></a>
-              <div id="faq5" class="collapse" data-parent="#faq-list">
-                <p>
-                  It should take no more than 3 working days, a member will contact you through the email entered.
-                </p>
-              </div>
-            </li>
-
-          </ul>
         </div>
       </div>
     </div>

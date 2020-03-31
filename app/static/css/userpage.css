@@ -174,3 +174,7 @@ h1 {
 .modal-body {
   padding: 3rem 3rem 3rem 3rem;
 }
+
+footer {
+  font-family: "Titillium Web";
+}
