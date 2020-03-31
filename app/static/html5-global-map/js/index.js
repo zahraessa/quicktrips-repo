@@ -4,9 +4,8 @@ filledList(list);
 function getParamValue()
 {
     var url = window.location.search.substring(1); //get rid of "?" in querystring
-    var qArray = url.split('&'); //get key-value pairs
-    var pArr = qArray[0].split('='); //split key and value
-    var param = pArr[1].split(",");
+    var pArr = url.split('='); //split key and value
+    var param = pArr[1].split("%2C");
     return param
 
 }

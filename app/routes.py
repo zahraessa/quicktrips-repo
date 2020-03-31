@@ -230,13 +230,6 @@ def user(username):
     return render_template('userpage.html', user=user, form=form, list=list)
 
 
-@app.route('/map/list')
-@login_required
-def getMap(list):
-    print(list)
-    return render_template('map-index.html', list="?list=" + list)
-
-
 @app.route('/favourites/<username>')
 @login_required
 def favourites(username):
