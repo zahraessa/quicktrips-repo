@@ -211,7 +211,8 @@ def user(username):
         db.session.commit()
         print('done')
 
-    list = ""
+    countrylist = ""
+    ratingslist = ""
     print('get')
     trips = PastTrip.query.filter_by(user_id=current_user.id).all()
     trips = set(trips)
@@ -221,13 +222,17 @@ def user(username):
         print(i)
         i += 1
         print(trip.country)
-        list += trip.country
-        list += ","
-    if len(list) > 0:
-        list = list[:-1]
-    print(list)
+        countrylist += trip.country
+        countrylist += ","
+        ratingslist += trip.rating
+        ratingslist += ","
+    if len(countrylist) > 0:
+        countrylist = countrylist[:-1]
+        ratingslist = ratingslist[:-1]
+    print(countrylist)
+    print(ratingslist)
 
-    return render_template('userpage.html', user=user, form=form, list=list)
+    return render_template('userpage.html', user=user, form=form, countrylist=countrylist, ratingslist=ratingslist)
 
 
 @app.route('/favourites/<username>')

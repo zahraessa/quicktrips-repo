@@ -84,9 +84,6 @@ class PastTrip(db.Model):
     def __repr__(self):
         return '<PastTrip {}>'.format(self.country)
 
-    def image(self):
-        return getCityImage(self.city)
-
 
 class Favourite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
