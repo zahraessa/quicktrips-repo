@@ -1,3 +1,5 @@
+getUrl();
+
 (function($) {
   "use strict"; // Start of use strict
 
@@ -45,4 +47,10 @@
 function favourited(id) {
   var url = "/favourite/" + id;
   window.location.href = url;
+}
+
+function getUrl(){
+  var currentUrl = window.location.href;
+  var link = "Link: " + currentUrl;
+  $("#link").text(link);
 }
