@@ -126,48 +126,48 @@
   font-family: 'Raleway';
 }
 
-.favourate label {
+.favourite label {
   font-size: 1.5rem;
 }
 
-.favourate label input[type="checkbox"] {
+.favourite label input[type="checkbox"] {
   display: none;
 }
 
-.favourate .fa-heart {
+.favourite .fa-heart {
   position: absolute;
   top: 0.7em;
   right: 1rem;
   left: auto;
 }
 
-.favourate {
+.favourite {
   cursor: pointer;
 }
 
-.favourate .fas {
+.favourite .fas {
   color: #ff6666;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
 }
 
-.favourate .far {
+.favourite .far {
   color: #8c8c8c;
 }
 
-.favourate:hover .fas{
+.favourite:hover .fas{
   opacity: 0.5;
 }
 
-.favourate:hover .far{
+.favourite:hover .far{
   opacity: 0;
 }
 
-.favourate input[type="checkbox"]:checked ~ .fas {
+.favourite input[type="checkbox"]:checked ~ .fas {
   opacity: 1;
 }
 
-.favourate input[type="checkbox"]:checked ~ .far {
+.favourite input[type="checkbox"]:checked ~ .far {
   opacity: 0;
 }
 
@@ -194,4 +194,8 @@
 .btn-user:active {
   border-color: #2C4B59;
   color: #2C4B59;
+}
+
+footer {
+  font-family: "Titillium Web";
 }

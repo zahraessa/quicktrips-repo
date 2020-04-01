@@ -40,10 +40,10 @@
           <a class="nav-link" href="/index">Home</a>
         </li>
         {% if current_user.is_active %}
-        <li class="nav-item">
-          <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
-        </li>
-        {% endif %}}
+          <li class="nav-item">
+            <a class="nav-link" href="/userpage/{{current_user.username}}">My trips</a>
+          </li>
+          {% endif %}
       </ul>
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
@@ -52,13 +52,13 @@
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <div class="dropdown-item d-flex justify-content-between">
+            <a class="dropdown-item d-flex justify-content-between"href="/userpage/{{current_user.username}}">
               <img src="{{ current_user.avatar(128) }}" width="50" height="50" alt="user" class="rounded-circle">
               <div class="ml-3 mt-3 d-flex justify-content-between">
                 <p class="ml-1">Username: </p>
                 <p class="ml-1">{{ current_user.username }}</p>
               </div>
-            </div>
+            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
@@ -85,7 +85,7 @@
   </div>
 
   <div class="text-center">
-    <h2>Please select the top 5 keywords that suits your trip</h2>
+    <h2>Please select the top 3-5 keywords that suits your trip</h2>
     <p>Don't hesitate. Each one is the best!</p>
   </div>
 
@@ -380,7 +380,7 @@
   </section>
   <!-- Done!-->
   <div class="justify-content-center pb-5 mb-5 px-5 mx-4">
-    <button class="btn btn-primary btn-block js-scroll-trigger" name="submit" value="submit">See Recommendations!</button>
+    <button class="btn btn-primary btn-block js-scroll-trigger" name="submit" value="submit" onclick="f()">See Recommendations!</button>
   </div>
   </form>
 
@@ -390,7 +390,6 @@
     <div class="row justify-content-center">
       <div class="col-12 col-md">
         <img class="mb-2 d-block" src="{{ url_for('static', filename='image/logo-dark.png') }}" alt="" width="55" height="55">
-        <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
       </div>
       <div class="col-4 col-md">
         <h5>Features</h5>
@@ -400,14 +399,14 @@
         </ul>
       </div>
       {% if current_user.is_active %}
-        <div class="col-4 col-md">
-          <h5>Mine</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
-            <li><a class="text-muted" href="/userfavourite/{{current_user.username}}">Favourite</a></li>
-            <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
-          </ul>
-        </div>
+      <div class="col-4 col-md">
+        <h5>Mine</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
+          <li><a class="text-muted" href="/favourites/{{current_user.username}}">Favourite</a></li>
+          <li><a class="text-muted" href="/useredit">Profile</a></li>
+        </ul>
+      </div>
       {% endif %}
       <div class="col-4 col-md">
         <h5>About</h5>

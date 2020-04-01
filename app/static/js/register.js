@@ -11,7 +11,7 @@ function validateForm() {
   // This function deals with validation of the form fields
   var x = document.getElementsByTagName("input");
   var y = document.getElementsByTagName("select");
-  var notValid = 0;
+  var valid = true;
 
   // A loop that checks every input field in the current tab:
   for (i = 0; i < x.length; i++) {
@@ -19,7 +19,7 @@ function validateForm() {
     if (x[i].value === "") {
       // add an "invalid" class to the field:
       x[i].className += " invalid";
-      notValid = notValid + 1;
+      valid = false;
     }
   }
 
@@ -29,13 +29,11 @@ function validateForm() {
     if (y[i].value === "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
-      notValid = notValid + 1;
+      valid = false;
     }
   }
-  if (notValid === 0) {
-    return true;
-  }
-  return false;
+
+  return valid;
 }
 
 function addSubmit(){
