@@ -13,7 +13,7 @@ def generateList(city, maxbudget, minbudget, adults, childAges, startdate, tripl
                    "location_id": cityid, "adults": int(adults) + int(childAges), "rooms": "2"}
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "6a8593230emshb307f117bc19b76p164d0cjsnb9fa28ced57e"
+        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
     }
     sleep(2)
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -27,7 +27,7 @@ def getHotelDetails(hotelId, adults, childAges, startdate, triplength, currency)
     try:
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "6a8593230emshb307f117bc19b76p164d0cjsnb9fa28ced57e"
+            "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
         }
         sleep(2)
         response = requests.request("GET", url, headers=headers, params=querystring)

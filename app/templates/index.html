@@ -48,7 +48,7 @@
       <ul class="navbar-nav font-weight-light mr-2 ml-4">
         <li class="nav-item dropdown">
           {% if current_user.is_active %}
-          <a class="nav-link dropdown-toggle" href="/useredit/{{current_user.username}}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -60,7 +60,7 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/useredit/{{current_user.username}}">Edit profile</a>
+            <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
           {% else %}
@@ -279,7 +279,7 @@
         <ul class="list-unstyled text-small">
           <li><a class="text-muted" href="/userpage/{{current_user.username}}">My trips</a></li>
           <li><a class="text-muted" href="/favourites/{{current_user.username}}">Favourite</a></li>
-          <li><a class="text-muted" href="/useredit/{{current_user.username}}">Profile</a></li>
+          <li><a class="text-muted" href="/useredit">Profile</a></li>
         </ul>
       </div>
       {% endif %}
