@@ -23,6 +23,15 @@
 
  </head>
 
+  {% with message = get_flashed_messages() %}
+      {% if message %}
+        <script>
+          var message = {{ message | safe }};
+          alert(message);
+        </script>
+      {% endif %}
+  {% endwith %}
+
  <body>
    <div class="container">
 
@@ -45,15 +54,9 @@
                         {{ form.hidden_tag() }}
                      <div class="form-group">
                        <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Enter Your username..." oninput="this.className='form-control form-control-user'">
-                       <div class="invalid-feedback">
-                           Your username is not recorded, please register before login!
-                       </div>
                      </div>
                      <div class="form-group">
                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" oninput="this.className='form-control form-control-user'">
-                       <div class="invalid-feedback">
-                           This password does not match the username!
-                       </div>
                      </div>
                      <div class="form-group">
                        <div class="custom-control custom-checkbox small">

@@ -130,12 +130,3 @@ form.user .btn-user {
   background-color: rgba(56, 95, 113, 0.5);
   color: white;
 }
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
-
-select.invalid {
-  background-color: #ffdddd;
-}

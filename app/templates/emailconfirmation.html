@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Quicktrip-emailconfirmation</title>
+
+  <link rel="shortcut icon" href="{{url_for('static', filename='image/logo-white.png')}}"  />
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- Fontawesome icon -->
+  <link href="{{ url_for('static', filename='fontawesome-free-5.12.0-web/css/all.css') }}" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Titillium+Web:200,300,400,600,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{ url_for('static', filename='css/emailconfirmation.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <div class="container" id="faq">
+
+    <div class="row justify-content-center px-3">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="px-5 py-3">
+          <div class="text-center">
+            <h2 class="mb-4">Confirming email address</h2>
+            <p class="subtitle mb-4 text-center">We have just sent you an email with a verification code, please enter it below for email confirmation.</p>
+            <div class="row d-flex justify-content-center">
+              <input class="form-control col-9" id="code" placeholder="Please enter the verification code...">
+              <button type="submit" name="submit" class="btn btn-next ml-2" >Verify</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

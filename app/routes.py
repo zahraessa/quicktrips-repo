@@ -67,19 +67,36 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # if form.validate_on_submit():
+    #     user = User.query.filter_by(username=form.username.data).first()
+    #     if not user:
+    #         is_recorded = 0
+    #         return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
+    #     elif not user.check_password(form.password.data):
+    #         pw_matched = 0
+    #         return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
+    #     else:
+    #         login_user(user, remember=form.remember_me.data)
+    #         next_page = request.args.get('next')
+    #         if not next_page or url_parse(next_page).netloc != '':
+    #             next_page = url_for('index')
+    #         return redirect(next_page)
+    # return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
-        login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
-        return redirect(next_page)
+        if user is None:
+            flash("Username is not recorded, please register before login!")
+        elif not user.check_password(form.password.data):
+            flash("Password entered does not match your username!")
+        else:
+            login_user(user, remember=form.remember_me.data)
+            next_page = request.args.get('next')
+            if not next_page or url_parse(next_page).netloc != '':
+                next_page = url_for('index')
+            return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 
@@ -99,6 +116,10 @@ def register():
         user = User(username=form.username.data, email=form.email.data, firstname=form.firstname.data,
                     surname=form.surname.data, address=form.address.data, country=form.country.data,
                     city=form.state.data, postcode=form.postcode.data)
+        if user.username is not None:
+            flash("Username has already been used by someone, please change the username!")
+        if user.email is not None:
+            flash("This email has already been registered, please change a email or login!")
         user.set_password(form.password.data)
         user.avatar(128)
         db.session.add(user)
@@ -363,6 +384,11 @@ def keywords():
                            localorabroad=localorabroad, origin=origin, currency=currency)
 
 
+@app.route('/loading')
+def load():
+    return render_template('loading.html')
+
+
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     maxbudget = request.args['maxbudget']
@@ -544,6 +570,22 @@ def registerdone():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
+
+
+@app.route('/emailconfirmation')
+def email_confirm():
+    return render_template('emailconfirmation.html')
+
+
+@app.route('/resetpw')
+def reset_password():
+    return render_template('resetpw.html')
+
+
+@app.route('/resetpwcode')
+def reset_password_code():
+    return render_template('resetpwcode.html')
+
 
 
 @app.errorhandler(404)
