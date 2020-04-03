@@ -31,7 +31,9 @@ class Config(object):
 
     # SQLALCHEMY_DATABASE_URI = DB_URL
 
-    SQLALCHEMY_DATABASE_URI ='postgres://postgres:password@postgres:5432/data'
+    # SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://postgres:password@localhot:5432/data'
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost:5432/quicktrips'
 
     #'postgres://dbadmin:12345@postgres:5432/demo_db'
 
