@@ -42,7 +42,7 @@
         <ul class="navbar-nav font-weight-light mr-2 ml-4">
           <li class="nav-item dropdown">
 
-          <a class="nav-link dropdown-toggle" href="/useredit/{{current_user.username}}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/useredit" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ current_user.avatar(128) }}" width="40" height="40" alt="user" class="rounded-circle">
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -54,7 +54,7 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/useredit/{{current_user.username}}">Edit profile</a>
+            <a class="dropdown-item" href="/useredit">Edit profile</a>
             <a class="dropdown-item" href="/logout">Sign Out</a>
           </div>
 
@@ -71,7 +71,7 @@
       <div class="col-xl-10 col-lg-12 col-md-9">
         <div class="px-5">
           <div class="row mb-2">
-            <a class="col-1 back rounded-circle my-auto py-3 text-center" href="/useredit/{{current_user.username}}">
+            <a class="col-1 back rounded-circle my-auto py-3 text-center" href="/useredit">
               <i class="fas fa-arrow-left"></i>
             </a>
             <h2 class="col my-auto mx-3">Name</h2>

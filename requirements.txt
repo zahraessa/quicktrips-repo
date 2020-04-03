@@ -20,3 +20,4 @@ ibm_cloud_sdk_core==1.5.1
 flask_wtf
 opencage
 itsdangerous
+urllib3
