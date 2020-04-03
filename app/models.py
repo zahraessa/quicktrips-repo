@@ -4,6 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
 from app.getImage import getCityImage
+from sqlalchemy.ext.declarative import declarative_base, declared_attr
+
+Base = declarative_base()
 
 
 @login.user_loader
