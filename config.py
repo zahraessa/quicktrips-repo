@@ -18,6 +18,21 @@ class Config(object):
             message = "Expected environment variable '{}' not set.".format(name)
             raise Exception(message)
 
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SQLALCHEMY_DATABASE_URI = get_env_variable("POSTGRES_URL")
+
+
+
+    # Gunicorn config
+    bind = ":" + str(PORT)
+    workers = multiprocessing.cpu_count() * 2 + 1
+    threads = 2 * multiprocessing.cpu_count()
+
+
+
+
     # POSTGRES_USER = get_env_variable("POSTGRES_USER")
     # POSTGRES_PASSWORD = get_env_variable("POSTGRES_PASSWORD")
     # POSTGRES_DB = get_env_variable("POSTGRES_DB")
@@ -27,21 +42,3 @@ class Config(object):
     #                                                                host=POSTGRES_HOST, port=POSTGRES_PORT,
     #                                                                db=POSTGRES_DB)
     #SQLALCHEMY_DATABASE_URI = DB_URL
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    # SQLALCHEMY_DATABASE_URI = DB_URL
-
-    SQLALCHEMY_DATABASE_URI ='postgres://postgres:password@postgres:5432/data'
-
-    #'postgres://dbadmin:12345@postgres:5432/demo_db'
-
-
-    #[DB_TYPE]+[DB_CONNECTOR]://[USERNAME]:[PASSWORD]@[HOST]:[PORT]/[DB_NAME]
-    #
-    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    #                           'sqlite:///' + os.path.join(basedir, 'app.db')
-
-    # Gunicorn config
-    bind = ":" + str(PORT)
-    workers = multiprocessing.cpu_count() * 2 + 1
-    threads = 2 * multiprocessing.cpu_count()

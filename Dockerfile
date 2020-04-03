@@ -1,26 +1,14 @@
-FROM python:3.6-alpine
-COPY . /app
+FROM python:3.6-jessie
+
+RUN apt update
 WORKDIR /app
-RUN apk update \
-    && apk add --virtual build-dependencies \
-        build-base \
-        gcc \
-        wget \
-        git \
-    && apk add \
-        bash
+ADD requirements.txt /app/requirements.txt
+RUN pip install -r /app/requirements.txt
+RUN pip install python-dotenv
+ADD . /app
+ENV PORT 5000
+ENV POSTGRES_URL=postgresql+psycopg2://postgres:password@localhost:5432/data
 
-
-COPY . /app
-WORKDIR /app
-
-RUN \
- apk add --no-cache bash && \
- apk add libffi-dev && \
- apk add --no-cache postgresql-libs && \
- apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
-RUN pip install -r requirements.txt
-
-
-EXPOSE 5000
-CMD ["/bin/bash", "entrypoint.sh"]
+#CMD ["/bin/bash", "entrypoint.sh"]
+#CMD ["gunicorn", "app:app", "--config=config.py"]
+CMD ["python", "app.py"]
