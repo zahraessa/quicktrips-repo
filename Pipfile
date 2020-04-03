@@ -18,6 +18,8 @@ Flask-SQLAlchemy = "*"
 Flask-WTF = "*"
 Flask-User = "*"
 celery = "*"
+pyodbc = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"

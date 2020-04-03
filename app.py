@@ -5,7 +5,6 @@ from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
 from app.models import User, Recommendation
-from socket import SocketIO
 
 
 app = Flask(__name__)
@@ -18,8 +17,10 @@ bootstrap = Bootstrap(app)
 
 from app import app
 
-db.init_app(app)
+#db = SQLAlchemy()
+#db.init_app(app)
 db.create_all()
+db.session.commit()
 
 @app.shell_context_processor
 def make_shell_context():
@@ -27,4 +28,4 @@ def make_shell_context():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=Config.PORT, debug=Config.DEBUG_MODE)

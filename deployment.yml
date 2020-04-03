@@ -49,10 +49,11 @@ metadata:
   labels:
     app: "postgres"
 data:
-  POSTGRES_DB: "postgres"
-  POSTGRES_USER: "admin"
+  POSTGRES_DB: "data"
+  POSTGRES_USER: "postgres"
   POSTGRES_PASSWORD: "password"
-
+  POSTGRES_HOST: localhost
+  POSTGRES_PORT: 5432
 
 ---
 apiVersion: "apps/v1"
@@ -143,4 +144,4 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 5000
-  type: LoadBalancer
+  type: NodePort

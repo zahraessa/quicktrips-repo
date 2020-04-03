@@ -1,0 +1,34 @@
+FROM python:3.6-alpine
+
+MAINTAINER Zahra Essa "zahraessa99@gmail.com"
+
+#RUN apk update \
+#    && apk add --virtual build-dependencies \
+#        build-base \
+#        gcc \
+#        wget \
+#        git \
+#    && apk add \
+#        bash
+
+COPY . /app
+WORKDIR /app
+
+RUN \
+ apk add --no-cache bash && \
+ apk add libffi-dev && \
+ apk add --no-cache postgresql-libs && \
+ apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
+RUN pip install -r requirements.txt
+
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_HOST=127.0.0.1
+ENV POSTGRES_PORT=5432
+ENV POSTGRES_DB=data
+
+
+
+EXPOSE 5000
+#CMD ["python", "app.py"]
+CMD ["/bin/bash", "entrypoint.sh"]

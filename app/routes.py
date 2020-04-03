@@ -18,51 +18,38 @@ from urllib.parse import quote, urlencode
 import urllib
 import json
 
+@app.route('/test_db')
+def test_db():
+    db.create_all()
+    db.session.commit()
+    users = User.query.all()
+    return "User '{}' is from database".format(users)
+
+
 
 @app.route('/')
 @app.route('/index')
 def index():
-    cities = ProcessedCity.query.all()
     i = 0
     recommendations1 = []
     recommendations2 = []
+    recommendations = []
     if current_user.is_authenticated:
-        recommendations = db.session.query(Recommendation).filter_by(user_id=current_user.id).all()
-        for recommendation in recommendations:
-            i += 1
-            if i < 4:
-                recommendations1.append(recommendation.city)
-            if i in range(5, 9):
-                recommendations2.append(recommendation.city)
-            else:
-                break
+        recommendations = Recommendation.query.filter_by(user_id=current_user.id).all()
     else:
-        for city in cities:
-            if city.keywords != [] and city.sentiment > 0.5:
-                if i < 8:
-                    c = city.city
-                    description = city.description
-                    keywords = city.keywords
-                    flights = []
-                    hotels = []
-                    rec = CurrentRecommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
-                                                description=description, image=getCityImage(c))
-                    if i < 4:
-                        recommendations1.append(rec)
-                    else:
-                        recommendations2.append(rec)
-                    i += 1
-                else:
-                    break
+        recommendations = Recommendation.query.all()
 
-    try:
-        for x in CurrentQuestionnaire.query.all():
-            db.session.delete(x)
-        db.session.commit()
-        return render_template("index.html", title='Home Page', recommendations1=recommendations1,
-                               recommendations2=recommendations2)
-    except:
-        pass
+    for recommendation in recommendations:
+        i += 1
+        if i < 4:
+            recommendations1.append(recommendation)
+        if i in range(5, 9):
+            recommendations2.append(recommendation)
+        else:
+            break
+
+    print(recommendations1)
+    print(recommendations2)
     return render_template("index.html", title='Home Page', recommendations1=recommendations1,
                            recommendations2=recommendations2)
 
@@ -228,10 +215,8 @@ def user(username):
 @app.route('/favourites/<username>')
 @login_required
 def favourites(username):
-    print("faves")
     user = User.query.filter_by(username=username).first_or_404()
     favourites = Recommendation.query.filter_by(isFavourited=True).all()
-    print(favourites)
     return render_template('userfavourite.html', user=user, favourites=favourites)
 
 
@@ -381,9 +366,6 @@ def generateResults():
     origin = request.args['origin']
     keywords = request.args.getlist('keywords')
 
-    print("KEY")
-    print(keywords)
-
     keywordsStr = ""
 
     for keyword in keywords:
@@ -391,7 +373,6 @@ def generateResults():
         keywordsStr += "-"
 
     keywordsStr = keywordsStr[:-1]
-
 
     return render_template('loading.html', currency=currency, maxbudget=maxbudget,
                                 minbudget=minbudget, adults=adults,
@@ -420,19 +401,15 @@ def processing():
     localorabroad = request.args['localorabroad']
     origin = request.args['origin']
     keywordsString = request.args['keywords']
-    #keywords = request.args.getlist('keywords')
-
-    print(maxbudget)
-    print(keywordsString)
     keywordsString = keywordsString[:-1]
 
     keywords = str.split(keywordsString, '-')
-    print(keywords)
 
     torecommend = getRecommendationInfo(origin=origin, adults=int(adults), children=int(children),
                                         startdate=startdate, enddate=enddate, currency=currency, triplength=triplength,
                                         keywords=keywords, localorinternational=localorabroad, maxbudget=maxbudget,
                                         minbudget=minbudget)
+
     if current_user.is_authenticated:
         db.session.query(Recommendation).filter_by(user_id=current_user.id).delete()
         db.session.commit()
@@ -507,7 +484,6 @@ def details(city):
             current_recommendation = recommendation
             if current_user.is_authenticated:
                 isFavourited = recommendation.isFavourited
-                print(isFavourited)
             code = randint(0, 2147483647)
             url = "shared/" + city + "/" + str(code)
             toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
@@ -539,7 +515,6 @@ def favouritedetails(city):
             rec_id = recommendation.id
             current_recommendation = recommendation
             isFavourited = recommendation.isFavourited
-            print(isFavourited)
             code = randint(0, 2147483647)
             url = "shared/" + city + "/" + str(code)
             toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
@@ -576,14 +551,10 @@ def sharedRecommendationDetails(city, identifier):
 @login_required
 def favouriteRecommendation_action(recommendation_id):
     recommendation = Recommendation.query.filter_by(id=recommendation_id).first_or_404()
-    print(recommendation)
-
     if recommendation is None or not recommendation.isFavourited:
-        print("HERE")
         recommendation.favourite()
         db.session.commit()
     else:
-        print("UMM")
         recommendation.unfavourite()
         db.session.commit()
     return redirect(request.referrer)

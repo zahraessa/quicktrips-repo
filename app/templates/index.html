@@ -112,7 +112,7 @@
                          {% for recommendation in recommendations1 %}
                             <div class="col-3 mx-auto px-1 py-3">
                               <a class="portfolio-box" href="/details/{{  recommendation.city  }}">
-                                <img class="img-fluid" src="{{  recommendation.image  }}"  alt="">
+                                <img class="img-fluid" src="{{  recommendation.image()  }}"  alt="">
                                 <div class="portfolio-box-caption">
                                   <div class="project-category text-white-50">
                                     {{   recommendation.city   }}

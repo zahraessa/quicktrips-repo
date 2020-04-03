@@ -12,8 +12,6 @@ localorinternational = "global"
 new_recommendations = getRecommendationInfo(country, 2, startdate, enddate, currency, triplength, keywords,
                                             localorinternational)
 
-print(len(new_recommendations))
-
 for x in new_recommendations:
     city = x  # city
     hotels = recommendations[x][0]  # hotels

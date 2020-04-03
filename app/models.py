@@ -85,6 +85,13 @@ class ProcessedCity(db.Model):
     sentiment = db.Column(db.Float)
     description = db.Column(db.String(140))
 
+    def __repr__(self):
+        return '<CurrentRecommendation {}>'.format(self.city)
+
+    def image(self):
+        return getCityImage(self.city)
+
+
 
 class CurrentRecommendation(db.Model):
     id = db.Column(db.Integer, primary_key=True)

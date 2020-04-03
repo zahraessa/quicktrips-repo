@@ -19,7 +19,7 @@ def getRandomCities(country):
                 except:
                     continue
     else:
-        for i in range(5):
+        for i in range(10):
             try:
                 x = randomLocalCity(country)
                 cities[x[2]] = [x[1], x[0]]
@@ -52,4 +52,5 @@ def randomLocalCity(country):
                 filtered.append(place)
 
         i = random.randint(0, len(filtered)-1)
+
         return filtered[i]
