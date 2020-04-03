@@ -4,8 +4,8 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
-from app.models import User, Recommendation
-from socket import SocketIO
+from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, \
+    SharedRecommendations, PastTrip
 
 
 app = Flask(__name__)
