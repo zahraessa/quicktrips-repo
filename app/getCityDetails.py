@@ -26,8 +26,6 @@ def getCityId(city):
 
 
 def getCityDescription(city, region, country):
-    x = getCityInfo(city).json()
-    print(x)
     try:
          return getCityInfo(city).json()['data'][0]['result_object']["geo_description"]
     except:
@@ -39,5 +37,3 @@ def getCityDescription(city, region, country):
             except:
                 return (city + " is a great place to visit.")
 
-
-getCityDescription("London", "England", 'United Kingdom')
