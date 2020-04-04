@@ -138,7 +138,7 @@
                           {% for recommendation in recommendations2 %}
                             <div class="col-3 mx-auto px-1 py-3">
                               <a class="portfolio-box" href="/details/{{  recommendation.city  }}">
-                                <img class="img-fluid" src="{{  recommendation.image  }}"  alt="">
+                                <img class="img-fluid" src="{{  recommendation.image()  }}"  alt="">
                                 <div class="portfolio-box-caption">
                                   <div class="project-category text-white-50">
                                     {{   recommendation.city   }}
@@ -179,13 +179,13 @@
             <i class="icon fas fa-route pl-3"></i>
             <div class="row pt-5 d-flex justify-content-left">
               <a href="/que" class="btn btn-primary ">Get Started</a>
-              <p class="choice pl-2">TO search according to interests</p>
+              <p class="choice pl-2">To search according to interests</p>
             </div>
           </div>
         </div>
         <div class="col-5">
           <h2>Not sure where to go?</h2>
-          <p>Don't hasitate! Everywhere is the best!</p>
+          <p>Don't hesitate! Everywhere is the best!</p>
         </div>
       </div>
     </div>
@@ -218,42 +218,12 @@
             <i class="icon fas fa-globe-asia pl-3"></i>
             <div class="row pt-5 d-flex justify-content-left">
               <a href="/que" class="btn btn-primary ">Get Started</a>
-              <p class="choice pl-2">TO explore anywhere</p>
+              <p class="choice pl-2">To explore anywhere</p>
             </div>
         </div>
         <div class="col-5">
           <h2>Aboard or local?</h2>
           <p>Go somewhere you have never been before!</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Blogs -->
-  <section class="testimonials text-center">
-    <div class="container">
-      <h2 class="mb-2">We think that...</h2>
-      <div class="row pt-5">
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename='image/user.jpg') }}" alt="">
-            <h5>User A</h5>
-            <p class="font-weight-light mb-0">"Good!xxxxxxxxxxxxxxxxxxxxxx"</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename='image/user.jpg') }}" alt="">
-            <h5>User B</h5>
-            <p class="font-weight-light mb-0">"Like it!xxxxxxxxxxxxxxxxxxxxxxx"</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="{{ url_for('static', filename='image/user.jpg') }}" alt="">
-            <h5>User C</h5>
-            <p class="font-weight-light mb-0">"Helpful!xxxxxxxxxxxxxxxxxxxxxxxx"</p>
-          </div>
         </div>
       </div>
     </div>

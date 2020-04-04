@@ -73,7 +73,7 @@ def pickRecommendation(citiesdict):
     for city in citiesdict:
         keywordCount = citiesdict[city]['keywordsCount']
         sentiment = citiesdict[city]['sentiment']
-        if keywordCount > 1 and sentiment > 0.5:
+        if keywordCount > 0 and sentiment > 0.5:
             maxcitiesdict[city] = citiesdict[city].copy()
     return maxcitiesdict
 

@@ -1,28 +1,39 @@
 function submitting() {
   // Exit the function if any field in the current tab is invalid:
-  if (!validateForm()) return false;
-
+  // if (!validateForm()) return false;
+  if (!validated()) return false;
   addSubmit();
 
 }
 
 
-function validateForm() {
+// function validateForm() {
+//
+//   // This function deals with validation of the form fields
+//   var x = document.getElementsByTagName("input");
+//   var valid = true;
+//
+//   // A loop that checks every input field in the current tab:
+//   for (i = 0; i < x.length; i++) {
+//     // If a field is empty...
+//     if (x[i].value === "") {
+//       // add an "invalid" class to the field:
+//       x[i].className += " invalid";
+//       valid = false;
+//     }
+//   }
+//   return valid;
+// }
 
-  // This function deals with validation of the form fields
-  var x = document.getElementsByTagName("input");
-  var valid = true;
 
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i < x.length; i++) {
-    // If a field is empty...
-    if (x[i].value === "") {
-      // add an "invalid" class to the field:
-      x[i].className += " invalid";
-      valid = false;
-    }
+function validated() {
+  var a = document.getElementsByTagName("input")[1].value;
+  var b = document.getElementsByTagName("input")[2].value;
+  if (a === "" || b === "") {
+    window.alert("Username or password is empty... Please check and click Login again.");
+    return false;
   }
-  return valid;
+  return true;
 }
 
 function addSubmit(){

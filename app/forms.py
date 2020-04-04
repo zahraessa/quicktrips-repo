@@ -106,6 +106,15 @@ class ForgotPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class ForgotPasswordCode(FlaskForm):
+    code = StringField('Code', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class ForgotPasswordNewPassword(FlaskForm):
+    password = PasswordField('New Password')
+    password2 = PasswordField('Repeat New Password', validators=[EqualTo('password')])
+    submit = SubmitField('Submit')
+
 
 class PastTripForm(FlaskForm):
     country = StringField('Country', validators=[DataRequired()])

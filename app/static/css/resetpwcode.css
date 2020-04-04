@@ -1,0 +1,75 @@
+body{
+  background-image: url("../image/greylogo.png");
+  background-size: 60%;
+  background-position: 10% 10%;
+  background-repeat: no-repeat;
+}
+
+.container {
+  margin-top: 10rem;
+  font-family: 'Titillium Web';
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+h2 {
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  color: #3a3b45;
+}
+
+.subtitle{
+  font-size: 0.9rem;
+  color: rgba(22, 22, 22, 0.5);
+  letter-spacing: 0.05rem;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #858796;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  line-height: 1.1rem;
+  border-radius: 0.35rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+.btn:hover {
+  color: #858796;
+  text-decoration: none;
+}
+
+.btn:focus, .btn.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+}
+
+.btn-next {
+  background-color: #607686;
+  color: white
+}
+
+.btn-next:hover {
+  background-color: #4a5b68;
+  color: white;
+}
+
+.btn-next:focus {
+  background-color: #4a5b68;
+}

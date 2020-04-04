@@ -38,19 +38,19 @@
                 <div class="px-5 py-3">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Forget your password? </h1>
-                    <p class="mb-4 text-center">Don't worry, just enter your email below and reset password by the link that we will send you. </p>
+                    <p class="mb-4 text-center">Don't worry, just enter your email below and reset password with the code that we will send you. </p>
                   </div>
                   <form class="user needs-validation" novalidate method="POST">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                       <div class="invalid-feedback">
                         Email does not exist
                       </div>
                     </div>
-                    <a href="/emailsent'" class="btn btn-next btn-user btn-block" type="submit" name="submit">
+                    <button class="btn btn-next btn-user btn-block" type="submit" name="submit" value="submit">
                       Reset password
-                    </a>
+                    </button>
                   </form>
                   <hr>
                   <div class="text-center">
