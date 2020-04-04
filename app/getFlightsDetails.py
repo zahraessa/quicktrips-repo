@@ -9,7 +9,7 @@ def generateClosestAirport(location):
         querystring = {"locale": "en_US", "query": location}
         headers = {
             'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
+            "x-rapidapi-key": "c452bfd43dmsh0916bd1f1375ea3p120b94jsnbda594295b2a"
         }
         sleep(2)
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -31,7 +31,7 @@ def createFlightSession(originAirport, destinationAirport, adults, childAges, st
                    "dd1": startdate}
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
+        "x-rapidapi-key": "c452bfd43dmsh0916bd1f1375ea3p120b94jsnbda594295b2a"
     }
     try:
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -64,7 +64,7 @@ def getFlightPoll(sid, currency):
                    "sid": sid}
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
+        "x-rapidapi-key": "fdc1bb028dmsh89558dd26d5702bp165be9jsn63c09bee8aeb"
     }
     sleep(5)
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -101,7 +101,7 @@ def getBookingURL(searches):
     url = "https://tripadvisor1.p.rapidapi.com/flights/get-booking-url"
     headers = {
         'x-rapidapi-host': "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "0df4ebdc3bmsh617d8ede228707ep13f9f3jsn1b4e41ef933d"
+        "x-rapidapi-key": "fdc1bb028dmsh89558dd26d5702bp165be9jsn63c09bee8aeb"
     }
     bookingURLS = []
     for search in searches:

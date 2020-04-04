@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quicktrips
+  labels:
+    app: quicktrips
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: quicktrips
+  template:
+    metadata:
+      labels:
+        app: quicktrips
+    spec:
+      containers:
+        - name: quicktrips
+          image: uk.icr.io/quicktrips/quicktrips-image:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: db_username
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_username
+            - name: db_password
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_password
+            - name: db_name
+              value: flaskapi_demo

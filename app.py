@@ -4,8 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 from config import Config
-from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, \
-    SharedRecommendations, PastTrip
+from app.models import User, Recommendation
 
 
 app = Flask(__name__)
@@ -15,6 +14,7 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 bootstrap = Bootstrap(app)
+
 
 from app import app
 
@@ -27,4 +27,5 @@ def make_shell_context():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
+

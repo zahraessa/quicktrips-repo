@@ -14,7 +14,6 @@ from itsdangerous import URLSafeSerializer
 from app.getImage import getCityImage
 import random
 from random import randint
-from socket import SocketIO
 import time
 from urllib.parse import quote, urlencode
 import urllib

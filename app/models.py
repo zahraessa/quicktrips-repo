@@ -24,6 +24,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     hashCode = db.Column(db.String(120))
     recommendations = db.relationship('Recommendation', backref='users', lazy='dynamic')
+    favourites = db.relationship('Favourite', backref='users', lazy='dynamic')
     pastTrips = db.relationship('PastTrip', backref='users', lazy='dynamic')
 
     def __repr__(self):
@@ -48,7 +49,6 @@ class Recommendation(db.Model):
     flights = db.Column(db.PickleType(True))
     keywords = db.Column(db.PickleType(True))
     hotels = db.Column(db.PickleType(True))
-    isFavourited = db.Column(db.Boolean(False))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -58,20 +58,50 @@ class Recommendation(db.Model):
         return getCityImage(self.city)
 
     def favourite(self):
-        self.isFavourited = True
+        if not self.isFavourited():
+            like = Favourite(user_id=self.user_id, city=self.city, description=self.description, flights=self.flights,
+                             keywords=self.keywords, hotels=self.hotels)
+            db.session.add(like)
 
     def unfavourite(self):
-        self.isFavourited = False
+        if self.isFavourited():
+            Favourite.query.filter_by(
+                user_id=self.user_id,
+                city=self.city).delete()
 
+    def isFavourited(self):
+        faves = Favourite.query.all()
+        for fave in faves:
+            if fave.user_id == self.user_id and fave.city == self.city:
+                return True
+        return False
 
 class PastTrip(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    rating = db.Column(db.String(140))
 
     def __repr__(self):
-        return '<PastTrip {}>'.format(self.country)
+        return '<PastTrip {}>'.format(self.city)
+
+    def image(self):
+        return getCityImage(self.city)
+
+
+class Favourite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    city = db.Column(db.String(140), index=True)
+    description = db.Column(db.String(400))
+    flights = db.Column(db.PickleType(True))
+    keywords = db.Column(db.PickleType(True))
+    hotels = db.Column(db.PickleType(True))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Favourite {}>'.format(self.city)
+
+    def image(self):
+        return getCityImage(self.city)
 
 
 class CitiesToAvoid(db.Model):
@@ -100,7 +130,6 @@ class CurrentRecommendation(db.Model):
 
     def image(self):
         return getCityImage(self.city)
-
 
 class CurrentQuestionnaire(db.Model):
     id = db.Column(db.Integer, primary_key=True)
