@@ -48,7 +48,9 @@ def index():
                     flights = []
                     hotels = []
                     rec = CurrentRecommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
-                                                description=description, image=getCityImage(c))
+                                                description=description)
+                    db.session.add(rec)
+                    db.session.commit()
                     if i < 4:
                         recommendations1.append(rec)
                     else:
@@ -471,7 +473,6 @@ def processing():
                                         keywords=keywords, localorinternational=localorabroad, maxbudget=maxbudget,
                                         minbudget=minbudget)
     if current_user.is_authenticated:
-        db.session.query(Recommendation).filter_by(user_id=current_user.id).delete()
         db.session.commit()
         for x in torecommend:
             new = Recommendation(city=x, description=torecommend[x][2],
@@ -546,8 +547,13 @@ def details(city):
             if current_user.is_authenticated:
                 isFavourited = recommendation.isFavourited
                 print(isFavourited)
-            code = randint(0, 2147483647)
-            url = "shared/" + city + "/" + str(code)
+
+            def get_random_string(length=24,
+                                  allowed_chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'):
+                return ''.join(random.choice(allowed_chars) for i in range(length))
+
+            code = get_random_string()
+            url = "shared/" + city + "/" + code
             toShare = SharedRecommendations(city=city, description=description, flights=flights, hotels=hotels,
                                             keywords=keywords, code=code)
             db.session.add(toShare)
@@ -588,7 +594,7 @@ def favouritedetails(city):
             break
     return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels, recid=rec_id,
                            flights=flights, image=image, description=description, isFavourited=isFavourited,
-                           toShare=url)
+                           toShare=code)
 
 
 @app.route('/shared/<city>/<identifier>', methods=['GET', 'POST'])
@@ -608,7 +614,7 @@ def sharedRecommendationDetails(city, identifier):
             url = "shared/" + city + "/" + identifier
             return render_template('detail.html', city=city, recommendation=current_recommendation, hotels=hotels,
                                    recid=rec_id, flights=flights, image=image, description=description,
-                                   isFavourited=isFavourited, toShare=url)
+                                   isFavourited=isFavourited, toShare=code)
     return render_template('404.html')
 
 
