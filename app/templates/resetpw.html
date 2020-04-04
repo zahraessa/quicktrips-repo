@@ -29,6 +29,8 @@
 
 
   <div class="container" id="faq">
+    <form class="user needs-validation" novalidate method="POST">
+                    {{ form.hidden_tag() }}
 
     <div class="row justify-content-center px-3">
 
@@ -37,14 +39,15 @@
           <div class="text-center">
             <h2 class="mb-4">Reset password</h2>
             <p class="subtitle mb-4 text-center">Please enter your new password below!</p>
-            <input class="form-control" id="pw" placeholder="Your new password...">
-            <input class="form-control mt-2" id="repeatpw" placeholder="Please repeat your new password...">
-            <button type="submit" name="submit" class="btn btn-next btn-block mt-4">Reset password</button>
+            <input type="password" class="form-control" name="password" id="pw" placeholder="Your new password...">
+            <input type="password" class="form-control mt-2" name="password2" id="repeatpw" placeholder="Please repeat your new password...">
+            <button type="submit" name="submit" value="submit" class="btn btn-next btn-block mt-4">Reset password</button>
           </div>
 
         </div>
       </div>
     </div>
+    </form>
   </div>
 
 </body>

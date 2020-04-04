@@ -1,7 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request, jsonify
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, KeywordsForm, QuestionnaireForm, ForgotPasswordForm,\
-    ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm, PastTripForm
+    ContactUsForm, EditProfileAddressForm, EditProfileNameForm, EditProfilePasswordForm, PastTripForm,\
+    ForgotPasswordCode, ForgotPasswordNewPassword
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Recommendation, ProcessedCity, CurrentRecommendation, CurrentQuestionnaire, \
@@ -11,6 +12,7 @@ from app.sendEmail import contactUsConfirmation, RegistrationConfirmation, Forgo
 from app.getAllInformationForARecommendation import getRecommendationInfo
 from itsdangerous import URLSafeSerializer
 from app.getImage import getCityImage
+import random
 from random import randint
 from socket import SocketIO
 import time
@@ -71,21 +73,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    # if form.validate_on_submit():
-    #     user = User.query.filter_by(username=form.username.data).first()
-    #     if not user:
-    #         is_recorded = 0
-    #         return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
-    #     elif not user.check_password(form.password.data):
-    #         pw_matched = 0
-    #         return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
-    #     else:
-    #         login_user(user, remember=form.remember_me.data)
-    #         next_page = request.args.get('next')
-    #         if not next_page or url_parse(next_page).netloc != '':
-    #             next_page = url_for('index')
-    #         return redirect(next_page)
-    # return render_template('login.html', title='Sign In', form=form, is_recorded=is_recorded, pw_matched=pw_matched)
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -116,10 +103,18 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
+    print("UMM")
+    print(form.validate_on_submit())
     if form.validate_on_submit():
+        print("HEREEEE")
+        def get_random_string(length=24,
+                              allowed_chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'):
+            return ''.join(random.choice(allowed_chars) for i in range(length))
+        hashCode = get_random_string()
+        print(hashCode)
         user = User(username=form.username.data, email=form.email.data, firstname=form.firstname.data,
                     surname=form.surname.data, address=form.address.data, country=form.country.data,
-                    city=form.state.data, postcode=form.postcode.data)
+                    city=form.state.data, postcode=form.postcode.data, hashCode=hashCode)
         if user.username is not None:
             flash("Username has already been used by someone, please change the username!")
         if user.email is not None:
@@ -127,8 +122,8 @@ def register():
         user.set_password(form.password.data)
         user.avatar(128)
         db.session.add(user)
-        db.session.commit()
-        RegistrationConfirmation(name=form.firstname.data, username=form.username.data, email=form.username.data)
+        RegistrationConfirmation(name=form.firstname.data, username=form.username.data, email=form.username.data, code=hashCode)
+        print("HERREE")
         cities = ProcessedCity.query.all()
         i = 0
         for city in cities:
@@ -142,12 +137,30 @@ def register():
                     rec = Recommendation(city=c, hotels=hotels, flights=flights, keywords=keywords,
                                          description=description, user_id=user.id)
                     db.session.add(rec)
-                    db.session.commit()
                     i += 1
                 else:
                     break
-        return redirect(url_for('registerdone'))
+        return redirect(url_for('confirmRegistration'), user=user)
     return render_template('register.html', form=form)
+
+
+@app.route('/registerconfirmation', methods=['GET', 'POST'])
+def confirmRegistration():
+    form = ForgotPasswordCode()
+    user = request.args['user']
+    print(form.validate_on_submit())
+    print(form.code.data)
+    if form.validate_on_submit():
+        code = form.code.data
+        print(code)
+        hashCode = user.hashCode
+        if code == hashCode:
+            db.session.commit()
+            return redirect(url_for('registerdone'))
+        else:
+            flash("Incorrect token")
+    return render_template('resetpwcode.html', form=form)
+
 
 
 #TODO: FORGOT PASSWORD - Unique Code - New page
@@ -156,54 +169,57 @@ def forgotPassword():
     form = ForgotPasswordForm()
 
     if form.validate_on_submit():
-        user_id = 1
-        password = "temp"
+        email = form.email.data
+        user = User.query.filter_by(email=email).first()
+        def get_random_string(length=24,
+                              allowed_chars='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'):
+            return ''.join(random.choice(allowed_chars) for i in range(length))
+        hashCode = get_random_string()
+        user.hashCode = hashCode
+        db.session.commit()
 
-        auth_s = URLSafeSerializer('super-secret-key')
-        token = auth_s.dumps([user_id, password])
+        ForgotPasswordEmail(user.username, email, hashCode)
 
-        ForgotPasswordEmail("name", "email", "code")
-        #
-        print(token)
-        # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
-        #
-        # data = auth_s.loads(token)
-        # print(data[0])
-        # # itsdangerous
-        return render_template('forgetpw.html', form=form)
+        return redirect(url_for('forgotPasswordkey', email=email))
+
+    return render_template('forgetpw.html', form=form)
 
 
 # TODO: CREATE PAGE
 @app.route('/forgetpwkey', methods=['GET', 'POST'])
 def forgotPasswordkey():
-    #
-    # auth_s = URLSafeSerializer("secret key", "auth")
-    # token = auth_s.dumps({"username": current_user.username})
-    #
-    # print(token)
-    # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
-    #
-    # data = auth_s.loads(token)
-    # print(data["username"])
-    # # itsdangerous
-    return render_template('forgetpw.html')
+    form = ForgotPasswordCode()
+    email = request.args['email']
+    print(form.validate_on_submit())
+    print(form.code.data)
+    if form.validate_on_submit():
+        code = form.code.data
+        print(code)
+        user = User.query.filter_by(email=email).first()
+        hashCode = user.hashCode
+        if code == hashCode:
+            return redirect(url_for('enterNewPassword', email=email, hashCode=hashCode))
+        else:
+            flash("Incorrect token")
+    return render_template('resetpwcode.html', form=form)
 
 
 # TODO: CREATE NEW PASSWORD PAGE
 @app.route('/newpassword', methods=['GET', 'POST'])
 def enterNewPassword():
-    form = ForgotPasswordForm()
-    #
-    # auth_s = URLSafeSerializer("secret key", "auth")
-    # token = auth_s.dumps({"id": current_user.id, "username": current_user.username})
-    #
-    # print(token)
-    # # eyJpZCI6NSwibmFtZSI6Iml0c2Rhbmdlcm91cyJ9.6YP6T0BaO67XP--9UzTrmurXSmg
-    #
-    # data = auth_s.loads(token)
-    # print(data["username"])
-    # # itsdangerous
-    return render_template('forgetpw.html', form=form)
+    form = ForgotPasswordNewPassword()
+    email = request.args['email']
+    hashCode = request.args['hashCode']
+    user = User.query.filter_by(email=email).first()
+    if user.hashCode != hashCode:
+        flash("Invalid Password Reset Link")
+    if form.validate_on_submit():
+        password = form.password.data
+        print(user)
+        user.set_password(password)
+        db.session.commit()
+        return redirect(url_for('login'))
+    return render_template('resetpw.html', form=form)
 
 
 @app.route('/googlelogin', methods=['GET', 'POST'])
@@ -518,6 +534,7 @@ def details(city):
     rec_id = 10000000000
     isFavourited = False
     url = ""
+    code = 0
     for recommendation in recommendations:
         if recommendation.city == city:
             flights = recommendation.flights
@@ -551,6 +568,7 @@ def favouritedetails(city):
     image = ""
     rec_id = 10000000000
     isFavourited = False
+    code = 0
     for recommendation in favourites:
         if recommendation.city == city and recommendation.user_id == current_user.id:
             flights = recommendation.flights
@@ -577,6 +595,7 @@ def favouritedetails(city):
 def sharedRecommendationDetails(city, identifier):
     isFavourited = False
     recommendations = db.session.query(SharedRecommendations).filter_by(code=identifier)
+    code = 0
     for current_recommendation in recommendations:
         if current_recommendation.city == city:
             flights = current_recommendation.flights

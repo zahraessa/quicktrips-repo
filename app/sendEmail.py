@@ -1,81 +1,56 @@
-import smtplib
+import smtplib, ssl
+
+from email.mime.text import MIMEText
 
 gmail_user = 'quicktripssystems@gmail.com'
 gmail_password = 'quicktrips101'
 
+server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+server.ehlo()
+server.login(gmail_user, gmail_password)
+
+
 def contactUsConfirmation(name, email, query):
-    sent_from = gmail_user
-    to = [email]
-    subject = 'QuickTrips Contact Us - Copy of your query'
-    body = "Hi" + name + "\n Here is a copy of your query. We will be in touch with you soon!. \n" + query
+    sender = gmail_user
+    receiver = email
 
-    email_text = """\
-    From: %s
-    To: %s
-    Subject: %s
-    
-    %s
-    """ % (sent_from, ", ".join(to), subject, body)
+    msg = MIMEText("Hi " + name + ",\nHere is a copy of your query. We will be in touch with you soon! \n\n" + query +
+                   "\n\nThe QuickTrips Team!")
+    msg['From'] = gmail_user
+    msg['To'] = email
+    msg['Subject'] = 'QuickTrips Contact Us - Copy of your query'
+    msg['Message']
+    server.sendmail(sender, receiver, msg.as_string())
 
-    try:
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        server.login(gmail_user, gmail_password)
-        server.sendmail(sent_from, to, email_text)
-        server.close()
 
-        print('Email sent!')
-    except:
-        print('Something went wrong...')
+def RegistrationConfirmation(name, username, email, code):
+    sender = gmail_user
+    receiver = email
 
-def RegistrationConfirmation(name, username, email):
-    sent_from = gmail_user
-    to = [email]
-    subject = 'QuickTrips - Confirmation of registration'
-    body = "Hi" + name + "\n Thank you for registering to our application! \n + Your username is " + \
-           username + ". \n The QuickTrips Team!"
+    msg = MIMEText("Hi " + name + ","
+                                  "\nThank you for registering to our application! "
+                                  "\n + Your username is """ + username +
+                   "\nHere is your confirmation token: "
+                   "\n" + code +
+                   "\n\nThe QuickTrips Team!")
+    msg['From'] = gmail_user
+    msg['To'] = email
+    msg['Subject'] = 'QuickTrips - Confirmation of registration'
+    msg['Message']
+    server.sendmail(sender, receiver, msg.as_string())
 
-    email_text = """\
-    From: %s
-    To: %s
-    Subject: %s
-    
-    %s
-    """ % (sent_from, ", ".join(to), subject, body)
-
-    try:
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        server.login(gmail_user, gmail_password)
-        server.sendmail(sent_from, to, email_text)
-        server.close()
-
-        print('Email sent!')
-    except:
-        print('Something went wrong...')
 
 
 def ForgotPasswordEmail(name, email, code):
-    sent_from = gmail_user
-    to = [email]
-    subject = 'QuickTrips - Confirmation of registration'
-    body = "Hi" + name + "\n Here is your rest token: \n " + code + ". \n The QuickTrips Team!"
+    sender = gmail_user
+    receiver = email
 
-    email_text = """\
-    From: %s
-    To: %s
-    Subject: %s
-    
-    %s
-    """ % (sent_from, ", ".join(to), subject, body)
-
-    try:
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        server.login(gmail_user, gmail_password)
-        server.sendmail(sent_from, to, email_text)
-        server.close()
-
-        print('Email sent!')
-    except:
-        print('Something went wrong...')
+    msg = MIMEText("Hi " + name + ","
+                   "\nHere is your password reset token: "
+                   "\n" + code +
+                   "\n\nThe QuickTrips Team!")
+    msg['From'] = gmail_user
+    msg['To'] = email
+    msg['Subject'] = 'QuickTrips - Confirmation of registration'
+    msg['Message']
+    server.sendmail(sender, receiver, msg.as_string())

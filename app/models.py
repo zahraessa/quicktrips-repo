@@ -22,6 +22,7 @@ class User(UserMixin, db.Model):
     city = db.Column(db.String(120), index=True)
     postcode = db.Column(db.String(120), index=True)
     password_hash = db.Column(db.String(128))
+    hashCode = db.Column(db.String(120))
     recommendations = db.relationship('Recommendation', backref='users', lazy='dynamic')
     pastTrips = db.relationship('PastTrip', backref='users', lazy='dynamic')
 
